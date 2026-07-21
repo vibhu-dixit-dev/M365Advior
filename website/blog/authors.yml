@@ -1,0 +1,116 @@
+﻿merill:
+  name: Merill Fernando
+  title: M365Advisor maintainer + Product Manager, Microsoft
+  image_url: https://github.com/merill.png
+  page: true
+  socials:
+    newsletter: https://entra.news
+    website: https://merill.net
+    bluesky: https://bsky.app/profile/merill.net
+    linkedin: https://linkedin.com/in/merill/
+    github: merill
+    x: merill
+fabian:
+  name: Fabian Bader
+  title: M365Advisor maintainer + Microsoft MVP
+  url: https://www.linkedin.com/in/fabianbader/
+  image_url: https://github.com/f-bader.png
+  page: true
+  socials:
+    website: https://cloudbrothers.info/en/
+    bluesky: https://bsky.app/profile/fabian.bader.cloud
+    linkedin: https://linkedin.com/in/fabianbader/
+    github: f-bader
+    x: fabian_bader
+thomas:
+  name: Thomas Naunheim
+  title: M365Advisor maintainer + Microsoft MVP
+  url: https://linkedin.com/in/thomasnaunheim/
+  image_url: https://github.com/Cloud-Architekt.png
+  page: true
+  socials:
+    website: https://www.cloud-architekt.net/
+    bluesky: https://bsky.app/profile/naunheim.cloud
+    linkedin: https://www.linkedin.com/in/thomasnaunheim/
+    github: Cloud-Architekt
+    x: Thomas_Live
+mike:
+  name: Mike Soule
+  title: M365Advisor maintainer + National Director, Sentinel Technologies
+  url: https://www.linkedin.com/in/mikesoule/
+  image_url: https://github.com/soulemike.png
+  page: true
+  socials:
+    linkedin: https://linkedin.com/in/mikesoule/
+    github: soulemike
+    x: MySnozzberries
+wey:
+  name: Stefan Wey
+  title: M365Advisor contributor
+  url: https://www.linkedin.com/in/stefanwey
+  image_url: https://avatars.githubusercontent.com/u/26062079?v=4
+  page: true
+  socials:
+    website: https://www.alweys.ch
+    linkedin: https://www.linkedin.com/in/stefanwey
+    bluesky: https://bsky.app/profile/stefanwey.bsky.social
+    github: weyCC81
+brian:
+  name: Brian Veldman
+  title: Cloud Solution Architect, Fellowmind
+  url: https://www.linkedin.com/in/brian-veldman/
+  image_url: https://github.com/brianveldman.png
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/brian-veldman/
+    github: brian-veldman
+    bluesky: https://bsky.app/profile/brianveldman.bsky.social
+suryendu:
+  name: Suryendu Bhattacharyya
+  title: M365Advisor contributor
+  url: https://www.linkedin.com/in/suryendub/
+  image_url: https://avatars.githubusercontent.com/u/53970796
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/suryendub/
+    github: suryendub
+sebastian:
+  name: Sebastian Claesson
+  title: M365Advisor contributor
+  url: https://www.linkedin.com/in/sebastianclaesson/
+  image_url: https://avatars.githubusercontent.com/sebastianclaesson
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/sebastianclaesson/
+    github: sebastianclaesson
+thomasschmidt:
+  name: Thomas S. Schmidt
+  title: Cybersecurity Architect, TDC Erhverv
+  url: https://www.linkedin.com/in/sindalschmidt/
+  image_url: https://avatars.githubusercontent.com/tdcthosc
+  page: true
+  socials:
+    linkedin: https://www.linkedin.com/in/sindalschmidt/
+    github: tdcthosc
+samerde:
+  name: Sam Erde
+  url: https://linktr.ee/samerde
+  title: M365Advisor maintainer + IT Solutions Team Lead, Sentinel Technologies + Microsoft MVP
+  image_url: https://avatars.githubusercontent.com/samerde
+  page: true
+  socials:
+    website: https://day3bits.com/
+    linkedin: https://www.linkedin.com/in/samerde/
+    github: samerde
+    x: samerde
+    bluesky: https://bsky.app/profile/samerde.day3bits.com
+m365advisorteam:
+  name: M365Advisor Team
+  title: M365Advisor Contributors
+  url: https://m365advisor.dev
+  image_url: https://avatars.githubusercontent.com/m365advisor365
+  page: true
+  socials:
+    x: m365advisor365
+    github: m365advisor365
+

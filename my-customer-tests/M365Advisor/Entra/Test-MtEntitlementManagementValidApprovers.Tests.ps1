@@ -1,0 +1,9 @@
+﻿Describe "M365Advisor/Entra" -Tag "M365Advisor", "Governance", "Entra", "AccessPackages" {
+    It "MT.1109: Access package approval workflows must have valid approvers. See https://m365advisor.dev/docs/tests/MT.1109" -Tag "MT.1109" {
+        $result = Test-MtEntitlementManagementValidApprovers
+        if ($null -ne $result) {
+            $result | Should -Be $true -Because "Access package approval workflows must have valid approvers to prevent workflow failures and blocked access requests."
+        }
+    }
+}
+

@@ -1,0 +1,190 @@
+﻿---
+sidebar_class_name: hidden
+description: Merges multiple M365AdvisorResults objects into a single multi-tenant result for combined HTML reporting.
+id: Merge-MtM365AdvisorResult
+title: Merge-MtM365AdvisorResult
+hide_title: false
+hide_table_of_contents: false
+custom_edit_url: https://github.com/m365advisor365/m365advisor/blob/main/powershell/public/Merge-MtM365AdvisorResult.ps1
+---
+
+## SYNOPSIS
+
+Merges multiple M365AdvisorResults objects into a single multi-tenant result for combined HTML reporting.
+
+## SYNTAX
+
+### FromObjects (Default)
+
+```powershell
+Merge-MtM365AdvisorResult [-M365AdvisorResults] <PSObject[]> [-ProgressAction <ActionPreference>] [<CommonParameters>]
+```
+
+### FromPath
+
+```powershell
+Merge-MtM365AdvisorResult [-Path] <String[]> [-ProgressAction <ActionPreference>] [<CommonParameters>]
+```
+
+## DESCRIPTION
+
+Takes an array of M365AdvisorResults objects (each from a separate Invoke-M365Advisor run against
+a different tenant) and combines them into a single object with a "Tenants" array.
+The resulting object can be passed to Get-MtHtmlReport to generate a multi-tenant report
+with a tenant selector in the sidebar.
+
+Accepts either in-memory M365AdvisorResults objects (from Invoke-M365Advisor -PassThru or pipeline)
+or file paths/directories that are loaded automatically via Import-MtM365AdvisorResult.
+
+All results are included as-is - no deduplication is performed when the same TenantId
+appears multiple times.
+This is by design to support future scenarios such as historical
+trend reports where multiple runs from the same tenant are intentional.
+
+## EXAMPLES
+
+### EXAMPLE 1
+
+```powershell
+# Merge from file paths (one-liner)
+Merge-MtM365AdvisorResult -Path ./production.json, ./development.json | Get-MtHtmlReport | Out-File report.html
+```
+
+### EXAMPLE 2
+
+```powershell
+# Merge from a directory of JSON files
+Merge-MtM365AdvisorResult -Path ./results/ | Get-MtHtmlReport | Out-File report.html
+```
+
+### EXAMPLE 3
+
+```powershell
+# Merge from a glob pattern
+Merge-MtM365AdvisorResult -Path *.json | Get-MtHtmlReport | Out-File report.html
+```
+
+### EXAMPLE 4
+
+```powershell
+# Pipeline: Import then merge
+Import-MtM365AdvisorResult -Path *.json | Merge-MtM365AdvisorResult | Get-MtHtmlReport | Out-File report.html
+```
+
+### EXAMPLE 5
+
+```powershell
+# In-memory: run against two tenants and merge
+$result1 = Invoke-M365Advisor -PassThru
+# ... reconnect to second tenant ...
+$result2 = Invoke-M365Advisor -PassThru
+```
+
+$merged = Merge-MtM365AdvisorResult -M365AdvisorResults @($result1, $result2)
+$html = Get-MtHtmlReport -M365AdvisorResults $merged
+$html | Out-File -FilePath "MultiTenantReport.html" -Encoding UTF8
+
+## PARAMETERS
+
+### -M365AdvisorResults
+
+An array of M365AdvisorResults objects, each representing test results from a different tenant.
+Accepts pipeline input from Import-MtM365AdvisorResult.
+
+```yaml
+Type: PSObject[]
+Parameter Sets: FromObjects
+Aliases:
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -Path
+
+One or more paths to JSON result files, glob patterns, or directories.
+Files are loaded via Import-MtM365AdvisorResult internally.
+- File path:  ./production.json
+- Glob:       ./results/*.json
+- Directory:  ./results/  (discovers TestResults-*.json inside)
+
+```yaml
+Type: String[]
+Parameter Sets: FromPath
+Aliases:
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+
+\{\{ Fill ProgressAction Description \}\}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+## Design notes for future development
+
+### Multi-tenant reports (current)
+
+This command wraps all results into a Tenants[] array.
+The HTML report frontend
+detects the Tenants property and renders a tenant selector in the sidebar.
+No deduplication is performed - if the same TenantId appears multiple times,
+all instances are included.
+
+### Historical / trend reports (planned)
+
+A future command (e.g.
+New-MtTrendReport) can reuse Import-MtM365AdvisorResult to
+load results, then group by TenantId and sort by ExecutedAt within each group.
+Each result already carries TenantId and ExecutedAt, so the intelligence is:
+
+  - Different TenantIds, similar dates  -&gt; multi-tenant (use Merge-MtM365AdvisorResult)
+  - Same TenantId, different dates      -&gt; historical trend (use future trend command)
+  - Mixed                               -&gt; group by TenantId, each group has a timeline
+
+Import-MtM365AdvisorResult is intentionally a "dumb loader" that returns everything.
+The consuming command (Merge, Compare, Trend) decides how to interpret the data.
+
+### Pipeline architecture
+
+The intended pipeline pattern is:
+
+  Import-MtM365AdvisorResult -&gt; [Merge | Compare | Trend] -&gt; Get-MtHtmlReport -&gt; Out-File
+
+Merge-MtM365AdvisorResult also accepts -Path directly for convenience (calls Import
+internally), so the user can skip the Import step for simple scenarios:
+
+  Merge-MtM365AdvisorResult -Path *.json | Get-MtHtmlReport | Out-File report.html
+
+## RELATED LINKS
+
+[https://m365advisor.dev/docs/commands/Merge-MtM365AdvisorResult](https://m365advisor.dev/docs/commands/Merge-MtM365AdvisorResult)
+

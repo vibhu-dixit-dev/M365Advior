@@ -1,0 +1,108 @@
+﻿---
+sidebar_class_name: hidden
+description: Updates the specified folder with the latest ready-made M365Advisor tests built by the M365Advisor team.
+id: Update-M365AdvisorTests
+title: Update-M365AdvisorTests
+hide_title: false
+hide_table_of_contents: false
+custom_edit_url: https://github.com/m365advisor365/m365advisor/blob/main/powershell/public/Update-M365AdvisorTests.ps1
+---
+
+## SYNOPSIS
+
+Updates the specified folder with the latest ready-made M365Advisor tests built by the M365Advisor team.
+
+## SYNTAX
+
+```powershell
+Update-M365AdvisorTests [[-Path] <String>] [-Force] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+```
+
+## DESCRIPTION
+
+The M365Advisor team maintains a repository of ready made tests that can be used to verify the configuration of your Microsoft 365 tenant.
+
+The tests can be viewed at https://github.com/m365advisor365/m365advisor/tree/main/tests
+
+## EXAMPLES
+
+### EXAMPLE 1
+
+```powershell
+Update-M365AdvisorTests -Path .\m365advisor-tests
+```
+
+Installs or updates the latest M365Advisor tests in the specified directory.
+
+### EXAMPLE 2
+
+```powershell
+Update-M365AdvisorTests -Path .\
+```
+
+Install the latest set of M365Advisor tests in the current directory.
+
+## PARAMETERS
+
+### -Path
+
+The path to install or update the M365Advisor tests in.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 1
+Default value: .\
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Force
+
+Switch to control the toggling off of the "Are you sure?" prompt
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+
+\{\{ Fill ProgressAction Description \}\}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+## RELATED LINKS
+
+[https://m365advisor.dev/docs/commands/Update-M365AdvisorTests](https://m365advisor.dev/docs/commands/Update-M365AdvisorTests)
+

@@ -1,0 +1,171 @@
+// @ts-check
+// `@type` JSDoc annotations allow editor autocompletion and type checking
+// (when paired with `@ts-check`).
+// There are various equivalent ways to declare your Docusaurus config.
+// See: https://docusaurus.io/docs/api/docusaurus-config
+
+import { themes as prismThemes } from "prism-react-renderer";
+import { readFileSync } from "node:fs";
+import { currentVersion, previewVersion } from "./version-config.js";
+
+const releasedVersions = JSON.parse(readFileSync(new URL("./versions.json", import.meta.url), "utf8"));
+const hasCurrentVersion = releasedVersions.includes(currentVersion);
+
+/** @type {import('@docusaurus/types').Config} */
+const config = {
+  title: "M365 Advisor",
+  tagline: "Your Microsoft Security test automation framework!",
+  favicon: "img/favicon.ico",
+
+  // Set the production url of your site here
+  url: "https://m365advisor.dev",
+  // Set the /<baseUrl>/ pathname under which your site is served
+  // For GitHub pages deployment, it is often '/<projectName>/'
+  baseUrl: "/",
+
+  // GitHub pages deployment config.
+  // If you aren't using GitHub pages, you don't need these.
+  organizationName: "m365advisor365", // Usually your GitHub org/user name.
+  projectName: "m365advisor", // Usually your repo name.
+
+  onBrokenLinks: "throw",
+  // onBrokenMarkdownLinks: "warn", // Deprecated and moved to markdown.hooks.onBrokenMarkdownLinks
+
+  // Even if you don't use internationalization, you can use this field to set
+  // useful metadata like html lang. For example, if your site is Chinese, you
+  // may want to replace "en" with "zh-Hans".
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en"],
+  },
+
+  markdown: {
+    mermaid: true,
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+      onBrokenMarkdownImages: 'warn',
+    },
+  },
+  themes: [
+    "@docusaurus/theme-mermaid",
+    "@easyops-cn/docusaurus-search-local",
+  ],
+
+  plugins: [
+    [
+      "posthog-docusaurus",
+      {
+        apiKey: "phc_VxA235FsdurMGycf9DHjlUeZeIhLuC7r11Ptum0WjRK",
+        appUrl: "https://us.i.posthog.com", // optional, defaults to "https://us.i.posthog.com"
+        enableInDevelopment: false, // optional
+      },
+    ],
+  ],
+
+  presets: [
+    [
+      "classic",
+      /** @type {import('@docusaurus/preset-classic').Options} */
+      ({
+        docs: {
+          sidebarPath: "./sidebars.js",
+          editUrl: "https://github.com/m365advisor365/m365advisor/tree/main/website",
+          lastVersion: hasCurrentVersion ? currentVersion : 'current',
+          versions: {
+            current: {
+              label: previewVersion,
+              banner: 'unreleased',
+              badge: true,
+            },
+            ...(hasCurrentVersion ? { [currentVersion]: {
+              label: currentVersion,
+              path: '/',
+              banner: 'none',
+              badge: true,
+            } } : {}),
+            // Example of unmaintained / deprecated versions.
+            //'1.2.0': {
+            //  banner: 'unmaintained',
+            //}
+          },
+        },
+        blog: false,
+        theme: {
+          customCss: "./src/css/custom.css",
+        },
+        googleTagManager: {
+          containerId: 'GTM-TXV8GGWT',
+        },
+        gtag: {
+          trackingID: 'G-LKBLBBCLH0',
+          anonymizeIP: true,
+        },
+      }),
+    ],
+  ],
+
+  themeConfig:
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+    ({
+      // Replace with your project's social card
+      image: "img/m365advisor-social-card.jpg",
+      navbar: {
+        title: "M365 Advisor",
+        logo: {
+          alt: "M365 Advisor Logo",
+          src: "img/logo.svg",
+        },
+        items: [
+          {
+            type: 'docsVersionDropdown',
+            position: 'left',
+            dropdownActiveClassDisabled: true, // Recommended for clear separation.
+          },
+          {
+            type: "docSidebar",
+            sidebarId: "docsSidebar",
+            position: "left",
+            label: "Docs",
+          },
+          {
+            type: "docSidebar",
+            sidebarId: "testsSidebar",
+            position: "left",
+            label: "Tests",
+          },
+          {
+            type: "docSidebar",
+            sidebarId: "commandsSidebar",
+            position: "left",
+            label: "Commands",
+          },
+          { to: '/help', label: 'Help', position: 'left', className: 'navbar--help-link' },
+          {
+            "aria-label": "GitHub Repository",
+            className: "navbar--github-link",
+            href: "https://github.com/m365advisor365/m365advisor",
+            position: "right",
+          },
+          {
+            to: '/docs/installation',
+            label: 'Install',
+            position: 'right',
+            className: 'navbar--install-cta',
+          },
+        ],
+      },
+
+      prism: {
+        theme: prismThemes.shadesOfPurple,
+        darkTheme: prismThemes.shadesOfPurple,
+        additionalLanguages: ["powershell"],
+      },
+      colorMode: {
+        defaultMode: "light",
+        disableSwitch: false,
+        respectPrefersColorScheme: true,
+      },
+    }),
+};
+
+export default config;

@@ -1,0 +1,764 @@
+.getStartedPage {
+  background: #050608;
+  min-height: calc(100vh - 300px);
+  padding: 6rem 0;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.gridBackground {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: center top;
+  pointer-events: none;
+}
+
+.heroGlow {
+  position: absolute;
+  top: -10%;
+  left: 25%;
+  width: 50%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(0, 242, 254, 0.08) 0%, rgba(79, 172, 254, 0.03) 50%, transparent 100%);
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.wizardHeader {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 4rem;
+  position: relative;
+  z-index: 2;
+}
+
+.wizardTitle {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 0%, #a1a8b5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.wizardDesc {
+  color: #8a8f98;
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+/* Steps Indicator */
+.stepsIndicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 2;
+}
+
+.stepNode {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #64748b;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.stepNodeActive {
+  color: #00f2fe;
+}
+
+.stepNumber {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.stepNodeActive .stepNumber {
+  border-color: #00f2fe;
+  background: rgba(0, 242, 254, 0.1);
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+}
+
+.stepLine {
+  width: 80px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0 1.5rem;
+  transition: background 0.3s ease;
+}
+
+.stepLineActive {
+  background: linear-gradient(90deg, #00f2fe, rgba(255, 255, 255, 0.08));
+}
+
+/* Step 1: Framework Select */
+.frameworkGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 4rem;
+}
+
+.frameworkCard {
+  background: rgba(10, 12, 16, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 2.2rem 1.8rem;
+  width: 310px;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.frameworkCard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.frameworkCardSelected {
+  border-color: var(--card-accent);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.6),
+    0 0 20px var(--card-glow);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.cardIcon {
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.frameworkCardSelected .cardIcon {
+  border-color: var(--card-accent);
+  background: var(--card-glow);
+}
+
+.cardRadio {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.frameworkCardSelected .cardRadio {
+  border-color: var(--card-accent);
+  background: var(--card-accent);
+}
+
+.cardRadioDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #050608;
+  display: none;
+}
+
+.frameworkCardSelected .cardRadioDot {
+  display: block;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.4rem;
+  transition: color 0.3s ease;
+}
+
+.frameworkCardSelected .cardTitle {
+  color: var(--card-accent);
+}
+
+.cardSubtitle {
+  font-size: 0.82rem;
+  color: #8a8f98;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.cardDesc {
+  font-size: 0.88rem;
+  color: #8a8f98;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.cardTag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--card-accent);
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  background: var(--card-glow);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  text-transform: uppercase;
+  align-self: flex-start;
+}
+
+/* Actions Section */
+.actionsRow {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+  color: #050608 !important;
+  font-weight: 700;
+  padding: 0.9rem 2.2rem;
+  border-radius: 30px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(0, 242, 254, 0.25);
+}
+
+.btnPrimary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 242, 254, 0.4);
+}
+
+.btnPrimary:disabled {
+  background: rgba(255, 255, 255, 0.05);
+  color: #64748b !important;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.btnSecondary {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #ffffff !important;
+  font-weight: 600;
+  padding: 0.9rem 2.2rem;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btnSecondary:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Step 2: Commands Area */
+.commandsContainer {
+  max-width: 800px;
+  margin: 0 auto 4rem;
+  position: relative;
+  z-index: 2;
+}
+
+.selectedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 20px;
+  background: var(--card-glow);
+  border: 1.5px solid var(--card-accent);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 0 15px var(--card-glow);
+}
+
+.selectedIcon {
+  font-size: 1.2rem;
+}
+
+.selectedText {
+  color: var(--card-accent);
+  font-weight: 700;
+}
+
+.commandStep {
+  background: rgba(10, 12, 16, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.commandStepHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+.commandStepTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.commandStepNum {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  color: #8a8f98;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.commandStepDesc {
+  color: #8a8f98;
+  font-size: 0.92rem;
+  margin-bottom: 1rem;
+}
+
+.terminalWrapper {
+  background: #090b0e;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.terminalHeader {
+  background: #0d0f13;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 0.6rem 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.terminalDots {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.terminalDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.terminalTitle {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-family: monospace;
+}
+
+.terminalBody {
+  padding: 1.2rem;
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  color: #e2e8f0;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-all;
+  position: relative;
+}
+
+.copyButton {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #8a8f98;
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.copyButton:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.copyButtonSuccess {
+  background: rgba(45, 212, 191, 0.1);
+  border-color: rgba(45, 212, 191, 0.3);
+  color: #2dd4bf;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .getStartedPage {
+    padding: 3rem 1rem;
+  }
+
+  .wizardTitle {
+    font-size: 2rem;
+  }
+
+  .wizardDesc {
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .stepsIndicator {
+    margin-bottom: 2.5rem;
+    gap: 0.5rem;
+  }
+
+  .stepNode span {
+    font-size: 0.85rem;
+  }
+
+  .stepLine {
+    width: 40px;
+    margin: 0 0.5rem;
+  }
+
+  .frameworkGrid {
+    gap: 1.5rem;
+  }
+
+  .frameworkCard {
+    width: 100%;
+    max-width: 340px;
+    min-height: auto;
+    padding: 1.5rem;
+  }
+
+  .commandStep {
+    padding: 1.2rem;
+  }
+
+  .terminalBody {
+    padding: 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .actionsRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btnPrimary,
+  .btnSecondary {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .stepsIndicator {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .stepLine {
+    width: 2px;
+    height: 30px;
+    margin: 0.5rem 0;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .stepLineActive {
+    background: linear-gradient(180deg, #00f2fe, rgba(255, 255, 255, 0.08));
+  }
+}
+
+/* Automated Launcher Card styling */
+.launcherCard {
+  background: rgba(10, 12, 16, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-left: 4px solid var(--card-accent);
+  border-radius: 16px;
+  padding: 2.5rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.4),
+    0 0 15px var(--card-glow);
+  position: relative;
+  overflow: hidden;
+}
+
+.launcherHeader {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.launcherIconWrapper {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.launcherIconPulse {
+  position: absolute;
+  inset: -4px;
+  border-radius: 16px;
+  border: 2px solid var(--card-accent);
+  animation: launcherPulse 2s infinite;
+  opacity: 0;
+}
+
+@keyframes launcherPulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+}
+
+.launcherIcon {
+  font-size: 1.8rem;
+}
+
+.launcherTitleSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.launcherCardTitle {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+}
+
+.launcherCardStatus {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--card-accent);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.launcherCardDesc {
+  color: #8a8f98;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.launcherActions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.btnLaunch {
+  background: linear-gradient(135deg, var(--card-accent) 0%, rgba(255, 255, 255, 0.8) 100%);
+  color: #050608 !important;
+  font-weight: 700;
+  padding: 0.9rem 2rem;
+  border-radius: 30px;
+  border: none;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 0 4px 15px var(--card-glow);
+}
+
+.btnLaunch:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--card-glow);
+  opacity: 0.95;
+}
+
+.launcherGuide {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+
+.guideTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: #8a8f98;
+}
+
+.guideList {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: #cbd5e1;
+  font-size: 0.95rem;
+}
+
+.guideList li {
+  margin-bottom: 0.6rem;
+  line-height: 1.5;
+}
+
+.guideList li:last-child {
+  margin-bottom: 0;
+}
+
+/* Collapsible Manual Setup styling */
+.manualAccordion {
+  margin-top: 2rem;
+  margin-bottom: 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.01);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.manualAccordionHeader {
+  width: 100%;
+  padding: 1.2rem 1.5rem;
+  background: transparent;
+  border: none;
+  color: #8a8f98;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.manualAccordionHeader:hover {
+  background: rgba(255, 255, 255, 0.02);
+  color: #ffffff;
+}
+
+.manualAccordionHeaderOpen {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.02);
+  color: #ffffff;
+}
+
+.manualAccordionBody {
+  padding: 1.5rem;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .launcherCard {
+    padding: 1.5rem;
+  }
+  
+  .launcherHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .launcherActions {
+    flex-direction: column;
+  }
+  
+  .btnLaunch {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.premiumBadge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fb923c;
+  background: rgba(251, 146, 60, 0.08);
+  border: 1px solid rgba(251, 146, 60, 0.25);
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  box-shadow: 0 0 10px rgba(251, 146, 60, 0.05);
+}
+
+.frameworkCardPremium:hover {
+  border-color: #fb923c !important;
+  box-shadow: 0 15px 30px rgba(251, 146, 60, 0.1) !important;
+}

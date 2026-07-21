@@ -1,0 +1,59 @@
+﻿---
+title: New version of M365Advisor on Azure Web App
+description: Launch announcement of new version of M365Advisor on Azure Web App
+slug: m365advisor-bicep-webapp
+authors: [brian, merill]
+tags: [release]
+hide_table_of_contents: false
+image: ./img/m365advisor-webapp-header.png
+date: 2025-09-26
+---
+
+Today, we are thrilled to announce the release of the new version of M365Advisor on Azure Web App. 🔥
+
+{/* truncate */}
+
+## New version of M365Advisor on Azure Web App 🎉
+
+![M365Advisor Bicep Web App](./img/m365advisor-webapp-header.png)
+
+### What was it before?
+The setup allowed M365Advisor to run on an Azure Web App, enabling you to perform Microsoft Graph security configuration checks on your Microsoft tenant directly from the Azure Web App, secured with Entra ID Authentication through an Azure Bicep deployment. At that time, it only supported Microsoft Graph security configuration tests. Many people asked me to update the deployment to include also the other tests that are part of M365Advisor, because we want to utilize all the available tests that M365Advisor has.
+
+### What has changed?
+- 🔥 Support for the latest M365Advisor PowerShell module through the use of PowerShell 7.4 runtimes. 
+- 💪🏻 Support for Exchange Online security tests 
+- 🎉 Support for Security & Compliance security tests 
+- 📱Support for Microsoft Teams security tests 
+- 🤙🏻 Support for Azure configuration security tests
+
+### 📚 **Documentation**
+Follow the step-by-step guide to start using the Azure Bicep Deployment for M365Advisor on Azure Web App:
+
+- [Setup M365Advisor in Azure Web App using Azure Bicep](https://m365advisor.dev/docs/monitoring/azure-web-app-bicep)
+
+## Contributors 🙏
+We have built this Azure Bicep Deployment: 👇
+
+<div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+    {[
+        { username: 'merill', name: 'Merill Fernando' },
+        { username: 'brianveldman', name: 'Brian Veldman' },
+
+
+
+    ].map(contributor => (
+        <div key={contributor.username} style={{ margin: '10px', textAlign: 'center' }}>
+            <a href={`https://github.com/${contributor.username}`} target="_blank" rel="noopener noreferrer">
+                <img src={`https://github.com/${contributor.username}.png`} width="60px" style={{ borderRadius: '50%' }} alt={contributor.name} />
+                <br />
+                <sub>{contributor.name}</sub>
+            </a>
+        </div>
+    ))}
+</div>
+
+## What's Next?
+
+We are incredibly excited about the updated M365Advisor Web App Deployment and have many ideas for new features and improvements. Feel free to share your ideas and contribute as well. 🙌
+

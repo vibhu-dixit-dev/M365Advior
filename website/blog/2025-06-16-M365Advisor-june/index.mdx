@@ -1,0 +1,111 @@
+﻿---
+title: M365Advisor June 2025 Release
+description: Find out all about the new M365Advisor May release
+slug: m365advisor-june-25
+authors: merill
+tags: [release]
+hide_table_of_contents: false
+date: 2025-06-12
+---
+
+The M365Advisor community of contributors have been hard at work and we are excited to announce the June 2025 release of M365Advisor! 🎉
+
+![June stats](img/m365advisor-june-release-stats.png)
+
+Here are some quick stats for you:
+
+❇️ 55,000+ tenants have used M365Advisor to improve their security posture
+
+🚀 260,000+ downloads of M365Advisor on PowerShell Gallery
+
+💻 2,600+ commits on GitHub
+
+🤝 72+ contributors
+
+✳️ 285 M365Advisor tests (90+ new tests!)
+
+📦 252 releases
+
+There's a lot to cover, so let's dive right in!
+
+{/* truncate */}
+
+We have added a lot of new features and improvements based on your feedback. Thank you for that! 🙏
+
+Here are all the new features and improvements in this release:
+
+## 🌟 **New Tests**
+
+We've added a whole bunch of new tests to check your security configuration, growing from 194 to 286! 🎉 Check out the [test list](../../docs/tests) for the full breakdown.
+
+![New tests in M365Advisor](img/m365advisor-new-tests.png)
+### ORCA
+
+[Mike Soule](/blog/authors/mike) came up with the idea to integrate [Cam Murray](https://github.com/cammurray)'s excellent [Office 365 Recommended Configuration Analyzer (ORCA)](https://github.com/cammurray/orca) with M365Advisor.
+
+We reached out to Cam and he was all for helping Microsoft customers become more secure. With the greenlight, Mike started integrating ORCA and we had amazing support from [Thomas Schmidt](/blog/authors/thomasschmidt) who really helped improve the quality and polish of the ORCA tests in M365Advisor. Call out to [Cameron Moore](https://github.com/moorereason) who pitched in with a huge number of PRs.
+
+You can read more about this  in our previous blog post [M365Advisor adds ORCA tests](/blog/m365advisor-with-orca)
+
+### Entra app tests
+
+We have a number of app related tests that help you identify potential security issues with your Entra applications.
+
+Note: We don't run these new app related tests by default since they can take a long time to run. You will need to explicitly include them using `Invoke-M365Advisor -IncludeLongRunning`.
+
+This is because it needs to query all applications and service principals in the tenant which can take many hours in large tenants.
+
+The application risk tests are based on the excellent Azure Tiering research by [Emilien Socchi](https://github.com/emiliensocchi/azure-tiering). These help identity apps that have a path to Global Admin permissions, which can lead to a full tenant takeover.
+
+## M365Advisor - Platform Updates
+
+Special call out to Thomas Schmidt, Sam Erde, Stephan van Rooij and Cameron Moore for their amazing contributions to this release. They have been instrumental in making M365Advisor more robust, performant and easier to use.
+
+In addition, we have had a **lot** of contributions from the community, which has helped us improve M365Advisor even further. Thank you to all our contributors! 🙏
+
+![New tests in M365Advisor](img/m365advisor-contributors.png)
+
+### 🤖 **M365Advisor GitHub Action**
+
+We are excited to announce the new [M365Advisor GitHub Action](https://github.com/marketplace/actions/run-m365advisor)! 🎉
+
+This version is a huge update and adds performance improvements as well a number of new features and configuration options.
+
+We moved the M365Advisor GitHub Action to a new repository, which allows us to better manage the action and its dependencies.
+
+However, this means that you will need to update your workflow files to use the new action. See the Usage section in the [M365Advisor GitHub Action documentation](https://github.com/marketplace/actions/run-m365advisor#%EF%B8%8F-usage) for more details.
+
+![New tests in M365Advisor](img/m365advisor-github-action.png)
+
+### 📋 Excel and CSV Export Formats
+
+We have added new export formats for the M365Advisor report. You can now export the report in Excel and CSV formats, which makes it even more easier to share and analyze the results.
+
+It's as simple as adding an `-ExportExcel` or `-ExportCsv` switch when running `Invoke-M365Advisor`!
+
+![Export to Excel](img/m365advisor-results-excel.png)
+
+### 🚥 Severity levels
+
+Each test now includes a severity rating. This will help you prioritize the tests and focus on the most critical issues first.
+
+![Severity rating](img/m365advisor-severity-rating.png)
+
+You can also change the severity levels of the tests to suite your needs.
+
+Check the [Severity Levels documentation](/docs/next/configuration/severity-levels) for all the details including how you can add Severity to your custom tests.
+
+### 📊 **M365Advisor Report Improvements**
+
+You can now search and filter the results list by name, severity, tags and more.
+
+![Search filter](img/m365advisor-report-filters.png)
+
+The test details view now support navigating to the next and previous test, making it easier to review the results.
+
+![Results navigate](img/m365advisor-results-navigate.png)
+
+## Thank you to all our amazing contributors! 🙏
+
+There are many, many more new features, improvements and fixes that have gone in by this amazing list of contributors 👇
+

@@ -1,0 +1,112 @@
+﻿---
+sidebar_class_name: hidden
+description: Generates a formatted html report using the M365AdvisorResults object created by ConvertTo-MtM365AdvisorResult
+id: Get-MtHtmlReport
+title: Get-MtHtmlReport
+hide_title: false
+hide_table_of_contents: false
+custom_edit_url: https://github.com/m365advisor365/m365advisor/blob/main/powershell/public/Get-MtHtmlReport.ps1
+---
+
+## SYNOPSIS
+
+Generates a formatted html report using the M365AdvisorResults object created by ConvertTo-MtM365AdvisorResult
+
+## SYNTAX
+
+```powershell
+Get-MtHtmlReport [-M365AdvisorResults] <PSObject> [-ProgressAction <ActionPreference>] [<CommonParameters>]
+```
+
+## DESCRIPTION
+
+The generated html is a single file that provides a visual representation of the test
+results with a summary view and click through of the details.
+
+Supports both single-tenant results (from ConvertTo-MtM365AdvisorResult) and multi-tenant
+results (from Merge-MtM365AdvisorResult).
+
+## EXAMPLES
+
+### EXAMPLE 1
+
+```powershell
+$pesterResults = Invoke-Pester -PassThru
+$m365advisorResults = ConvertTo-MtM365AdvisorResult $pesterResults
+$output = Get-MtHtmlReport -M365AdvisorResults $m365advisorResults
+$output | Out-File -FilePath $out.OutputHtmlFile -Encoding UTF8
+```
+
+This example shows how to generate the html report and save it to a file by using Invoke-Pester
+
+### EXAMPLE 2
+
+```powershell
+$m365advisorResults = Invoke-M365Advisor -PassThru
+$output = Get-MtHtmlReport -M365AdvisorResults $m365advisorResults
+$output | Out-File -FilePath $out.OutputHtmlFile -Encoding UTF8
+```
+
+This example shows how to generate the html report and save it to a file by using Invoke-M365Advisor
+
+### EXAMPLE 3
+
+```powershell
+$result1 = Invoke-M365Advisor -PassThru
+$result2 = Invoke-M365Advisor -PassThru
+$merged = Merge-MtM365AdvisorResult -M365AdvisorResults @($result1, $result2)
+$output = Get-MtHtmlReport -M365AdvisorResults $merged
+$output | Out-File -FilePath "MultiTenantReport.html" -Encoding UTF8
+```
+
+This example shows how to generate a multi-tenant html report
+
+## PARAMETERS
+
+### -M365AdvisorResults
+
+The M365Advisor test results returned from `Invoke-Pester -PassThru | ConvertTo-MtM365AdvisorResult`
+or from `Merge-MtM365AdvisorResult` for multi-tenant reports.
+
+```yaml
+Type: PSObject
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+
+\{\{ Fill ProgressAction Description \}\}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+## INPUTS
+
+## OUTPUTS
+
+## NOTES
+
+## RELATED LINKS
+
+[https://m365advisor.dev/docs/commands/Get-MtHtmlReport](https://m365advisor.dev/docs/commands/Get-MtHtmlReport)
+

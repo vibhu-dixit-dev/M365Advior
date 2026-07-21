@@ -1,0 +1,294 @@
+/* ── Page layout ─────────────────────────────────────────────── */
+.main {
+  min-height: calc(100vh - var(--ifm-navbar-height));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 1.5rem 6rem;
+  background: var(--ifm-background-color);
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+.header {
+  text-align: center;
+  max-width: 560px;
+  margin-bottom: 2.5rem;
+}
+
+.iconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ba0019 0%, #ff4d6d 100%);
+  margin-bottom: 1.25rem;
+  box-shadow: 0 8px 24px rgba(186, 0, 25, 0.25);
+}
+
+.headerIcon {
+  width: 28px;
+  height: 28px;
+  color: #fff;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin: 0 0 0.75rem;
+  color: var(--ifm-heading-color);
+}
+
+.subtitle {
+  font-size: 1.05rem;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Card ────────────────────────────────────────────────────── */
+.card {
+  width: 100%;
+  max-width: 680px;
+  background: var(--ifm-card-background-color, var(--ifm-background-surface-color));
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow:
+    0 1px 3px rgba(0,0,0,0.06),
+    0 8px 32px rgba(0,0,0,0.08);
+  transition: box-shadow 0.2s ease;
+}
+
+[data-theme='dark'] .card {
+  background: #18191c;
+  border-color: rgba(255,255,255,0.08);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+/* ── Form ────────────────────────────────────────────────────── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+@media (max-width: 600px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-800);
+  letter-spacing: 0.01em;
+}
+
+.required {
+  color: #ba0019;
+  margin-left: 2px;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid var(--ifm-color-emphasis-300);
+  border-radius: 10px;
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+  font-size: 0.95rem;
+  font-family: var(--ifm-font-family-base);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--ifm-color-emphasis-500);
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: #ba0019;
+  box-shadow: 0 0 0 3px rgba(186, 0, 25, 0.12);
+}
+
+.input:disabled,
+.textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+/* ── Submit button ───────────────────────────────────────────── */
+.submitBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 28px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ba0019 0%, #e0003a 100%);
+  color: #fff;
+  font-size: 0.97rem;
+  font-weight: 600;
+  font-family: var(--ifm-font-family-base);
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+  box-shadow: 0 4px 16px rgba(186, 0, 25, 0.30);
+  align-self: flex-start;
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(186, 0, 25, 0.40);
+}
+
+.submitBtn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.submitBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.sendIcon {
+  width: 16px;
+  height: 16px;
+}
+
+/* ── Spinner ─────────────────────────────────────────────────── */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2.5px solid rgba(255,255,255,0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Privacy note ────────────────────────────────────────────── */
+.privacy {
+  font-size: 0.8rem;
+  color: var(--ifm-color-emphasis-500);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ── Error banner ────────────────────────────────────────────── */
+.errorBanner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.8rem 1rem;
+  background: rgba(186, 0, 25, 0.08);
+  border: 1px solid rgba(186, 0, 25, 0.25);
+  border-radius: 10px;
+  color: #ba0019;
+  font-size: 0.9rem;
+}
+
+[data-theme='dark'] .errorBanner {
+  background: rgba(255, 80, 80, 0.10);
+  border-color: rgba(255, 80, 80, 0.25);
+  color: #ff7a7a;
+}
+
+.errorIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* ── Success state ───────────────────────────────────────────── */
+.successState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem 0;
+  gap: 1rem;
+}
+
+.successIconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00b96b 0%, #00d084 100%);
+  box-shadow: 0 8px 24px rgba(0, 185, 107, 0.3);
+  color: #fff;
+}
+
+.successIconWrap svg {
+  width: 34px;
+  height: 34px;
+}
+
+.successTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ifm-heading-color);
+  margin: 0;
+}
+
+.successMsg {
+  font-size: 1rem;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.6;
+  max-width: 420px;
+  margin: 0;
+}
+
+.resetBtn {
+  margin-top: 0.5rem;
+  padding: 0.6rem 1.4rem;
+  border: 1.5px solid var(--ifm-color-emphasis-300);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ifm-font-color-base);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.16s, background 0.16s;
+  font-family: var(--ifm-font-family-base);
+}
+
+.resetBtn:hover {
+  border-color: #ba0019;
+  background: rgba(186, 0, 25, 0.05);
+  color: #ba0019;
+}
