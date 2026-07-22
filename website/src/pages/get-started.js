@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useLocation } from '@docusaurus/router';
 import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
@@ -56,6 +57,7 @@ const frameworks = [
     glow: "rgba(251, 146, 60, 0.15)",
     icon: "🌀",
     tag: "CIS Benchmark",
+    keywords: ["cis", "benchmark", "foundations", "microsoft 365", "cis benchmark"],
     setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module M365Advisor -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
     connectCmd: "Connect-M365Advisor",
     runCmd: "Invoke-M365Advisor -Tag 'CIS'"
@@ -69,6 +71,7 @@ const frameworks = [
     glow: "rgba(5, 150, 105, 0.15)",
     icon: "🌐",
     tag: "ISO 27001",
+    keywords: ["iso", "iso27001", "iso 27001", "isms", "information security", "27001"],
     setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module M365Advisor -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
     connectCmd: "Connect-M365Advisor",
     runCmd: "Invoke-M365Advisor -Path .\\iso27001"
@@ -82,6 +85,7 @@ const frameworks = [
     glow: "rgba(13, 148, 136, 0.15)",
     icon: "📋",
     tag: "ISO 27002",
+    keywords: ["iso", "iso27002", "iso 27002", "security controls", "27002"],
     setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module M365Advisor -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
     connectCmd: "Connect-M365Advisor",
     runCmd: "Invoke-M365Advisor -Path .\\iso27002"
@@ -95,6 +99,7 @@ const frameworks = [
     glow: "rgba(251, 146, 60, 0.15)",
     icon: "🩺",
     tag: "HIPPA",
+    keywords: ["hippa", "hipaa", "healthcare", "privacy", "health"],
     isPremium: true
   },
   {
@@ -106,6 +111,7 @@ const frameworks = [
     glow: "rgba(251, 146, 60, 0.15)",
     icon: "🏦",
     tag: "RBI NBFC",
+    keywords: ["rbi", "nbfc", "reserve bank", "india", "financial"],
     isPremium: true
   },
   {
@@ -117,6 +123,7 @@ const frameworks = [
     glow: "rgba(251, 146, 60, 0.15)",
     icon: "⚖️",
     tag: "DPDP 2023",
+    keywords: ["dpdp", "digital personal data", "data protection", "privacy act", "india"],
     isPremium: true
   },
   /*
@@ -165,12 +172,77 @@ function CopyButton({ text }) {
 }
 
 export default function GetStarted() {
-  const [selectedId, setSelectedId] = useState("cis"); // default select first
+  const location = useLocation();
+
+  // Read ?fw= query param to pre-select framework from navbar search
+  const getFwFromSearch = (search) => {
+    try {
+      const params = new URLSearchParams(search);
+      return params.get('fw') || null;
+    } catch {
+      return null;
+    }
+  };
+
+  const [selectedId, setSelectedId] = useState(() => {
+    // Initialize from URL immediately to prevent first-render flash
+    try {
+      const params = new URLSearchParams(location.search);
+      const fwId = params.get('fw');
+      if (fwId) {
+        const fw = frameworks.find(f => f.id === fwId);
+        if (fw && !fw.isPremium) return fwId;
+      }
+    } catch {}
+    return 'cis';
+  });
+  const [highlightedId, setHighlightedId] = useState(() => {
+    try {
+      const params = new URLSearchParams(location.search);
+      const fwId = params.get('fw');
+      if (fwId) {
+        const fw = frameworks.find(f => f.id === fwId);
+        if (fw && fw.isPremium) return fwId;
+      }
+    } catch {}
+    return null;
+  });
+  const [pulsingId, setPulsingId] = useState(null);
   const [step, setStep] = useState(1); // 1 = select, 2 = commands
   const [showManual, setShowManual] = useState(false);
+  const gridRef = useRef(null);
 
   const selectedFramework = frameworks.find(f => f.id === selectedId);
   const baseUrl = useBaseUrl('/');
+
+  // Reactively handle URL ?fw= param — runs on mount AND whenever the URL changes
+  // (covers both: arriving from another page and searching while already on this page)
+  useEffect(() => {
+    const fwId = getFwFromSearch(location.search);
+    if (!fwId) return;
+
+    const fw = frameworks.find(f => f.id === fwId);
+    if (!fw) return;
+
+    if (!fw.isPremium) {
+      setSelectedId(fwId);
+      setHighlightedId(null);
+    } else {
+      setHighlightedId(fwId);
+    }
+
+    // Use React state for pulse — avoids DOM class conflicts with box-shadow
+    const timer = setTimeout(() => {
+      const card = document.querySelector(`[data-fw="${fwId}"]`);
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      setPulsingId(fwId);
+      setTimeout(() => setPulsingId(null), 900);
+    }, 150);
+
+    return () => clearTimeout(timer);
+  }, [location.search]); // ← re-runs every time the query string changes
 
   const handleDownloadCmd = (fw) => {
     if (!fw) return;
@@ -223,14 +295,17 @@ export default function GetStarted() {
           {step === 1 ? (
             <>
               {/* Step 1 Content */}
-              <div className={styles.frameworkGrid}>
+              <div className={styles.frameworkGrid} ref={gridRef}>
                 {frameworks.map((fw) => (
                   <div
                     key={fw.id}
+                    data-fw={fw.id}
                     className={clsx(
                       styles.frameworkCard,
                       fw.isPremium && styles.frameworkCardPremium,
-                      !fw.isPremium && selectedId === fw.id && styles.frameworkCardSelected
+                      !fw.isPremium && selectedId === fw.id && styles.frameworkCardSelected,
+                      fw.isPremium && highlightedId === fw.id && styles.frameworkCardHighlighted,
+                      pulsingId === fw.id && styles.fwCardPulse
                     )}
                     style={{
                       '--card-accent': fw.accent,
@@ -344,7 +419,7 @@ export default function GetStarted() {
                     type="button"
                   >
                     <span>{showManual ? '▼' : '▶'}</span>
-                    <span>Alternative: Manual Execution (Copy & Paste)</span>
+                    <span>Alternative: Manual Execution (Copy &amp; Paste)</span>
                   </button>
 
                   {showManual && (

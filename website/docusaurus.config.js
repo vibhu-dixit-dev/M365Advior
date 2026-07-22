@@ -141,12 +141,6 @@ const config = {
           },
           { to: '/help', label: 'Help', position: 'left', className: 'navbar--help-link' },
           {
-            "aria-label": "GitHub Repository",
-            className: "navbar--github-link",
-            href: "https://github.com/m365advisor365/m365advisor",
-            position: "right",
-          },
-          {
             to: '/docs/installation',
             label: 'Install',
             position: 'right',
