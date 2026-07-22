@@ -1,4 +1,4 @@
-﻿---
+---
 sidebar_label: GitHub
 sidebar_position: 2
 title: Set up M365Advisor in GitHub
@@ -322,10 +322,6 @@ jobs:
         name: m365advisor-test-results-${{ env.NOW }}
         path: test-results
 ```
-
-### Step-by-step video tutorial
-
-<iframe width="686" height="386" src="https://www.youtube.com/embed/SzIxCQg6CWA" title="M365Advisor Github Actions integration" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
   </TabItem>
   </Tabs>
