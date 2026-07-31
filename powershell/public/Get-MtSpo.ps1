@@ -1,4 +1,4 @@
-﻿function Get-MtSpo {
+function Get-MtSpo {
     <#
     .SYNOPSIS
     Retrieves SharePoint Online tenant settings via PnP with session caching.

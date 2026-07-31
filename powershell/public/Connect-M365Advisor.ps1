@@ -118,9 +118,9 @@ function Connect-M365Advisor {
       [ValidateSet('TeamsChina', 'TeamsGCCH', 'TeamsDOD')]
       [string]$TeamsEnvironmentName = $null, #ToValidate: Don't use this parameter, this is the default.
 
-      # The services to connect to such as Azure, Dataverse (for Copilot Studio tests), EXO, and SharePoint Online. Default is All.
+      # The services to connect to such as Azure, Dataverse (for Copilot Studio tests), EXO, and SharePoint Online. Default is Graph.
       [ValidateSet('All', 'Azure', 'Dataverse', 'ExchangeOnline', 'Graph', 'SecurityCompliance', 'Teams', 'SharePointOnline')]
-      [string[]]$Service = 'All',
+      [string[]]$Service = 'Graph',
 
       # The Tenant ID to connect to, if not specified the sign-in user's default tenant is used.
       [string]$TenantId,

@@ -1,4 +1,4 @@
-﻿function Test-MtConnection {
+function Test-MtConnection {
     <#
     .SYNOPSIS
     Checks if the current session is connected to the specified service. Use -Verbose to see the connection status for each service.
