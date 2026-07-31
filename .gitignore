@@ -532,3 +532,9 @@ build/orca/orca/
 powershell/maester-tests
 powershell/m365advisor-tests
 .vercel
+
+maester
+M365_TenantAdvisor_ArchitectureProposal.docx
+Regulations.pdf
+Sample_ResultReport_M365.zip
+implementation_plan.md

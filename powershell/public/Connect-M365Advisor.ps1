@@ -1,4 +1,4 @@
-﻿function Connect-M365Advisor {
+function Connect-M365Advisor {
    <#
 .SYNOPSIS
    Helper method to connect to Microsoft Graph using Connect-MgGraph with the required permission scopes as well as other services such as Azure and Exchange Online.
@@ -118,9 +118,9 @@
       [ValidateSet('TeamsChina', 'TeamsGCCH', 'TeamsDOD')]
       [string]$TeamsEnvironmentName = $null, #ToValidate: Don't use this parameter, this is the default.
 
-      # The services to connect to such as Azure, Dataverse (for Copilot Studio tests), EXO, and SharePoint Online. Default is Graph.
+      # The services to connect to such as Azure, Dataverse (for Copilot Studio tests), EXO, and SharePoint Online. Default is All.
       [ValidateSet('All', 'Azure', 'Dataverse', 'ExchangeOnline', 'Graph', 'SecurityCompliance', 'Teams', 'SharePointOnline')]
-      [string[]]$Service = 'Graph',
+      [string[]]$Service = 'All',
 
       # The Tenant ID to connect to, if not specified the sign-in user's default tenant is used.
       [string]$TenantId,
