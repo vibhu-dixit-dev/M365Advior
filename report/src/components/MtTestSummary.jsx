@@ -6,22 +6,23 @@ import { CheckCircleIcon, ExclamationTriangleIcon, ExclamationCircleIcon, Magnif
 export default function MtTestSummary(props) {
 
     const allStatuses = ['Passed', 'Failed', 'Skipped', 'Investigate', 'NotRun', 'Error'];
+    const defaultStatuses = ['Passed', 'Failed', 'Investigate', 'NotRun', 'Error'];
 
     function handleCardClick(status) {
         if (!props.onStatusChange) return;
         if (status === null) {
-            props.onStatusChange(allStatuses);
+            props.onStatusChange(defaultStatuses);
             return;
         }
-        const current = props.selectedStatus ?? allStatuses;
-        const isAll = current.length === allStatuses.length;
-        if (isAll) {
-            // First click from "all" view — narrow to just this one
+        const current = props.selectedStatus ?? defaultStatuses;
+        const isDefaultAll = current.length === defaultStatuses.length && defaultStatuses.every(s => current.includes(s));
+        if (isDefaultAll) {
+            // First click from default view — narrow to just this one
             props.onStatusChange([status]);
         } else if (current.includes(status)) {
             // Deselect — but don't allow empty selection
             const next = current.filter(s => s !== status);
-            props.onStatusChange(next.length > 0 ? next : allStatuses);
+            props.onStatusChange(next.length > 0 ? next : defaultStatuses);
         } else {
             props.onStatusChange([...current, status]);
         }
@@ -29,7 +30,7 @@ export default function MtTestSummary(props) {
 
     function isActive(status) {
         if (!props.selectedStatus) return true;
-        if (status === null) return props.selectedStatus.length === allStatuses.length;
+        if (status === null) return props.selectedStatus.length === defaultStatuses.length && defaultStatuses.every(s => props.selectedStatus.includes(s));
         return props.selectedStatus.includes(status);
     }
 

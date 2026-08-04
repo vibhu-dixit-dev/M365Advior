@@ -159,7 +159,7 @@ jobs:
       pwsh: true
       azurePowerShellVersion: latestVersion
       Inline: |
-        Install-Module 'M365Advisor', 'Pester', 'NuGet', 'PackageManagement', 'Microsoft.Graph.Authentication', 'ExchangeOnlineManagement', 'MicrosoftTeams' -Confirm:$false -Force
+        Install-Module 'Audit365', 'Pester', 'NuGet', 'PackageManagement', 'Microsoft.Graph.Authentication', 'ExchangeOnlineManagement', 'MicrosoftTeams' -Confirm:$false -Force
         New-Item -ItemType Directory -Force -Path '$(ResultsDir)'
     displayName: 'Install required modules'
 
@@ -306,4 +306,5 @@ The pipeline expects an Azure Web App to already exist. If you don't have one ye
 ### Get Started
 
 Follow the prerequisites above and the [M365Advisor permissions docs](https://m365advisor.dev/docs/installation#permissions) to get your multi-tenant monitoring up and running.
+
 

@@ -9,7 +9,7 @@ import TestResultsTable from "@/components/TestResultsTable"
 
 export default function HomePage() {
   const { selectedTenant: testResults } = useTenant()
-  const [selectedStatus, setSelectedStatus] = useState(['Passed', 'Failed', 'Skipped', 'Investigate', 'NotRun', 'Error'])
+  const [selectedStatus, setSelectedStatus] = useState(['Passed', 'Failed', 'Investigate', 'NotRun', 'Error'])
   const tenantName = testResults.TenantName || testResults.TenantId || "Tenant"
   const testDateLocal = new Date(testResults.ExecutedAt).toLocaleString(
     undefined,

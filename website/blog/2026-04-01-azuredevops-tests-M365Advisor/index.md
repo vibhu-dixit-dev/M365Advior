@@ -23,7 +23,7 @@ Each test includes a markdown document with rationale and remediation guidance, 
 To get started:
 
 ```powershell
-Install-Module M365Advisor, ADOPS
+Install-Module Audit365, ADOPS
 Connect-ADOPS -Organization <your-organization>
 Invoke-M365Advisor
 ```
@@ -144,7 +144,7 @@ jobs:
       azurePowerShellVersion: latestVersion
       Inline: |
         # Install modules
-        Install-Module 'M365Advisor', 'Pester', 'Microsoft.Graph.Authentication', 'ADOPS' -SkipPublisherCheck -Confirm:$false -Force
+        Install-Module 'Audit365', 'Pester', 'Microsoft.Graph.Authentication', 'ADOPS' -SkipPublisherCheck -Confirm:$false -Force
 
         # Connect to Microsoft Graph
         $graphToken = Get-AzAccessToken -ResourceUrl 'https://graph.microsoft.com' -AsSecureString
@@ -185,4 +185,5 @@ jobs:
 ## Contributor
 
 - [Sebastian Claesson](/blog/authors/sebastian)
+
 

@@ -1,4 +1,4 @@
-﻿---
+---
 sidebar_label: GitLab
 sidebar_position: 5
 title: Set up M365Advisor in GitLab
@@ -57,7 +57,7 @@ GitLab for personal projects (Free):
 
 There are many ways to authenticate with Microsoft Entra from GitHub Actions. We recommend using [**workload identity federation**](https://learn.microsoft.com/entra/workload-id/workload-identity-federation) as it is more secure, requires less maintenance and is the easiest to set up.
 
-If you’re unable to use more advanced options like certificates stored in Azure Key Vault, which need an Azure subscription, there’s also guidance available for using client secrets.
+If you�re unable to use more advanced options like certificates stored in Azure Key Vault, which need an Azure subscription, there�s also guidance available for using client secrets.
 
 - <IIcon icon="gravity-ui:nut-hex" height="18" /> **Workload identity federation** (recommended) uses OpenID Connect (OIDC) to authenticate with Microsoft Entra protected resources without using secrets.
 - <IIcon icon="material-symbols:password" height="18" /> **Client secret** uses a secret to authenticate with Microsoft Entra protected resources.
@@ -82,7 +82,7 @@ If you’re unable to use more advanced options like certificates stored in Azur
   - **Audience**: Your GitLab organization url or standard gitlab url `https://gitlab.com`
 - Select **Add**
 
-> **📖 For detailed Azure integration guidance:** GitLab provides comprehensive documentation on integrating with Azure services. See the [GitLab Azure integration guide](https://docs.gitlab.com/ci/cloud_services/azure/) for advanced authentication patterns, best practices, and troubleshooting tips.
+> **?? For detailed Azure integration guidance:** GitLab provides comprehensive documentation on integrating with Azure services. See the [GitLab Azure integration guide](https://docs.gitlab.com/ci/cloud_services/azure/) for advanced authentication patterns, best practices, and troubleshooting tips.
 
 
 ### Create GitLab variables
@@ -132,8 +132,8 @@ run_m365advisor_tests_inline:
       pwsh -Command '
         #region prepare execution
         # Install M365Advisor
-        #Install-Module M365Advisor -AllowPrerelease -Force
-        Install-Module M365Advisor -Force
+        #Install-Module Audit365 -AllowPrerelease -Force
+        Install-Module Audit365 -Force
         Install-Module Az.Accounts -Force
 
         # Latest public tests
@@ -318,8 +318,8 @@ run_m365advisor_tests_inline:
       pwsh -Command '
         #region prepare execution
         # Install M365Advisor
-        #Install-Module M365Advisor -AllowPrerelease -Force
-        Install-Module M365Advisor -Force
+        #Install-Module Audit365 -AllowPrerelease -Force
+        Install-Module Audit365 -Force
 
         # Latest public tests
         Set-Location public-tests
@@ -475,4 +475,5 @@ Pipeline schedules are ...
 ## FAQ / Troubleshooting
 - Ensure you are monitoring your GitLab Runner cost
 -->
+
 

@@ -1,4 +1,4 @@
-﻿<#
+<#
 .DISCLAIMER
 	THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF
 	ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO
@@ -63,7 +63,8 @@ if ($importErrors.Count -gt 0) {
 
 # Safely import module manifest
 try {
-	$ModuleInfo = Import-PowerShellDataFile -Path "$PsScriptRoot/M365Advisor.psd1" -ErrorAction Stop
+	$manifestFile = Get-ChildItem -Path $PsScriptRoot -Filter "*.psd1" | Select-Object -First 1
+	$ModuleInfo = if ($manifestFile) { Import-PowerShellDataFile -Path $manifestFile.FullName -ErrorAction Stop } else { $null }
 } catch {
 	Write-Warning "Failed to load module manifest: $($_.Exception.Message)"
 	$ModuleInfo = $null

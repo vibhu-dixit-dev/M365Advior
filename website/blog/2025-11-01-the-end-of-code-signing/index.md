@@ -1,4 +1,4 @@
-﻿---
+---
 title: The end of code signing
 description: An announcement that the M365Advisor module code will no longer be signed.
 slug: the-end-of-code-signing
@@ -50,8 +50,9 @@ Sadly, the `-SkipPublisherCheck` switch is not available for the `Update-Module`
 The solution is to install the new version once with:
 
 ```powershell
-Install-Module M365Advisor -AllowPrerelease -Force -SkipPublisherCheck
+Install-Module Audit365 -AllowPrerelease -Force -SkipPublisherCheck
 ```
 
 We gladly welcome any [feedback](https://github.com/m365advisor365/m365advisor/discussions) or [suggestions for improvements](https://github.com/m365advisor365/m365advisor/issues). You can also join our community on [Discord](https://discord.gg/CQs76Wa9). Thank you!
+
 

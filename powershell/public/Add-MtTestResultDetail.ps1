@@ -1,4 +1,4 @@
-﻿function Add-MtTestResultDetail {
+function Add-MtTestResultDetail {
     <#
     .SYNOPSIS
     Add detailed information about a test so that it can be displayed in the test results report.
@@ -141,7 +141,7 @@
             if ($callerName) {
                 # Find the module root directory (where M365Advisor.psd1 is located)
                 $moduleRoot = $PSScriptRoot
-                while ($moduleRoot -and -not (Test-Path (Join-Path $moduleRoot "M365Advisor.psd1"))) {
+                while ($moduleRoot -and -not (Get-ChildItem -Path $moduleRoot -Filter "*.psd1" -ErrorAction SilentlyContinue)) {
                     $parent = Split-Path $moduleRoot -Parent
                     if ($parent -eq $moduleRoot -or [string]::IsNullOrEmpty($parent)) {
                         $moduleRoot = $PSScriptRoot

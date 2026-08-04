@@ -58,7 +58,7 @@ const frameworks = [
     icon: "🌀",
     tag: "CIS Benchmark",
     keywords: ["cis", "benchmark", "foundations", "microsoft 365", "cis benchmark"],
-    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module M365Advisor -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
+    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
     connectCmd: "Connect-M365Advisor",
     runCmd: "Invoke-M365Advisor -Tag 'CIS'"
   },
@@ -72,7 +72,7 @@ const frameworks = [
     icon: "🌐",
     tag: "ISO 27001",
     keywords: ["iso", "iso27001", "iso 27001", "isms", "information security", "27001"],
-    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module M365Advisor -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
+    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
     connectCmd: "Connect-M365Advisor",
     runCmd: "Invoke-M365Advisor -Path .\\iso27001"
   },
@@ -86,7 +86,7 @@ const frameworks = [
     icon: "📋",
     tag: "ISO 27002",
     keywords: ["iso", "iso27002", "iso 27002", "security controls", "27002"],
-    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module M365Advisor -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
+    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
     connectCmd: "Connect-M365Advisor",
     runCmd: "Invoke-M365Advisor -Path .\\iso27002"
   },
@@ -434,7 +434,7 @@ export default function GetStarted() {
                           <CopyButton text={selectedFramework.setupCmd} />
                         </div>
                         <p className={styles.commandStepDesc}>
-                          Run this command in administrative PowerShell to install the M365Advisor module, Pester utility, and default tests directory.
+                          Run this command in administrative PowerShell to install the Audit365 module, Pester utility, and default tests directory.
                         </p>
                         <div className={styles.terminalWrapper}>
                           <div className={styles.terminalHeader}>

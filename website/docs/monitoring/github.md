@@ -221,7 +221,7 @@ jobs:
           Connect-MgGraph -AccessToken $accessToken
 
           # Install M365Advisor
-          Install-Module M365Advisor -Force
+          Install-Module Audit365 -Force
 
           # Install Tests
           Install-M365AdvisorTests -Path ./tests
@@ -309,7 +309,7 @@ jobs:
         Connect-MgGraph -TenantId $env:TENANTID -ClientSecretCredential $clientSecretCredential
 
         # Install M365Advisor
-        Install-Module M365Advisor -Force
+        Install-Module Audit365 -Force
 
         # Install Tests
         Install-M365AdvisorTests -Path ./tests
@@ -396,4 +396,5 @@ Update-Module M365Advisor -Force
 Import-Module M365Advisor
 Update-M365AdvisorTests
 ```
+
 

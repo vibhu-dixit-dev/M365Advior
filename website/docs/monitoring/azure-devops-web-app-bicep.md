@@ -1,4 +1,4 @@
-﻿---
+---
 sidebar_label: Azure DevOps & Azure Web App
 sidebar_position: 9
 title: Azure DevOps pipeline publishing to Azure Web App
@@ -9,15 +9,15 @@ import PrivilegedPermissions from '../sections/privilegedPermissions.md';
 # <IIcon icon="devicon:azure" height="48" /> Setup M365Advisor in WebApp using Azure DevOps
 
 This guide will demonstrate how to get M365Advisor running on an Azure Web App using Azure DevOps pipeline to produce the result and provide an Azure Bicep template for automated deployment.
--  This setup will allow you to perform security configuration checks on your Microsoft tenant by accessing the Azure Web App, which is protected with Entra ID Authentication through the Bicep deployment🔥
+-  This setup will allow you to perform security configuration checks on your Microsoft tenant by accessing the Azure Web App, which is protected with Entra ID Authentication through the Bicep deployment??
 
-Including support for Microsoft Teams, Exchange Online and Security & Compliance 🚀
+Including support for Microsoft Teams, Exchange Online and Security & Compliance ??
 
 ## Why Azure Web App & Azure DevOps & Azure Bicep?
 
 Azure Web Apps provide the functionality to host your own websites. By running M365Advisor in an interactive web app, you can easily check the security recommendations for your organization. Azure DevOps generates a new M365Advisor report every 12th hour, which is then uploaded to the Azure Web App using federated credentials.
 
- Azure Bicep is a domain-specific language that uses declarative syntax to deploy Azure resources. It simplifies the process of defining, deploying, and managing Azure resources. Here’s why Azure Bicep stands out:
+ Azure Bicep is a domain-specific language that uses declarative syntax to deploy Azure resources. It simplifies the process of defining, deploying, and managing Azure resources. Here�s why Azure Bicep stands out:
 - **Simplified Syntax**: Bicep provides concise syntax, reliable type safety, and support for reusing code.easier to read.
 - **Support for all resource types and API versions**: Bicep immediately supports all preview and GA versions for Azure services.
 - **Modular and Reusable**: Bicep enables the creation of modular templates that can be reused across various projects, ensuring consistency and minimizing duplication.
@@ -690,7 +690,7 @@ jobs:
       pwsh: true
       azurePowerShellVersion: latestVersion
       Inline: |
-        Install-Module 'M365Advisor', 'Pester', 'NuGet', 'PackageManagement', 'Microsoft.Graph.Authentication', 'ExchangeOnlineManagement', 'MicrosoftTeams' -Confirm:$false -Force
+        Install-Module 'Audit365', 'Pester', 'NuGet', 'PackageManagement', 'Microsoft.Graph.Authentication', 'ExchangeOnlineManagement', 'MicrosoftTeams' -Confirm:$false -Force
     displayName: 'Install required modules'
 
   - task: AzurePowerShell@5
@@ -801,4 +801,5 @@ schedules:
 
 - Ensure you have the latest version of Azure Bicep, as the ```microsoftGraphV1_0``` module depends on the newer versions
 - If Exchange Online tests are failing, ensure you have set ```registerExchangeOnlinePermission``` to true in the [bicep parameter file](#parameters).
+
 

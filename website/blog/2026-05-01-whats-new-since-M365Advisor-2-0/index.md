@@ -1,4 +1,4 @@
-﻿---
+---
 title: "What's new in M365Advisor 2.1.0"
 description: Azure DevOps tests, Copilot Studio agent checks, Defender for Endpoint coverage, multi-tenant reporting, CIS updates, and more.
 slug: whats-new-since-m365advisor-2-0
@@ -29,7 +29,7 @@ This release brings M365Advisor into more of the places security teams live ever
 M365Advisor now includes an optional Azure DevOps security test suite. The tests are discovered automatically and run when you connect to Azure DevOps using the community [ADOPS PowerShell module](https://www.powershellgallery.com/packages/ADOPS).
 
 ```powershell
-Install-Module M365Advisor, ADOPS
+Install-Module Audit365, ADOPS
 Connect-ADOPS -Organization <your-organization>
 Invoke-M365Advisor
 ```
@@ -161,4 +161,5 @@ Merge-MtM365AdvisorResult -Path ./results/ | Get-MtHtmlReport | Out-File ./repor
 ```
 
 This release is a big step toward making M365Advisor the continuous security validation layer for Microsoft 365, Entra, Defender, Azure DevOps, and the new AI surfaces that are arriving fast.
+
 

@@ -1,4 +1,4 @@
-﻿---
+---
 sidebar_label: BitBucket
 sidebar_position: 6
 title: Set up M365Advisor in BitBucket
@@ -112,7 +112,7 @@ pipelines:
                       Connect-MgGraph -TenantId "$env:AZURE_TENANT_ID" -ClientSecretCredential $clientSecretCredential -NoWelcome
 
                       # Install M365Advisor
-                      Install-Module M365Advisor -Force
+                      Install-Module Audit365 -Force
 
                       # Latest public tests
                       cd public-tests
@@ -192,4 +192,5 @@ To manually run the M365Advisor tests workflow
 ## FAQ / Troubleshooting
 
 - Ensure you are monitoring your BitBucket Runner cost.
+
 

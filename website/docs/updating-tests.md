@@ -1,5 +1,5 @@
-﻿---
-title: 🧪 Updating tests
+---
+title: ?? Updating tests
 ---
 
 # Updating your M365Advisor tests
@@ -16,7 +16,7 @@ cd m365advisor-tests
 
 ### Step 2: Update the M365Advisor module
 
-Update the **M365Advisor** PowerShell module to the latest version and load it.
+Update the **Audit365** PowerShell module to the latest version and load it.
 
 ```powershell
 Update-Module M365Advisor -Force
@@ -39,4 +39,5 @@ Update-M365AdvisorTests
 If you are not seeing the latest tests, try closing and reopening your PowerShell session after completing **Step 2** (`Update-Module`).
 
 :::
+
 

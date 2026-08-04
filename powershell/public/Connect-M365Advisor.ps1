@@ -174,7 +174,7 @@ function Connect-M365Advisor {
                   }
                } catch [Management.Automation.CommandNotFoundException] {
                   Write-Host "`nThe Azure PowerShell module is not installed. Please install the module using the following command. For more information see https://learn.microsoft.com/powershell/azure/install-azure-powershell" -ForegroundColor Red
-                  Write-Host "`Install-Module Az.Accounts -Scope CurrentUser`n" -ForegroundColor Yellow
+                  Write-Host "`nInstall-Module Az.Accounts -Scope CurrentUser`n" -ForegroundColor Yellow
                }
             }
 
@@ -355,7 +355,7 @@ function Connect-M365Advisor {
 
             } catch [Management.Automation.CommandNotFoundException] {
                Write-Host "`nThe Graph PowerShell module is not installed. Please install the module using the following command. For more information see https://learn.microsoft.com/powershell/microsoftgraph/installation" -ForegroundColor Red
-               Write-Host "`Install-Module Microsoft.Graph.Authentication -Scope CurrentUser`n" -ForegroundColor Yellow
+               Write-Host "`nInstall-Module Microsoft.Graph.Authentication -Scope CurrentUser`n" -ForegroundColor Yellow
             }
          }
       }
@@ -373,7 +373,7 @@ function Connect-M365Advisor {
                }
             } catch [Management.Automation.CommandNotFoundException] {
                Write-Host "`nThe Teams PowerShell module is not installed. Please install the module using the following command. For more information see https://learn.microsoft.com/en-us/microsoftteams/teams-powershell-install" -ForegroundColor Red
-               Write-Host "`Install-Module MicrosoftTeams -Scope CurrentUser`n" -ForegroundColor Yellow
+               Write-Host "`nInstall-Module MicrosoftTeams -Scope CurrentUser`n" -ForegroundColor Yellow
             }
          }
       }

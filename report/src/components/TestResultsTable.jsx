@@ -8,7 +8,7 @@ import { getLinkedTestResultId, getPreferredScrollBehavior, getTestResultAnchorH
 
 // Lazy load the ResultInfoSheet component
 const ResultInfoSheet = lazy(() => import("./ResultInfoSheet"));
-const defaultSelectedStatus = ['Passed', 'Failed', 'Skipped', 'Investigate', 'NotRun', 'Error'];
+const defaultSelectedStatus = ['Passed', 'Failed', 'Investigate', 'NotRun', 'Error'];
 
 function testMatchesSearch(item, searchQuery) {
   if (!searchQuery) return true;

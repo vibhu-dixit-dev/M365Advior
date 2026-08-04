@@ -298,7 +298,7 @@ function ConvertTo-MtM365AdvisorResult {
         if ($null -eq $testResultDetail) {
             # Attempt to locate and load markdown file by testId (e.g. ISO27001.A.8.20.1.md)
             $moduleRoot = $PSScriptRoot
-            while ($moduleRoot -and -not (Test-Path (Join-Path $moduleRoot "M365Advisor.psd1"))) {
+            while ($moduleRoot -and -not (Get-ChildItem -Path $moduleRoot -Filter "*.psd1" -ErrorAction SilentlyContinue)) {
                 $parent = Split-Path $moduleRoot -Parent
                 if ($parent -eq $moduleRoot -or [string]::IsNullOrEmpty($parent)) {
                     $moduleRoot = $PSScriptRoot

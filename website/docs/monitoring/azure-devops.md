@@ -141,7 +141,7 @@ steps:
         Connect-MgGraph $accessToken
 
         # Install M365Advisor
-        Install-Module M365Advisor -Force
+        Install-Module Audit365 -Force
 
         # Configure test results
         $PesterConfiguration = New-PesterConfiguration
@@ -231,7 +231,7 @@ jobs:
             Connect-MgGraph $accessToken
 
             # Install M365Advisor
-            Install-Module M365Advisor -Force
+            Install-Module Audit365 -Force
 
             # Configure test results
             $PesterConfiguration = New-PesterConfiguration
@@ -305,7 +305,7 @@ steps:
       Connect-MgGraph -TenantId $env:TENANTID -ClientSecretCredential $clientSecretCredential
 
       # Install M365Advisor
-      Install-Module M365Advisor -Force
+      Install-Module Audit365 -Force
 
       # Configure test results
       $PesterConfiguration = New-PesterConfiguration
@@ -398,7 +398,7 @@ jobs:
             Connect-MgGraph $accessToken
 
             # Install M365Advisor
-            Install-Module M365Advisor -Force
+            Install-Module Audit365 -Force
 
             # Configure test results
             $PesterConfiguration = New-PesterConfiguration
@@ -469,4 +469,5 @@ Update-Module M365Advisor -Force
 Import-Module M365Advisor
 Update-M365AdvisorTests
 ```
+
 

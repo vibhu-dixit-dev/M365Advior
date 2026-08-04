@@ -2,11 +2,11 @@
 title: Installation guide
 ---
 
-- Install the **M365Advisor** PowerShell module, Pester, and the out-of-the-box tests.
+- Install the **Audit365** PowerShell module, Pester, and the out-of-the-box tests.
 
 ```powershell
 Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber
-Install-Module M365Advisor -Scope CurrentUser -Force -AllowClobber
+Install-Module Audit365 -Scope CurrentUser -Force -AllowClobber
 
 if (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }
 cd M365Advisor-tests

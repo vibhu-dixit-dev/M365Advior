@@ -565,7 +565,8 @@ $null = $Builder.AppendLine()
 $null = $Builder.AppendLine(@'
 # Safely import module manifest
 try {
-    $ModuleInfo = Import-PowerShellDataFile -Path "$PSScriptRoot/M365Advisor.psd1" -ErrorAction Stop
+    $manifestFile = Get-ChildItem -Path $PSScriptRoot -Filter "*.psd1" | Select-Object -First 1
+    $ModuleInfo = if ($manifestFile) { Import-PowerShellDataFile -Path $manifestFile.FullName -ErrorAction Stop } else { $null }
 } catch {
     Write-Warning "Failed to load module manifest: $($_.Exception.Message)"
     $ModuleInfo = $null

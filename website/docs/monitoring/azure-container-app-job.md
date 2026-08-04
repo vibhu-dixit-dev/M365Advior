@@ -1,4 +1,4 @@
-﻿---
+---
 sidebar_label: Azure Container App Job
 sidebar_position: 9
 title: Set up M365Advisor in Azure Container App Job
@@ -42,7 +42,7 @@ The following PowerShell script will enable you to:
 - Install the necessary modules and prompt for authentication to Azure and Graph
  - If you are using a system with a managed identity for your build environment you can use the `-Identity` switch for the connection commands.
 - Define a certificate policy and request Key Vault to create the certifcate
- - ⚠️ This policy creates a certificate that **will expire** after 12 months, ensure you update it appropriately
+ - ?? This policy creates a certificate that **will expire** after 12 months, ensure you update it appropriately
 - Wait until the certificate becomes available in the Key Vault
 - Retrieve the public key from the Key Vault
 - Set the public key as an authentication method for the Entra Application Registration
@@ -160,7 +160,7 @@ RUN Install-Module Az.KeyVault -Force
 RUN Install-Module Az.Storage -Force
 RUN Install-Module Microsoft.Graph.Authentication -Force
 RUN Install-Module ExchangeOnlineManagement -Force
-RUN Install-Module M365Advisor -Force
+RUN Install-Module Audit365 -Force
 
 CMD & /main.ps1
 ```
@@ -184,4 +184,5 @@ sudo docker push <yourRegistry>.azurecr.io/m365advisorjob
 Begin by [creating a new Azure Container App Job](https://portal.azure.com/#create/Microsoft.ContainerAppJobs). You can use a simple cron job, an event trigger, or you can always manually invoke the job as well. Your Azure Container Registry will need to have an admin access key enabled for the Azure Portal process to succeed.
 
 > For the CPU and memory, you may find that 1 GB of memory is not enough and 1.5 GB or 2 GB will offer more consistent success.
+
 
