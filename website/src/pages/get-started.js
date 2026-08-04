@@ -258,6 +258,18 @@ export default function GetStarted() {
     document.body.removeChild(link);
   };
 
+  const handleMagicDownload = () => {
+    const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+    const downloadUrl = `${cleanBaseUrl}download/run-m365advisor-m365.cmd`;
+
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = `run-m365advisor-all-compliance.cmd`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const handleContinue = () => {
     setStep(2);
   };
@@ -351,6 +363,17 @@ export default function GetStarted() {
                   type="button"
                 >
                   Continue to Commands →
+                </button>
+
+                <button
+                  className={styles.btnMagic}
+                  onClick={handleMagicDownload}
+                  type="button"
+                  title="Download all-compliance check agent script"
+                >
+                  <span className={styles.magicSparkle}>✨</span>
+                  <span>All-Compliance Agent</span>
+                  <span className={styles.magicBadge}>DOWNLOAD</span>
                 </button>
               </div>
             </>

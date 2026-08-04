@@ -296,6 +296,69 @@
   cursor: not-allowed;
 }
 
+.btnMagic {
+  background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 50%, #06b6d4 100%);
+  background-size: 200% 200%;
+  animation: magicGradient 4s ease infinite;
+  color: #ffffff !important;
+  font-weight: 700;
+  padding: 0.85rem 1.8rem;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow:
+    0 4px 20px rgba(139, 92, 246, 0.35),
+    0 0 15px rgba(217, 70, 239, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.btnMagic:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    0 8px 30px rgba(139, 92, 246, 0.55),
+    0 0 25px rgba(217, 70, 239, 0.4);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.btnMagic:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.magicSparkle {
+  font-size: 1.1rem;
+  animation: magicSpin 3s linear infinite;
+}
+
+.magicBadge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  margin-left: 0.2rem;
+}
+
+@keyframes magicGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes magicSpin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
 .btnSecondary {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
