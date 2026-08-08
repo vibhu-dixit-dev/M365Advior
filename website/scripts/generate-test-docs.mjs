@@ -505,11 +505,13 @@ function generateLauncherScripts(writes) {
   const staticDownloadDir = join(websiteRoot, "static", "download");
   
   const frameworks = [
-    { id: "m365", title: "M365 Advisor Baselines" },
-    { id: "eidsca", title: "Entra ID SCA" },
-    { id: "cisa", title: "CISA SCuBA Baselines" },
-    { id: "cis", title: "CIS Benchmarks" },
-    { id: "orca", title: "ORCA Exchange Hygiene" }
+    { id: "m365", title: "M365 Advisor Baselines", invokeArgs: "" },
+    { id: "eidsca", title: "Entra ID SCA", invokeArgs: " -Tag 'EIDSCA'" },
+    { id: "cisa", title: "CISA SCuBA Baselines", invokeArgs: " -Tag 'CISA'" },
+    { id: "cis", title: "CIS Benchmarks", invokeArgs: " -Tag 'CIS'" },
+    { id: "iso27001", title: "ISO/IEC 27001:2022", invokeArgs: " -Path .\\iso27001" },
+    { id: "iso27002", title: "ISO/IEC 27002:2022", invokeArgs: " -Path .\\iso27002" },
+    { id: "orca", title: "ORCA Exchange Hygiene", invokeArgs: " -Tag 'ORCA'" }
   ];
 
   for (const fw of frameworks) {
@@ -520,20 +522,20 @@ function generateLauncherScripts(writes) {
       `Write-Host '=================================================================' -ForegroundColor Cyan`,
       `Write-Host ''`,
       `Write-Host '[1/4] Checking and installing required modules...' -ForegroundColor Yellow`,
-      `Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser`,
-      `Install-Module M365Advisor -Scope CurrentUser`,
+      `Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber`,
+      `Install-Module Audit365 -Scope CurrentUser -Force -AllowClobber`,
       `Write-Host ''`,
       `Write-Host '[2/4] Setting up local tests directory (M365Advisor-tests)...' -ForegroundColor Yellow`,
       `New-Item -ItemType Directory -Force -Path M365Advisor-tests | Out-Null`,
       `Set-Location M365Advisor-tests`,
-      `Install-M365AdvisorTests`,
+      `Install-M365AdvisorTests -Force`,
       `Write-Host ''`,
       `Write-Host '[3/4] Connecting to Microsoft 365...' -ForegroundColor Yellow`,
       `Write-Host 'A browser window should open shortly for administrative authentication.' -ForegroundColor Gray`,
       `Connect-M365Advisor`,
       `Write-Host ''`,
       `Write-Host '[4/4] Starting security audit...' -ForegroundColor Yellow`,
-      `Invoke-M365Advisor`,
+      `Invoke-M365Advisor${fw.invokeArgs}`,
       `Write-Host ''`,
       `Write-Host '=================================================================' -ForegroundColor Green`,
       `Write-Host 'Assessment complete!' -ForegroundColor Green`,
