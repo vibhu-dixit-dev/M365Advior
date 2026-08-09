@@ -130,7 +130,7 @@ const frameworks = [
     keywords: ["mt", "m365", "microsoft tenant", "tenant security", "baselines", "posture"],
     setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
     connectCmd: "Connect-M365Advisor",
-    runCmd: "Invoke-M365Advisor"
+    runCmd: "Invoke-M365Advisor -Path .\\M365Advisor"
   },
   {
     id: "hippa",
