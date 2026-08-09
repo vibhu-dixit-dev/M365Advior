@@ -211,6 +211,7 @@ export default function GetStarted() {
   const [step, setStep] = useState(1); // 1 = select, 2 = commands
   const [showManual, setShowManual] = useState(false);
   const gridRef = useRef(null);
+  const continueBtnRef = useRef(null);
 
   const selectedFramework = frameworks.find(f => f.id === selectedId);
   const baseUrl = useBaseUrl('/');
@@ -332,6 +333,9 @@ export default function GetStarted() {
                         window.location.href = `mailto:Salman.Sayyed@onmeridian.com?subject=${subject}&body=${body}`;
                       } else {
                         setSelectedId(fw.id);
+                        setTimeout(() => {
+                          continueBtnRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 50);
                       }
                     }}
                   >
@@ -357,6 +361,7 @@ export default function GetStarted() {
 
               <div className={styles.actionsRow}>
                 <button
+                  ref={continueBtnRef}
                   className={styles.btnPrimary}
                   disabled={!selectedId}
                   onClick={handleContinue}
