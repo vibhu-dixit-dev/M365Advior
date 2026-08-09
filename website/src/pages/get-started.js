@@ -91,6 +91,48 @@ const frameworks = [
     runCmd: "Invoke-M365Advisor -Path .\\iso27002"
   },
   {
+    id: "cisa",
+    title: "CISA SCuBA Baselines",
+    subtitle: "Federal Cloud Security Benchmarks",
+    desc: "Hardened tenant validation rules matching CISA Secure Cloud Business Applications guidelines for high-value assets.",
+    accent: "#c084fc",
+    glow: "rgba(192, 132, 252, 0.15)",
+    icon: "🦅",
+    tag: "CISA SCuBA",
+    keywords: ["cisa", "scuba", "cisa scuba", "federal", "cloud security"],
+    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
+    connectCmd: "Connect-M365Advisor",
+    runCmd: "Invoke-M365Advisor -Tag 'CISA'"
+  },
+  {
+    id: "eidsca",
+    title: "Entra ID SCA",
+    subtitle: "Identity Attack & Defense Playbook Checks",
+    desc: "40+ checks analyzing tenant configuration against common Entra ID attack vectors, privilege escalation paths, and bypass scenarios.",
+    accent: "#00f2fe",
+    glow: "rgba(0, 242, 254, 0.15)",
+    icon: "🛡️",
+    tag: "EIDSCA",
+    keywords: ["eidsca", "eidsa", "entra id", "entra", "identity", "sca"],
+    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
+    connectCmd: "Connect-M365Advisor",
+    runCmd: "Invoke-M365Advisor -Tag 'EIDSCA'"
+  },
+  {
+    id: "mt",
+    title: "M365 Advisor Baselines (MT)",
+    subtitle: "Best-Practice Security Posture Baselines",
+    desc: "170+ automated checks validating authentication strength, conditional access, administration settings, and external sharing policies.",
+    accent: "#ff7a7a",
+    glow: "rgba(255, 122, 122, 0.15)",
+    icon: "🔥",
+    tag: "MT Baseline",
+    keywords: ["mt", "m365", "microsoft tenant", "tenant security", "baselines", "posture"],
+    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
+    connectCmd: "Connect-M365Advisor",
+    runCmd: "Invoke-M365Advisor"
+  },
+  {
     id: "hippa",
     title: "HIPPA",
     subtitle: "Healthcare Security & Privacy Baseline",

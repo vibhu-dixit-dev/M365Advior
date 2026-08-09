@@ -21,6 +21,24 @@ const COMPLIANCE_FRAMEWORKS = [
     keywords: ['iso', 'iso27002', 'iso 27002', 'security controls', '27002'],
   },
   {
+    id: 'cisa',
+    title: 'CISA SCuBA Baselines',
+    icon: '🦅',
+    keywords: ['cisa', 'scuba', 'cisa scuba', 'federal', 'cloud security'],
+  },
+  {
+    id: 'eidsca',
+    title: 'Entra ID SCA',
+    icon: '🛡️',
+    keywords: ['eidsca', 'eidsa', 'entra id', 'entra', 'identity', 'sca'],
+  },
+  {
+    id: 'mt',
+    title: 'M365 Advisor Baselines (MT)',
+    icon: '🔥',
+    keywords: ['mt', 'm365', 'microsoft tenant', 'tenant security', 'baselines', 'posture'],
+  },
+  {
     id: 'hippa',
     title: 'HIPPA',
     icon: '🩺',
