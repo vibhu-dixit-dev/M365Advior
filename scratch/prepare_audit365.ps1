@@ -20,7 +20,7 @@ Copy-Item ".\module\M365Advisor.psd1" "$destDir\Audit365.psd1" -Force
 # Update manifest values in Audit365.psd1
 $manifest = Get-Content "$destDir\Audit365.psd1" -Raw
 $manifest = $manifest -replace "RootModule\s*=\s*'[^']+'", "RootModule = 'Audit365.psm1'"
-$manifest = $manifest -replace "ModuleVersion\s*=\s*'[^']+'", "ModuleVersion = '1.0.2'"
+$manifest = $manifest -replace "ModuleVersion\s*=\s*'[^']+'", "ModuleVersion = '1.0.3'"
 Set-Content -Path "$destDir\Audit365.psd1" -Value $manifest
 
-Write-Host "Successfully prepared Audit365 v1.0.2 package at .\module\Audit365\"
+Write-Host "Successfully prepared Audit365 v1.0.3 package at .\module\Audit365\"

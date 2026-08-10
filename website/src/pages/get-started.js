@@ -133,6 +133,20 @@ const frameworks = [
     runCmd: "Invoke-M365Advisor -Path .\\M365Advisor"
   },
   {
+    id: "dpdp",
+    title: "DPDP Act 2023",
+    subtitle: "Digital Personal Data Protection Act",
+    desc: "30+ automated audit rules checking notice, consent unbundling, data principal rights, DLP exfiltration safeguards, and breach notification SLA.",
+    accent: "#38bdf8",
+    glow: "rgba(56, 189, 248, 0.15)",
+    icon: "⚖️",
+    tag: "DPDP 2023",
+    keywords: ["dpdp", "dpdpa", "digital personal data", "data protection", "privacy act", "india"],
+    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
+    connectCmd: "Connect-M365Advisor",
+    runCmd: "Invoke-M365Advisor -Tag 'DPDP'"
+  },
+  {
     id: "hippa",
     title: "HIPPA",
     subtitle: "Healthcare Security & Privacy Baseline",
@@ -154,18 +168,6 @@ const frameworks = [
     icon: "🏦",
     tag: "RBI NBFC",
     keywords: ["rbi", "nbfc", "reserve bank", "india", "financial"],
-    isPremium: true
-  },
-  {
-    id: "dpdp",
-    title: "DPDP Act 2023",
-    subtitle: "Digital Personal Data Protection Act",
-    desc: "Audit rules checking consent management systems, data principal rights, erasure protocols, and fiduciary responsibilities.",
-    accent: "#fb923c",
-    glow: "rgba(251, 146, 60, 0.15)",
-    icon: "⚖️",
-    tag: "DPDP 2023",
-    keywords: ["dpdp", "digital personal data", "data protection", "privacy act", "india"],
     isPremium: true
   },
   /*

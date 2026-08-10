@@ -39,6 +39,12 @@ const COMPLIANCE_FRAMEWORKS = [
     keywords: ['mt', 'm365', 'microsoft tenant', 'tenant security', 'baselines', 'posture'],
   },
   {
+    id: 'dpdp',
+    title: 'DPDP Act 2023',
+    icon: '⚖️',
+    keywords: ['dpdp', 'dpdpa', 'digital personal data', 'data protection', 'privacy act', 'india'],
+  },
+  {
     id: 'hippa',
     title: 'HIPPA',
     icon: '🩺',
@@ -50,13 +56,6 @@ const COMPLIANCE_FRAMEWORKS = [
     title: 'RBI NBFC',
     icon: '🏦',
     keywords: ['rbi', 'nbfc', 'reserve bank', 'india', 'financial'],
-    isPremium: true,
-  },
-  {
-    id: 'dpdp',
-    title: 'DPDP Act 2023',
-    icon: '⚖️',
-    keywords: ['dpdp', 'digital personal data', 'data protection', 'privacy act', 'india'],
     isPremium: true,
   },
 ];
