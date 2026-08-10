@@ -59,7 +59,7 @@ const frameworks = [
     tag: "CIS Benchmark",
     keywords: ["cis", "benchmark", "foundations", "microsoft 365", "cis benchmark"],
     setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
-    connectCmd: "Connect-M365Advisor",
+    connectCmd: "Connect-M365Advisor -Service All",
     runCmd: "Invoke-M365Advisor -Tag 'CIS'"
   },
   {
@@ -73,7 +73,7 @@ const frameworks = [
     tag: "ISO 27001",
     keywords: ["iso", "iso27001", "iso 27001", "isms", "information security", "27001"],
     setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
-    connectCmd: "Connect-M365Advisor",
+    connectCmd: "Connect-M365Advisor -Service All",
     runCmd: "Invoke-M365Advisor -Path .\\iso27001"
   },
   {
@@ -87,7 +87,7 @@ const frameworks = [
     tag: "ISO 27002",
     keywords: ["iso", "iso27002", "iso 27002", "security controls", "27002"],
     setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
-    connectCmd: "Connect-M365Advisor",
+    connectCmd: "Connect-M365Advisor -Service All",
     runCmd: "Invoke-M365Advisor -Path .\\iso27002"
   },
   {
@@ -101,7 +101,7 @@ const frameworks = [
     tag: "CISA SCuBA",
     keywords: ["cisa", "scuba", "cisa scuba", "federal", "cloud security"],
     setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
-    connectCmd: "Connect-M365Advisor",
+    connectCmd: "Connect-M365Advisor -Service All",
     runCmd: "Invoke-M365Advisor -Tag 'CISA'"
   },
   {
@@ -115,7 +115,7 @@ const frameworks = [
     tag: "EIDSCA",
     keywords: ["eidsca", "eidsa", "entra id", "entra", "identity", "sca"],
     setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
-    connectCmd: "Connect-M365Advisor",
+    connectCmd: "Connect-M365Advisor -Service All",
     runCmd: "Invoke-M365Advisor -Tag 'EIDSCA'"
   },
   {
@@ -129,7 +129,7 @@ const frameworks = [
     tag: "MT Baseline",
     keywords: ["mt", "m365", "microsoft tenant", "tenant security", "baselines", "posture"],
     setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
-    connectCmd: "Connect-M365Advisor",
+    connectCmd: "Connect-M365Advisor -Service All",
     runCmd: "Invoke-M365Advisor -Path .\\M365Advisor"
   },
   {
@@ -143,7 +143,7 @@ const frameworks = [
     tag: "DPDP 2023",
     keywords: ["dpdp", "dpdpa", "digital personal data", "data protection", "privacy act", "india"],
     setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
-    connectCmd: "Connect-M365Advisor",
+    connectCmd: "Connect-M365Advisor -Service All",
     runCmd: "Invoke-M365Advisor -Tag 'DPDP'"
   },
   {

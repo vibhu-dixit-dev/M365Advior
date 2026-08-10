@@ -386,8 +386,7 @@ function Connect-M365Advisor {
             $resolvedSharePointClientId = $SharePointClientId
 
             if (-not $resolvedSharePointClientId) {
-               Write-Warning "SharePoint Online connection skipped because -SharePointClientId was not provided."
-               break
+               $resolvedSharePointClientId = '31359c7f-bd7e-475c-86db-f239140d65e9'
             }
 
             try {
