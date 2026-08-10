@@ -315,8 +315,18 @@ export default function GetStarted() {
     document.body.removeChild(link);
   };
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [step]);
+
   const handleContinue = () => {
     setStep(2);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleBackToFrameworks = () => {
+    setStep(1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -579,7 +589,7 @@ export default function GetStarted() {
               <div className={styles.actionsRow}>
                 <button
                   className={styles.btnSecondary}
-                  onClick={() => setStep(1)}
+                  onClick={handleBackToFrameworks}
                   type="button"
                 >
                   ← Back to Frameworks
