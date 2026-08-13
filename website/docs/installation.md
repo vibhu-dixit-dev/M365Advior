@@ -7,6 +7,7 @@ title: Installation guide
 ```powershell
 Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber
 Install-Module Audit365 -Scope CurrentUser -Force -AllowClobber
+Import-Module Audit365 -Force
 
 if (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }
 cd M365Advisor-tests

@@ -58,7 +58,7 @@ const frameworks = [
     icon: "🌀",
     tag: "CIS Benchmark",
     keywords: ["cis", "benchmark", "foundations", "microsoft 365", "cis benchmark"],
-    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
+    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\nImport-Module Audit365 -Force\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
     connectCmd: "Connect-M365Advisor -Service All",
     runCmd: "Invoke-M365Advisor -Tag 'CIS'"
   },
@@ -72,7 +72,7 @@ const frameworks = [
     icon: "🌐",
     tag: "ISO 27001",
     keywords: ["iso", "iso27001", "iso 27001", "isms", "information security", "27001"],
-    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
+    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\nImport-Module Audit365 -Force\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
     connectCmd: "Connect-M365Advisor -Service All",
     runCmd: "Invoke-M365Advisor -Path .\\iso27001"
   },
@@ -86,7 +86,7 @@ const frameworks = [
     icon: "📋",
     tag: "ISO 27002",
     keywords: ["iso", "iso27002", "iso 27002", "security controls", "27002"],
-    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
+    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\nImport-Module Audit365 -Force\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
     connectCmd: "Connect-M365Advisor -Service All",
     runCmd: "Invoke-M365Advisor -Path .\\iso27002"
   },
@@ -100,7 +100,7 @@ const frameworks = [
     icon: "🦅",
     tag: "CISA SCuBA",
     keywords: ["cisa", "scuba", "cisa scuba", "federal", "cloud security"],
-    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
+    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\nImport-Module Audit365 -Force\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
     connectCmd: "Connect-M365Advisor -Service All",
     runCmd: "Invoke-M365Advisor -Tag 'CISA'"
   },
@@ -114,7 +114,7 @@ const frameworks = [
     icon: "🛡️",
     tag: "EIDSCA",
     keywords: ["eidsca", "eidsa", "entra id", "entra", "identity", "sca"],
-    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
+    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\nImport-Module Audit365 -Force\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
     connectCmd: "Connect-M365Advisor -Service All",
     runCmd: "Invoke-M365Advisor -Tag 'EIDSCA'"
   },
