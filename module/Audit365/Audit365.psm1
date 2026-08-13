@@ -405,7 +405,7 @@ function ConvertTo-MtM365AdvisorResult {
             $testId = $name.Substring(0, $titleStart).Trim()
             $testTitle = $name.Substring($titleStart + 1).Trim()
         } else {
-            Write-Warning "Test name does not contain a ':' character. Please use the format 'TestId: TestTitle' → $name"
+            Write-Warning "Test name does not contain a ':' character. Please use the format 'TestId: TestTitle' -> $name"
         }
         $testResultDetail = $__MtSession.TestResultDetail[$test.ExpandedName]
 
@@ -4669,12 +4669,12 @@ function Get-MtMarkdownReport {
     }
 
     $StatusIconSm = @{
-        Passed      = '✅'
-        Failed      = '❌'
-        NotRun      = '❔'
-        Skipped     = '🚫'
-        Investigate = '🔍'
-        Error       = '⚠️'
+        Passed      = '[PASS]'
+        Failed      = '[FAIL]'
+        NotRun      = ''
+        Skipped     = ''
+        Investigate = ''
+        Error       = '[WARN]'
     }
 
     $ResultDisplayName = @{
@@ -4687,11 +4687,11 @@ function Get-MtMarkdownReport {
     }
 
     $SeverityIcon = @{
-        Critical = '🔴 Critical'
-        High     = '🟠 High'
-        Medium   = '🟡 Medium'
-        Low      = '🟢 Low'
-        Info     = 'ℹ️ Info'
+        Critical = ' Critical'
+        High     = ' High'
+        Medium   = ' Medium'
+        Low      = ' Low'
+        Info     = 'i Info'
     }
 
     function GetSeverityText($severity) {
@@ -4730,7 +4730,7 @@ function Get-MtMarkdownReport {
             } elseif (![string]::IsNullOrEmpty($test.ScriptBlock)) {
                 # Test author has not provided details, use default code in script
                 # make sure we do not execute the code in the script block!
-                $cleanedScriptBlock = $test.ScriptBlock.ToString() -replace '%\w+%', '' -replace '\$_', '€_' # or show me how I can make it not execute the $_ thing
+                $cleanedScriptBlock = $test.ScriptBlock.ToString() -replace '%\w+%', '' -replace '\$_', 'EUR_' # or show me how I can make it not execute the $_ thing
                 [void]$sb.Append("#### Overview`n`n``````ps1`n$cleanedScriptBlock`n```````n`n")
                 if (![string]::IsNullOrEmpty($test.ErrorRecord)) {
                     [void]$sb.Append("#### Reason for failure`n`n$($test.ErrorRecord)`n`n")
@@ -4814,13 +4814,13 @@ function Get-MtMarkdownSummaryReport {
         ''
         '| Metric | Count |'
         '| - | -: |'
-        "| Passed ✅ | $($M365AdvisorResults.PassedCount) |"
-        "| Failed ❌ | $($M365AdvisorResults.FailedCount) |"
-        "| Investigate 🕵️ | $($M365AdvisorResults.InvestigateCount) |"
-        "| Skipped ⏭️ | $($M365AdvisorResults.SkippedCount) |"
-        "| Error ⚠️ | $($M365AdvisorResults.ErrorCount) |"
-        "| Not Run 🛑 | $($M365AdvisorResults.NotRunCount) |"
-        "| Total 📊 | $($M365AdvisorResults.TotalCount) |"
+        "| Passed [PASS] | $($M365AdvisorResults.PassedCount) |"
+        "| Failed [FAIL] | $($M365AdvisorResults.FailedCount) |"
+        "| Investigate  | $($M365AdvisorResults.InvestigateCount) |"
+        "| Skipped  | $($M365AdvisorResults.SkippedCount) |"
+        "| Error [WARN] | $($M365AdvisorResults.ErrorCount) |"
+        "| Not Run  | $($M365AdvisorResults.NotRunCount) |"
+        "| Total  | $($M365AdvisorResults.TotalCount) |"
     )
 
     return ($lines -join "`n")
@@ -5982,7 +5982,7 @@ function Set-M365AdvisorAppPermission {
                 continue
             }
 
-            Write-Host "➕ Adding permission '$scope'..." -ForegroundColor Yellow
+            Write-Host " Adding permission '$scope'..." -ForegroundColor Yellow
             # Add the permission
             $permissionBody = @{
                 principalId = $appSP.id
@@ -5994,7 +5994,7 @@ function Set-M365AdvisorAppPermission {
             $response = Invoke-MtAzureRequest -RelativeUri "servicePrincipals/$($appSP.id)/appRoleAssignments" -Method POST -Payload $permissionBody -Graph
 
             if ($response.error) {
-                Write-Error "❌ Failed to add permission '$scope': [$($response.error.code)] $($response.error.message)"
+                Write-Error "[FAIL] Failed to add permission '$scope': [$($response.error.code)] $($response.error.message)"
                 $failedPermissions.Add($scope)
             } else {
                 Write-Verbose "Successfully added permission: $scope"
@@ -6079,11 +6079,11 @@ function Set-MtGitHubActionsSecret {
             Write-Warning "Failed to set $name on $GitHubRepository : $output"
             return $false
         }
-        Write-Host "  ✓ $name set" -ForegroundColor Green
+        Write-Host "   $name set" -ForegroundColor Green
     }
 
     Write-Host ""
-    Write-Host "✅ AZURE_CLIENT_ID and AZURE_TENANT_ID configured on $GitHubRepository." -ForegroundColor Green
+    Write-Host "[PASS] AZURE_CLIENT_ID and AZURE_TENANT_ID configured on $GitHubRepository." -ForegroundColor Green
     Write-Host ""
     return $true
 }
@@ -6122,12 +6122,12 @@ function Show-MtLogo {
     # ASCII Art using style "ANSI Shadow"
     $Logo = @"
 
-    ███╗   ███╗██████╗  ██████╗ ███████╗ █████╗ ██████╗ ██╗   ██╗██╗███████╗ ██████╗ ██████╗ 
-    ████╗ ████║╚════██╗██╔════╝ ██╔════╝██╔══██╗██╔══██╗██║   ██║██║██╔════╝██╔═══██╗██╔══██╗
-    ██╔████╔██║ █████╔╝███████╗ ███████╗███████║██║  ██║██║   ██║██║███████╗██║   ██║██████╔╝
-    ██║╚██╔╝██║ ╚═══██╗██╔═══██╗╚════██║██╔══██║██║  ██║╚██╗ ██╔╝██║╚════██║██║   ██║██╔══██╗
-    ██║ ╚═╝ ██║██████╔╝╚██████╔╝███████║██║  ██║██████╔╝ ╚████╔╝ ██║███████║╚██████╔╝██║  ██║
-    ╚═╝     ╚═╝╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═════╝   ╚═══╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝ v$Version
+                   
+         
+              
+           
+            
+                        v$Version
 
 "@
 
@@ -6191,7 +6191,7 @@ function Test-MtContext {
         $missingScopes = $requiredScopes | Where-Object { $currentScopes -notcontains $_ -and $currentScopes -notcontains ($_ -replace '.Read.', '.ReadWrite.') }
 
         if ($missingScopes) {
-            $message = "⚠️  These Graph permissions are missing in the current connection => ($($missingScopes))."
+            $message = "[WARN]  These Graph permissions are missing in the current connection => ($($missingScopes))."
 
             if ($context.AuthType -eq 'Delegated') {
                 $message += " Please use 'Connect-M365Advisor'. For more information, use 'Get-Help Connect-M365Advisor'."
@@ -6212,7 +6212,7 @@ function Test-MtContext {
             throw $message
         }
         else {
-            Write-Warning "⚠️  Continuing with missing permissions; expect failures."
+            Write-Warning "[WARN]  Continuing with missing permissions; expect failures."
             Write-Warning $message
         }
     }
@@ -6390,7 +6390,7 @@ function Write-MtProgress {
     )
 
     try {
-        $Activity = "🔥 $Activity"
+        $Activity = " $Activity"
 
         if ($Status) {
             $statusString = if ($Status -is [string]) { $Status } else { Out-String -InputObject $Status }
@@ -6498,10 +6498,10 @@ function Get-MtXspmAuthenticationArtifactIcon {
     )
     #region Token Artifact type
     switch ($ArtifactType) {
-        'PrimaryRefreshToken'    { "🪙" }
-        'UserCookie'             { "🍪" }
-        'UserAzureCliSecretData' { "🔑" }
-        Default                  { "ℹ️" }
+        'PrimaryRefreshToken'    { "" }
+        'UserCookie'             { "" }
+        'UserAzureCliSecretData' { "" }
+        Default                  { "i" }
     }
     #endregion
 }
@@ -6626,15 +6626,15 @@ function Get-MtXspmPrivilegedClassificationIcon {
     )
     #region Classification icon
     if ($AdminTierLevelName -contains 'ControlPlane') {
-        $AdminTierLevelIcon = "🔐"
+        $AdminTierLevelIcon = ""
     } elseif ($AdminTierLevelName -contains 'ManagementPlane') {
-        $AdminTierLevelIcon = "☁️"
+        $AdminTierLevelIcon = ""
     } elseif ($AdminTierLevelName -contains 'WorkloadPlane') {
-        $AdminTierLevelIcon = "⚙️"
+        $AdminTierLevelIcon = ""
     } elseif ($AdminTierLevelName -contains 'High') {
-        $AdminTierLevelIcon = "⚠️"
+        $AdminTierLevelIcon = "[WARN]"
     } else {
-        $AdminTierLevelIcon = "ℹ️"
+        $AdminTierLevelIcon = "i"
     }
     return $AdminTierLevelIcon
     #endregion
@@ -7175,7 +7175,7 @@ function Add-MtTestResultDetail {
             $SkippedReason = $SkippedCustomReason
         } elseif ($SkippedBecause -eq 'Error') {
 
-            $SkippedReason = "An error occurred while running the test. ⚠️"
+            $SkippedReason = "An error occurred while running the test. [WARN]"
             if ($SkippedError) {
                 $SkippedReason += "`n`n" + '```' + "`n`n" + ($SkippedError | Out-String) + "`n`n" + '```' + "`n`n"
             }
@@ -7398,7 +7398,7 @@ function Test-MtCis365PublicGroup {
         $resultMd += "| --- | --- |`n"
         foreach ($item in $result) {
             $itemCount += 1
-            $itemResult = '❌ Fail'
+            $itemResult = '[FAIL] Fail'
             # We are restricting the table output to 50 below as it could be extremely large
             if ($itemCount -lt 51) {
                 $resultMd += "| $($item.displayName) | $($itemResult) |`n"
@@ -7466,10 +7466,10 @@ function Test-MtCisAdminConsentWorkflowEnabled {
         $resultMd += "| --- | --- |`n"
 
         if ($checkAdminConsentWorkflowEnabled) {
-            $checkAdminConsentWorkflowEnabledResult = '✅ Pass'
+            $checkAdminConsentWorkflowEnabledResult = '[PASS] Pass'
         }
         else {
-            $checkAdminConsentWorkflowEnabledResult = '❌ Fail'
+            $checkAdminConsentWorkflowEnabledResult = '[FAIL] Fail'
         }
 
         $resultMd += "| Users can request admin consent to apps they are unable to consent to | $checkAdminConsentWorkflowEnabledResult |`n"
@@ -7543,10 +7543,10 @@ function Test-MtCisAttachmentFilter {
         $resultMd += "| --- | --- |`n"
 
         if ($testResult) {
-            $Result = "✅ Pass"
+            $Result = "[PASS] Pass"
         }
         else {
-            $Result = "❌ Fail"
+            $Result = "[FAIL] Fail"
         }
 
         $resultMd += "| EnableFileFilter | $Result |`n"
@@ -7652,7 +7652,7 @@ function Test-MtCisAttachmentFilterComprehensive {
         $resultMd = "| Extension Name | Result |`n"
         $resultMd += "| --- | --- |`n"
         foreach ($item in $missingExtensionList) {
-            $itemResult = '❌ Fail'
+            $itemResult = '[FAIL] Fail'
             $resultMd += "| $($item) | $($itemResult) |`n"
         }
 
@@ -7709,9 +7709,9 @@ function Test-MtCisAuditLogSearch {
         $resultMd += "| --- | --- |`n"
         foreach ($item in $auditLogSearch) {
             if ($item.UnifiedAuditLogIngestionEnabled) {
-                $itemResult = '✅ Enabled'
+                $itemResult = '[PASS] Enabled'
             } else {
-                $itemResult = '❌ Disabled'
+                $itemResult = '[FAIL] Disabled'
             }
             $resultMd += "| $($item.Name) | $($itemResult) |`n"
         }
@@ -7773,9 +7773,9 @@ function Test-MtCisCalendarSharing {
         $result += "| --- | --- |`n"
         foreach ($item in $policies | Sort-Object -Property Name) {
             $portalLink = "https://admin.exchange.microsoft.com/#/individualsharing/:/individualsharingdetails/$($item.ExchangeObjectId)/managedomain"
-            $itemResult = '✅ Pass'
+            $itemResult = '[PASS] Pass'
             if ($item.ExchangeObjectId -in $resultPolicies.ExchangeObjectId) {
-                $itemResult = '❌ Fail'
+                $itemResult = '[FAIL] Fail'
             }
             $result += "| [$($item.Name)]($portalLink) | $($itemResult) |`n"
         }
@@ -7858,9 +7858,9 @@ function Test-MtCisCloudAdmin {
         $resultMd = "| Display Name | Cloud Only |`n"
         $resultMd += "| --- | --- |`n"
         foreach ($item in $users | Sort-Object @sortSplat) {
-            $itemResult = '❌ Fail'
+            $itemResult = '[FAIL] Fail'
             if ($item.id -notin $result.id) {
-                $itemResult = '✅ Pass'
+                $itemResult = '[PASS] Pass'
             }
             $resultMd += "| $($item.displayName) | $($itemResult) |`n"
         }
@@ -8017,9 +8017,9 @@ function Test-MtCisConnectionFilterSafeList {
         $testResult = -not $result
 
         if ($testResult) {
-            $testResultMarkdown = 'Well done. The connection filter safe list was not enabled ✅'
+            $testResultMarkdown = 'Well done. The connection filter safe list was not enabled [PASS]'
         } else {
-            $testResultMarkdown = 'The connection filter safe list was enabled ❌'
+            $testResultMarkdown = 'The connection filter safe list was enabled [FAIL]'
         }
 
         Add-MtTestResultDetail -Result $testResultMarkdown
@@ -8077,10 +8077,10 @@ function Test-MtCisCreateTenantDisallowed {
         $resultMd += "| --- | --- |`n"
 
         if ($checkAllowedToCreateTenants) {
-            $checkAllowedToCreateTenantsResult = '✅ Pass'
+            $checkAllowedToCreateTenantsResult = '[PASS] Pass'
         }
         else {
-            $checkAllowedToCreateTenantsResult = '❌ Fail'
+            $checkAllowedToCreateTenantsResult = '[FAIL] Fail'
         }
 
         $resultMd += "| Restrict non-admin users from creating tenants | $checkAllowedToCreateTenantsResult |`n"
@@ -8149,9 +8149,9 @@ function Test-MtCisCustomerLockBox {
             $resultMd = "| Customer Lockbox |`n"
             $resultMd += "| --- |`n"
             foreach ($item in $customerLockbox) {
-                $itemResult = "❌ Fail"
+                $itemResult = "[FAIL] Fail"
                 if ($item.id -notin $result.id) {
-                    $itemResult = "✅ Pass"
+                    $itemResult = "[PASS] Pass"
                 }
                 $resultMd += "| $($itemResult) |`n"
             }
@@ -8219,10 +8219,10 @@ function Test-MtCisDevicesWithoutCompliancePolicyMarked {
         $resultMd += "| --- | --- |`n"
 
         if ($checkSecureByDefault) {
-            $checkSecureByDefaultResult = '✅ Pass'
+            $checkSecureByDefaultResult = '[PASS] Pass'
         }
         else {
-            $checkSecureByDefaultResult = '❌ Fail'
+            $checkSecureByDefaultResult = '[FAIL] Fail'
         }
 
         $resultMd += "| Mark devices with no compliance policy assigned as 'Not compliant' | $checkSecureByDefaultResult |`n"
@@ -8353,9 +8353,9 @@ function Test-MtCisDkim {
             $testResultMarkdown = "Your tenant's domains do not have DKIM fully deployed. Review [EXO configuration]($portalLink) and DNS records.`n`n%TestResult%"
         }
 
-        $passResult = '✅ Pass'
-        $failResult = '❌ Fail'
-        $skipResult = '🗄️ Skip'
+        $passResult = '[PASS] Pass'
+        $failResult = '[FAIL] Fail'
+        $skipResult = ' Skip'
         $result = "| Domain | Result | Reason |`n"
         $result += "| --- | --- | --- |`n"
         foreach ($item in $dkimRecords | Sort-Object -Property domain) {
@@ -8523,10 +8523,10 @@ function Test-MtCisEnsureUserConsentToAppsDisallowed {
         $resultMd += "| --- | --- |`n"
 
         if ($testResult) {
-            $checkResult = '✅ Pass'
+            $checkResult = '[PASS] Pass'
         }
         else {
-            $checkResult = '❌ Fail'
+            $checkResult = '[FAIL] Fail'
         }
 
         $resultMd += "| User consent for applications | $checkResult |`n"
@@ -8658,10 +8658,10 @@ function Test-MtCisFormsPhishingProtectionEnabled {
         $resultMd += "| --- | --- |`n"
 
         if ($CheckIsInOrgFormsPhishingScanEnabled) {
-            $CheckIsInOrgFormsPhishingScanEnabledResult = '✅ Pass'
+            $CheckIsInOrgFormsPhishingScanEnabledResult = '[PASS] Pass'
         }
         else {
-            $CheckIsInOrgFormsPhishingScanEnabledResult = '❌ Fail'
+            $CheckIsInOrgFormsPhishingScanEnabledResult = '[FAIL] Fail'
         }
 
         $resultMd += "| Add internal phishing protection | $CheckIsInOrgFormsPhishingScanEnabledResult |`n"
@@ -8768,9 +8768,9 @@ function Test-MtCisHostedConnectionFilterPolicy {
         $testResult = -not $connectionFilterIPAllowList.IPAllowList -or $connectionFilterIPAllowList.IPAllowList.Count -eq 0
 
         if ($testResult) {
-            $testResultMarkdown = 'Well done. The connection filter IP allow list was empty ✅'
+            $testResultMarkdown = 'Well done. The connection filter IP allow list was empty [PASS]'
         } else {
-            $testResultMarkdown = 'The connection filter IP allow list was not empty ❌'
+            $testResultMarkdown = 'The connection filter IP allow list was not empty [FAIL]'
         }
 
         Add-MtTestResultDetail -Result $testResultMarkdown
@@ -8841,15 +8841,15 @@ function Test-MtCisInternalMalwareNotification {
         $resultMd += "| --- | --- |`n"
 
         if ($enableInternalSenderAdminNotification) {
-            $enableInternalSenderAdminNotificationResult = '✅ Pass'
+            $enableInternalSenderAdminNotificationResult = '[PASS] Pass'
         } else {
-            $enableInternalSenderAdminNotificationResult = '❌ Fail'
+            $enableInternalSenderAdminNotificationResult = '[FAIL] Fail'
         }
 
         if ($internalSenderAdminAddress) {
-            $internalSenderAdminAddressResult = '✅ Pass'
+            $internalSenderAdminAddressResult = '[PASS] Pass'
         } else {
-            $internalSenderAdminAddressResult = '❌ Fail'
+            $internalSenderAdminAddressResult = '[FAIL] Fail'
         }
 
         $resultMd += "| EnableInternalSenderAdminNotification | $enableInternalSenderAdminNotificationResult |`n"
@@ -8940,9 +8940,9 @@ function Test-MtCisOutboundSpamFilterPolicy {
         $resultMd = "| Check Name | Result |`n"
         $resultMd += "| --- | --- |`n"
         foreach ($item in $OutboundSpamFilterPolicyCheckList) {
-            $itemResult = '❌ Fail'
+            $itemResult = '[FAIL] Fail'
             if ($item.CheckName -notin $failedCheckList) {
-                $itemResult = '✅ Pass'
+                $itemResult = '[PASS] Pass'
             }
             $resultMd += "| $($item.CheckName) | $($itemResult) |`n"
         }
@@ -9030,11 +9030,11 @@ function Test-MtCisPasswordExpiry {
         $resultMd = "| Domain | Result |`n"
         $resultMd += "| --- | --- |`n"
         foreach ($item in $domains) {
-            $itemResult = '❌ Fail'
+            $itemResult = '[FAIL] Fail'
             if ($item.id -in $excludedDomains.id) {
-                $itemResult = '⏭️ Skip'
+                $itemResult = ' Skip'
             } elseif ($item.id -notin $result.id) {
-                $itemResult = '✅ Pass'
+                $itemResult = '[PASS] Pass'
             }
             $resultMd += "| $($item.Id) | $($itemResult) |`n"
         }
@@ -9151,9 +9151,9 @@ function Test-MtCisSafeAntiPhishingPolicy {
         $resultMd = "| Check Name | Result |`n"
         $resultMd += "| --- | --- |`n"
         foreach ($item in $antiPhishingPolicyCheckList) {
-            $itemResult = '❌ Fail'
+            $itemResult = '[FAIL] Fail'
             if ($item.CheckName -notin $failedCheckList) {
-                $itemResult = '✅ Pass'
+                $itemResult = '[PASS] Pass'
             }
             $resultMd += "| $($item.CheckName) | $($itemResult) |`n"
         }
@@ -9252,9 +9252,9 @@ function Test-MtCisSafeAttachment {
         $resultMd = "| Check Name | Result |`n"
         $resultMd += "| --- | --- |`n"
         foreach ($item in $safeAttachmentCheckList) {
-            $itemResult = '❌ Fail'
+            $itemResult = '[FAIL] Fail'
             if ($item.CheckName -notin $failedCheckList) {
-                $itemResult = '✅ Pass'
+                $itemResult = '[PASS] Pass'
             }
             $resultMd += "| $($item.CheckName) | $($itemResult) |`n"
         }
@@ -9349,9 +9349,9 @@ function Test-MtCisSafeAttachmentsAtpPolicy {
         $resultMd = "| Check Name | Result |`n"
         $resultMd += "| --- | --- |`n"
         foreach ($item in $atpPolicyCheckList) {
-            $itemResult = '❌ Fail'
+            $itemResult = '[FAIL] Fail'
             if ($item.CheckName -notin $failedCheckList) {
-                $itemResult = '✅ Pass'
+                $itemResult = '[PASS] Pass'
             }
             $resultMd += "| $($item.CheckName) | $($itemResult) |`n"
         }
@@ -9487,9 +9487,9 @@ function Test-MtCisSafeLink {
         $resultMd = "| Check Name | Result |`n"
         $resultMd += "| --- | --- |`n"
         foreach ($item in $safeLinkCheckList) {
-            $itemResult = '❌ Fail'
+            $itemResult = '[FAIL] Fail'
             if ($item.CheckName -notin $failedCheckList) {
-                $itemResult = '✅ Pass'
+                $itemResult = '[PASS] Pass'
             }
             $resultMd += "| $($item.CheckName) | $($itemResult) |`n"
         }
@@ -9572,9 +9572,9 @@ function Test-MtCisSharedMailboxSignIn {
         $resultMd = "| Shared Mailbox | Sign-in Disabled |`n"
         $resultMd += "| --- | --- |`n"
         foreach ($item in $result | Sort-Object @sortSplat) {
-            $itemResult = '❌ Fail'
+            $itemResult = '[FAIL] Fail'
             if ($item.id -notin $result.id) {
-                $itemResult = '✅ Pass'
+                $itemResult = '[PASS] Pass'
             }
             $resultMd += "| $($item.displayName) | $($itemResult) |`n"
         }
@@ -9937,8 +9937,8 @@ function Test-MtCisTeamsReportSecurityConcerns {
         $MicrosoftTeamsCheck = Get-CsTeamsMessagingPolicy -Identity Global | Select-Object AllowSecurityEndUserReporting
         $MicrosoftReportPolicy = Get-ReportSubmissionPolicy | Select-Object ReportJunkToCustomizedAddress, ReportNotJunkToCustomizedAddress, ReportPhishToCustomizedAddress, ReportJunkAddresses, ReportNotJunkAddresses, ReportPhishAddresses, ReportChatMessageEnabled, ReportChatMessageToCustomizedAddressEnabled
 
-        $passResult = '✅ Pass'
-        $failResult = '❌ Fail'
+        $passResult = '[PASS] Pass'
+        $failResult = '[FAIL] Fail'
 
         $result = "| Policy | Value | Status |`n"
         $result += "| --- | --- | --- |`n"
@@ -10047,8 +10047,8 @@ function Test-MtCisThirdPartyAndCustomApps {
         $return = $true
         $appPermPolicy = Get-CsTeamsAppPermissionPolicy -Identity Global
 
-        $passResult = '✅ Pass'
-        $failResult = '❌ Fail'
+        $passResult = '[PASS] Pass'
+        $failResult = '[FAIL] Fail'
 
         $result = "| Policy | Value | Status |`n"
         $result += "| --- | --- | --- |`n"
@@ -10154,10 +10154,10 @@ function Test-MtCisThirdPartyApplicationsDisallowed {
         $resultMd += "| --- | --- |`n"
 
         if ($checkAllowedToCreateApps) {
-            $checkAllowedToCreateAppsResult = '✅ Pass'
+            $checkAllowedToCreateAppsResult = '[PASS] Pass'
         }
         else {
-            $checkAllowedToCreateAppsResult = '❌ Fail'
+            $checkAllowedToCreateAppsResult = '[FAIL] Fail'
         }
 
         $resultMd += "| Users can register applications | $checkAllowedToCreateAppsResult |`n"
@@ -10206,8 +10206,8 @@ function Test-MtCisThirdPartyFileSharing {
         $return = $true
         $thirdPartyCloudServices = Get-CsTeamsClientConfiguration -Identity Global | Select-Object AllowDropbox, AllowBox, AllowGoogleDrive, AllowShareFile, AllowEgnyte
 
-        $passResult = '✅ Pass'
-        $failResult = '❌ Fail'
+        $passResult = '[PASS] Pass'
+        $failResult = '[FAIL] Fail'
 
         $result = "| Policy | Value | Status |`n"
         $result += "| --- | --- | --- |`n"
@@ -10291,10 +10291,10 @@ function Test-MtCisThirdPartyStorageServicesRestricted {
         $resultMd += "| --- | --- |`n"
 
         if ($testResult) {
-            $ThirdPartyStorageResult = '✅ Pass'
+            $ThirdPartyStorageResult = '[PASS] Pass'
         }
         else {
-            $ThirdPartyStorageResult = '❌ Fail'
+            $ThirdPartyStorageResult = '[FAIL] Fail'
         }
 
         $resultMd += "| Let users open files stored in third-party storage services in Microsoft 365 on the web | $ThirdPartyStorageResult |`n"
@@ -10365,17 +10365,17 @@ function Test-MtCisUserOwnedAppsRestricted {
         $resultMd += "| --- | --- |`n"
 
         if ($CheckIsOfficeStoreEnabled) {
-            $CheckIsOfficeStoreEnabledResult = '✅ Pass'
+            $CheckIsOfficeStoreEnabledResult = '[PASS] Pass'
         }
         else {
-            $CheckIsOfficeStoreEnabledResult = '❌ Fail'
+            $CheckIsOfficeStoreEnabledResult = '[FAIL] Fail'
         }
 
         if ($CheckIsAppAndServicesTrialEnabled) {
-            $CheckIsAppAndServicesTrialEnabledResult = '✅ Pass'
+            $CheckIsAppAndServicesTrialEnabledResult = '[PASS] Pass'
         }
         else {
-            $CheckIsAppAndServicesTrialEnabledResult = '❌ Fail'
+            $CheckIsAppAndServicesTrialEnabledResult = '[FAIL] Fail'
         }
 
         $resultMd += "| Let users access the Office Store | $CheckIsOfficeStoreEnabledResult |`n"
@@ -10441,24 +10441,24 @@ function Test-MtCisWeakAuthenticationMethodsDisabled {
         $resultMd += "| --- | --- |`n"
 
         if ($checkSms) {
-            $checkSmsResult = '✅ Pass'
+            $checkSmsResult = '[PASS] Pass'
         }
         else {
-            $checkSmsResult = '❌ Fail'
+            $checkSmsResult = '[FAIL] Fail'
         }
 
         if ($checkVoice) {
-            $checkVoiceResult = '✅ Pass'
+            $checkVoiceResult = '[PASS] Pass'
         }
         else {
-            $checkVoiceResult = '❌ Fail'
+            $checkVoiceResult = '[FAIL] Fail'
         }
 
         if ($checkEmail) {
-            $checkEmailResult = '✅ Pass'
+            $checkEmailResult = '[PASS] Pass'
         }
         else {
-            $checkEmailResult = '❌ Fail'
+            $checkEmailResult = '[FAIL] Fail'
         }
 
         $resultMd += "| SMS | $checkSmsResult |`n"
@@ -10525,9 +10525,9 @@ function Test-MtCisZAP {
         $resultMd = "| Zero-hour auto purge (ZAP) |`n"
         $resultMd += "| --- |`n"
         if ($testResult) {
-            $itemResult = '✅ Enabled'
+            $itemResult = '[PASS] Enabled'
         } else {
-            $itemResult = '❌ Not Enabled'
+            $itemResult = '[FAIL] Not Enabled'
         }
         $resultMd += "| $($itemResult) |`n"
 
@@ -10632,8 +10632,8 @@ function Test-MtCisaActivationNotification {
     $testResult = ($misconfigured|Measure-Object).Count -eq 0
 
     $link = "https://entra.microsoft.com/#view/Microsoft_Azure_PIMCommon/ResourceMenuBlade/~/roles/resourceId//resourceType/tenant/provider/aadroles"
-    $resultFail = "❌ Fail"
-    $resultPass = "✅ Pass"
+    $resultFail = "[FAIL] Fail"
+    $resultPass = "[PASS] Pass"
 
     if ($testResult) {
         $testResultMarkdown = "Well done. Your tenant has notifications for [role activations]($link).`n`n%TestResult%"
@@ -10880,8 +10880,8 @@ function Test-MtCisaAssignmentNotification {
 
     $testResult = ($misconfigured|Measure-Object).Count -eq 0
 
-    $resultFail = "❌ Fail"
-    $resultPass = "✅ Pass"
+    $resultFail = "[FAIL] Fail"
+    $resultPass = "[PASS] Pass"
 
     if ($testResult) {
         $testResultMarkdown = "Well done. Your tenant has notifications for any highly privileged role assignments:`n`n%TestResult%"
@@ -10948,8 +10948,8 @@ function Test-MtCisaAuthenticatorContext {
     $testResult = (($policies|Measure-Object).Count -ge 1)
 
     $link = "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AdminAuthMethods/fromNav/Identity"
-    $resultFail = "❌ Fail"
-    $resultPass = "✅ Pass"
+    $resultFail = "[FAIL] Fail"
+    $resultPass = "[PASS] Pass"
 
     if ($testResult) {
         $testResultMarkdown = "Well done. Your tenant has the [Authentication Methods]($link) policy for Microsoft Authenticator set appropriately.`n`n"
@@ -11264,12 +11264,12 @@ function Test-MtCisaCrossTenantInboundDefault {
     $portalLink = "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/InboundAccessSettings.ReactView/isDefault~/true/name//id/"
     $result = "| External Users & Groups | Applications |`n"
     $result += "| --- | --- |`n"
-    $usersAndGroups = $applications = "❌ Fail"
+    $usersAndGroups = $applications = "[FAIL] Fail"
     if($policy.b2bCollaborationInbound.usersAndGroups.accessType -eq "blocked"){
-        $usersAndGroups = "[✅ Pass]($portalLink)"
+        $usersAndGroups = "[[PASS] Pass]($portalLink)"
     }
     if($policy.b2bCollaborationInbound.applications.accessType -eq "blocked"){
-        $applications = "[✅ Pass]($portalLink)"
+        $applications = "[[PASS] Pass]($portalLink)"
     }
     $result += "| $usersAndGroups | $applications |`n"
     $testResultMarkdown = $testResultMarkdown -replace "%TestResult%", $result
@@ -11378,9 +11378,9 @@ function Test-MtCisaDiagnosticSettings {
     } | Measure-Object).Count -eq 0
 
     $link = "https://entra.microsoft.com/#view/Microsoft_AAD_IAM/DiagnosticSettingsMenuBlade/~/General"
-    $resultFail = "❌ Fail"
-    $resultPass = "✅ Pass"
-    $resultOptional = "❔ Optional"
+    $resultFail = "[FAIL] Fail"
+    $resultPass = "[PASS] Pass"
+    $resultOptional = " Optional"
 
     if ($testResult) {
         $testResultMarkdown = "Well done. Your tenant has [diagnostic settings]($link) configured for all logs."
@@ -11993,10 +11993,10 @@ function Test-MtCisaPasswordExpiration {
         $testResultMarkdown = "Your tenant has 1 or more managed domains where password expiration is not explicitly set to never expire.`n`n%TestResult%"
     }
 
-    $pass = "✅ Pass"
-    $fail = "❌ Fail"
-    $skip = "🗄️ Skipped"
-    $default = "✔️"
+    $pass = "[PASS] Pass"
+    $fail = "[FAIL] Fail"
+    $skip = " Skipped"
+    $default = ""
 
     $resultDetails = "| Domain (Default) | Verified | Type | Validation | Reason |`n"
     $resultDetails += "| --- | --- | --- | --- | --- |`n"
@@ -12109,7 +12109,7 @@ function Test-MtCisaPermanentRoleAssignment {
         $result += "| --- | --- | --- | --- |`n"
         foreach($roleAssignment in ($roleAssignments | Where-Object {$_.principal})){
             foreach($principal in $roleAssignment.principal){
-                $result += "| $($roleAssignment.role) | $($principal.'@odata.type'.Split('.')[-1]) | $($principal.displayName ) | ❌ No Expiration |`n"
+                $result += "| $($roleAssignment.role) | $($principal.'@odata.type'.Split('.')[-1]) | $($principal.displayName ) | [FAIL] No Expiration |`n"
             }
         }
     }
@@ -12371,7 +12371,7 @@ function Test-MtCisaUnmanagedRoleAssignment {
                 } else {
                     Get-MtSafeMarkdown $principal.displayName
                 }
-                $result += "| $($roleAssignment.role) | $principalType | $displayName | ❌ No Start Date |`n"
+                $result += "| $($roleAssignment.role) | $principalType | $displayName | [FAIL] No Start Date |`n"
             }
         }
     }
@@ -12441,9 +12441,9 @@ function Test-MtCisaWeakFactor {
     $result = "| Authentication Method | State | Test Result |`n"
     $result += "| --- | --- | --- |`n"
     foreach ($item in $weakAuthMethods) {
-        $methodResult = "✅ Pass"
+        $methodResult = "[PASS] Pass"
         if ($item.state -eq "enabled") {
-            $methodResult = "❌ Fail"
+            $methodResult = "[FAIL] Fail"
         }
         $result += "| [$($item.id)]($authMethodsLink) | $($item.state) | $($methodResult) |`n"
     }
@@ -12628,7 +12628,7 @@ function ConvertFrom-MailAuthenticationRecordDmarc {
     alignmentSpf         : r
     version              : DMARC1
     warnings             : {sp: No subdomain policy set, adkim: No DKIM alignment set, defaults to relaxed, aspf: No SPF alignment set, defaults to relaxed, ri: No
-    report interval set, defaults to 86400 seconds…}
+    report interval set, defaults to 86400 seconds...}
     ```
 
     .EXAMPLE
@@ -12978,7 +12978,7 @@ function ConvertFrom-MailAuthenticationRecordSpf {
     ```
     record   : v=spf1 include:_spf-a.microsoft.com include:_spf-b.microsoft.com include:_spf-c.microsoft.com include:_spf-ssg-a.msft.net include:spf-a.hotmail.com
     include:_spf1-meo.microsoft.com -all
-    terms    : {SPFRecordTerm, SPFRecordTerm, SPFRecordTerm, SPFRecordTerm…}
+    terms    : {SPFRecordTerm, SPFRecordTerm, SPFRecordTerm, SPFRecordTerm...}
     warnings :
     ```
 
@@ -13964,8 +13964,8 @@ function Test-MtCisaAttachmentFileType {
     $testResult = $standard -and $strict -and (($fileFilter|Measure-Object).Count -ge 1)
 
     $portalLink = "https://security.microsoft.com/presetSecurityPolicies"
-    $passResult = "✅ Pass"
-    $failResult = "❌ Fail"
+    $passResult = "[PASS] Pass"
+    $failResult = "[FAIL] Fail"
 
     if ($testResult) {
         $testResultMarkdown = "Well done. Your tenant has [standard and strict preset security policies for the common file filter]($portalLink).`n`n%TestResult%"
@@ -14036,9 +14036,9 @@ function Test-MtCisaAttachmentFilter {
     $testResult = ($failingPolicies | Measure-Object).Count -eq 0
 
     $portalLink = "https://security.microsoft.com/antimalwarev2"
-    $passResult = "✅ Pass"
-    $failResult = "❌ Fail"
-    $skipResult = "🗄️ Skip"
+    $passResult = "[PASS] Pass"
+    $failResult = "[FAIL] Fail"
+    $skipResult = " Skip"
 
     $result = "| Policy name | Enabled | EnableFileFilter | Extensions | Result |`n"
     $result += "| --- | --- | --- | --- | --- |`n"
@@ -14247,10 +14247,10 @@ function Test-MtCisaAutoExternalForwarding {
     $result = "| Name | Domain | Automatic forwarding | Test Result |`n"
     $result += "| --- | --- | --- | --- |`n"
     foreach ($item in $domains | Sort-Object -Property Name) {
-        $itemResult = "✅ Pass"
+        $itemResult = "[PASS] Pass"
         $itemState = "Not allow automatic forwarding"
         if ($item.AutoForwardEnabled) {
-            $itemResult = "❌ Fail"
+            $itemResult = "[FAIL] Fail"
             $itemState = "Allow automatic forwarding"
         }
         $result += "| [$($item.Name)]($portalLink) | $($item.DomainName) | $($itemState) | $($itemResult) |`n"
@@ -14332,8 +14332,8 @@ function Test-MtCisaBlockExecutable {
     $testResult = $standard -and $strict -and (($fileFilter|Measure-Object).Count -ge 1)
 
     $portalLink = "https://security.microsoft.com/presetSecurityPolicies"
-    $passResult = "✅ Pass"
-    $failResult = "❌ Fail"
+    $passResult = "[PASS] Pass"
+    $failResult = "[FAIL] Fail"
 
     if ($testResult) {
         $testResultMarkdown = "Well done. Your tenant has [standard and strict preset security policies for the common file filter]($portalLink).`n`n%TestResult%"
@@ -14418,9 +14418,9 @@ function Test-MtCisaCalendarSharing {
     $result += "| --- | --- |`n"
     foreach ($item in $policies | Sort-Object -Property Name) {
         $portalLink = "https://admin.exchange.microsoft.com/#/individualsharing/:/individualsharingdetails/$($item.ExchangeObjectId)/managedomain"
-        $itemResult = "✅ Pass"
+        $itemResult = "[PASS] Pass"
         if ($item.ExchangeObjectId -in $resultPolicies.ExchangeObjectId) {
-            $itemResult = "❌ Fail"
+            $itemResult = "[FAIL] Fail"
         }
         $result += "| [$($item.Name)]($portalLink) | $($itemResult) |`n"
     }
@@ -14477,9 +14477,9 @@ function Test-MtCisaContactSharing {
     $result += "| --- | --- |`n"
     foreach ($item in $policies | Sort-Object -Property Name) {
         $portalLink = "https://admin.exchange.microsoft.com/#/individualsharing/:/individualsharingdetails/$($item.ExchangeObjectId)/managedomain"
-        $itemResult = "✅ Pass"
+        $itemResult = "[PASS] Pass"
         if ($item.ExchangeObjectId -in $resultPolicies.ExchangeObjectId) {
-            $itemResult = "❌ Fail"
+            $itemResult = "[FAIL] Fail"
         }
         $result += "| [$($item.Name)]($portalLink) | $($itemResult) |`n"
     }
@@ -14603,9 +14603,9 @@ function Test-MtCisaDkim {
         $testResultMarkdown = "Your tenant's domains do not have DKIM fully deployed. Review [EXO configuration]($portalLink) and DNS records.`n`n%TestResult%"
     }
 
-    $passResult = "✅ Pass"
-    $failResult = "❌ Fail"
-    $skipResult = "🗄️ Skip"
+    $passResult = "[PASS] Pass"
+    $failResult = "[FAIL] Fail"
+    $skipResult = " Skip"
     $result = "| Domain | Result | Reason |`n"
     $result += "| --- | --- | --- |`n"
     foreach ($item in $dkimRecords | Sort-Object -Property domain) {
@@ -14675,8 +14675,8 @@ function Test-MtCisaDlp {
     }
 
     if ($policies) {
-        $passResult = "✅ Pass"
-        $failResult = "❌ Fail"
+        $passResult = "[PASS] Pass"
+        $failResult = "[FAIL] Fail"
         $result = "| Name | Status | Description |`n"
         $result += "| --- | --- | --- |`n"
         foreach ($item in ($policies | Sort-Object -Property name)) {
@@ -14806,8 +14806,8 @@ function Test-MtCisaDlpBaselineRule {
         $testResultMarkdown = "Your tenant does not have [Purview Data Loss Prevention Policies]($portalLink) enabled with the Sensitive Info Type of credit card numbers, U.S. Individual Taxpayer Identification Numbers (ITIN), and U.S. Social Security numbers (SSN).`n`n%TestResult%"
     }
 
-    $passResult = "✅ Pass"
-    $failResult = "❌ Fail"
+    $passResult = "[PASS] Pass"
+    $failResult = "[FAIL] Fail"
     $result = "Required Rules:`n`n"
     $result += "| Credit Card Number | U.S. Social Security Number | U.S. Individual Taxpayer Identification Number |`n"
     $result += "| --- | --- | --- |`n"
@@ -14895,8 +14895,8 @@ function Test-MtCisaDlpPii {
     }
 
     if ($rules) {
-        $passResult = "✅ Pass"
-        $failResult = "❌ Fail"
+        $passResult = "[PASS] Pass"
+        $failResult = "[FAIL] Fail"
         $result = "| Status | Policy | Rule |`n"
         $result += "| --- | --- | --- |`n"
         foreach ($item in ($rules | Sort-Object -Property ParentPolicyName,Name)) {
@@ -15029,8 +15029,8 @@ function Test-MtCisaDmarcAggregateCisa {
         $testResultMarkdown = "Your tenant's domains do not have DMARC aggregate reports sent to CISA.`n`n%TestResult%"
     }
 
-    $passResult = "✅ Pass"
-    $failResult = "❌ Fail"
+    $passResult = "[PASS] Pass"
+    $failResult = "[FAIL] Fail"
     $result = "| Domain | Result | Reason | Targets |`n"
     $result += "| --- | --- | --- | --- |`n"
     foreach ($item in $dmarcRecords) {
@@ -15161,9 +15161,9 @@ function Test-MtCisaDmarcRecordExist {
         $testResultMarkdown = "Your tenant's second level domains do not have a DMARC record.`n`n%TestResult%"
     }
 
-    $passResult = "✅ Pass"
-    $failResult = "❌ Fail"
-    $skipResult = "🗄️ Skip"
+    $passResult = "[PASS] Pass"
+    $failResult = "[FAIL] Fail"
+    $skipResult = " Skip"
     $result = "| Domain | Result | Reason | Targets |`n"
     $result += "| --- | --- | --- | --- |`n"
     foreach ($item in $dmarcRecords | Sort-Object -Property domain) {
@@ -15330,9 +15330,9 @@ function Test-MtCisaDmarcRecordReject {
         $testResultMarkdown = "Your tenant's domains do not have a DMARC record with reject policy.`n`n%TestResult%"
     }
 
-    $passResult = "✅ Pass"
-    $failResult = "❌ Fail"
-    $skipResult = "🗄️ Skip"
+    $passResult = "[PASS] Pass"
+    $failResult = "[FAIL] Fail"
+    $skipResult = " Skip"
     $result = "| Domain | Result | Reason | Policy | Subdomain Policy |`n"
     $result += "| --- | --- | --- | --- | --- |`n"
     foreach ($item in $dmarcRecords) {
@@ -15451,8 +15451,8 @@ function Test-MtCisaDmarcReport {
         $testResultMarkdown = "Your tenant's second level domains do not have in domain report targets.`n`n%TestResult%"
     }
 
-    $passResult = "✅ Pass"
-    $failResult = "❌ Fail"
+    $passResult = "[PASS] Pass"
+    $failResult = "[FAIL] Fail"
     $result = "| Domain | Result | Reason | Targets |`n"
     $result += "| --- | --- | --- | --- |`n"
     foreach ($item in $dmarcRecords | Sort-Object -Property domain) {
@@ -15578,8 +15578,8 @@ function Test-MtCisaExoAlert {
     $testResult = ($resultAlerts.Count -eq $cisaAlerts.Count)
 
     $portalLink = 'https://security.microsoft.com/alertpoliciesv2'
-    $passResult = '✅ Pass'
-    $failResult = '❌ Fail'
+    $passResult = '[PASS] Pass'
+    $failResult = '[FAIL] Fail'
 
     if ($testResult) {
         $testResultMarkdown = "Well done. Your tenant has [alerts configured]($portalLink).`n`n%TestResult%"
@@ -15697,9 +15697,9 @@ function Test-MtCisaExternalSenderWarning {
         $result += "| --- | --- |`n"
         foreach ($item in $rules | Sort-Object -Property Name) {
             $portalLink = "https://admin.exchange.microsoft.com/#/transportrules/:/ruleDetails/$($item.Guid)/viewinflyoutpanel"
-            $itemResult = "❌ Fail"
+            $itemResult = "[FAIL] Fail"
             if ($resultRules.Guid -contains $item.Guid) {
-                $itemResult = "✅ Pass"
+                $itemResult = "[PASS] Pass"
             }
             $result += "| [$($item.Name)]($portalLink) | $($itemResult) |`n"
         }
@@ -15778,8 +15778,8 @@ function Test-MtCisaImpersonation {
     $testResult = $standard -and $strict -and (($resultPolicies|Measure-Object).Count -ge 1)
 
     $portalLink = "https://security.microsoft.com/presetSecurityPolicies"
-    $passResult = "✅ Pass"
-    $failResult = "❌ Fail"
+    $passResult = "[PASS] Pass"
+    $failResult = "[FAIL] Fail"
 
     if ($testResult) {
         $testResultMarkdown = "Well done. Your tenant has [standard and strict preset security policies for the common file filter]($portalLink).`n`n%TestResult%"
@@ -15869,8 +15869,8 @@ function Test-MtCisaImpersonationTip {
     $testResult = $standard -and $strict -and (($resultPolicies|Measure-Object).Count -ge 1)
 
     $portalLink = "https://security.microsoft.com/presetSecurityPolicies"
-    $passResult = "✅ Pass"
-    $failResult = "❌ Fail"
+    $passResult = "[PASS] Pass"
+    $failResult = "[FAIL] Fail"
 
     if ($testResult) {
         $testResultMarkdown = "Well done. Your tenant has [standard and strict preset security policies for the common file filter]($portalLink).`n`n%TestResult%"
@@ -15940,10 +15940,10 @@ function Test-MtCisaMailboxAuditing {
 
     if ($testResult) {
         $testResultMarkdown = "Well done. Your tenant has mailbox auditing enabled.`n`n%TestResult%"
-        $result = "✅ Pass"
+        $result = "[PASS] Pass"
     } else {
         $testResultMarkdown = "Your tenant does not have mailbox auditing enabled.`n`n%TestResult%"
-        $result = "❌ Fail"
+        $result = "[FAIL] Fail"
     }
 
     $testResultMarkdown = $testResultMarkdown -replace "%TestResult%", $result
@@ -16004,8 +16004,8 @@ function Test-MtCisaMailboxIntelligence {
     $testResult = $standard -and $strict -and (($resultPolicies|Measure-Object).Count -ge 1)
 
     $portalLink = "https://security.microsoft.com/presetSecurityPolicies"
-    $passResult = "✅ Pass"
-    $failResult = "❌ Fail"
+    $passResult = "[PASS] Pass"
+    $failResult = "[FAIL] Fail"
 
     if ($testResult) {
         $testResultMarkdown = "Well done. Your tenant has [standard and strict preset security policies for the common file filter]($portalLink).`n`n%TestResult%"
@@ -16076,9 +16076,9 @@ function Test-MtCisaMalwareAction {
     $testResult = ($failingPolicies | Measure-Object).Count -eq 0
 
     $portalLink = "https://security.microsoft.com/antimalwarev2"
-    $passResult = "✅ Pass"
-    $failResult = "❌ Fail"
-    $skipResult = "🗄️ Skip"
+    $passResult = "[PASS] Pass"
+    $failResult = "[FAIL] Fail"
+    $skipResult = " Skip"
 
     $result = "| Policy name | Enabled | Quarantine Tag | Result |`n"
     $result += "| --- | --- | --- | --- |`n"
@@ -16137,9 +16137,9 @@ function Test-MtCisaMalwareZap {
     $testResult = ($failingPolicies | Measure-Object).Count -eq 0
 
     $portalLink = "https://security.microsoft.com/antimalwarev2"
-    $passResult = "✅ Pass"
-    $failResult = "❌ Fail"
-    $skipResult = "🗄️ Skip"
+    $passResult = "[PASS] Pass"
+    $failResult = "[FAIL] Fail"
+    $skipResult = " Skip"
 
     $result = "| Policy name | Enabled | ZapEnabled | Result |`n"
     $result += "| --- | --- | --- | --- |`n"
@@ -16215,8 +16215,8 @@ function Test-MtCisaSafeLink {
     $testResult = $standard -and $strict -and (($resultPolicies | Measure-Object).Count -ge 1)
 
     $portalLink = 'https://security.microsoft.com/presetSecurityPolicies'
-    $passResult = '✅ Pass'
-    $failResult = '❌ Fail'
+    $passResult = '[PASS] Pass'
+    $failResult = '[FAIL] Fail'
 
     if ($testResult) {
         $testResultMarkdown = "Well done. Your tenant has [standard and strict preset security policies]($portalLink).`n`n%TestResult%"
@@ -16303,8 +16303,8 @@ function Test-MtCisaSafeLinkClickTracking {
     $testResult = $standard -and $strict -and (($resultPolicies | Measure-Object).Count -ge 1)
 
     $portalLink = 'https://security.microsoft.com/presetSecurityPolicies'
-    $passResult = '✅ Pass'
-    $failResult = '❌ Fail'
+    $passResult = '[PASS] Pass'
+    $failResult = '[FAIL] Fail'
 
     if ($testResult) {
         $testResultMarkdown = "Well done. Your tenant has [standard and strict preset security policies]($portalLink).`n`n%TestResult%"
@@ -16391,8 +16391,8 @@ function Test-MtCisaSafeLinkDownloadScan {
     $testResult = $standard -and $strict -and (($resultPolicies|Measure-Object).Count -ge 1)
 
     $portalLink = "https://security.microsoft.com/presetSecurityPolicies"
-    $passResult = "✅ Pass"
-    $failResult = "❌ Fail"
+    $passResult = "[PASS] Pass"
+    $failResult = "[FAIL] Fail"
 
     if ($testResult) {
         $testResultMarkdown = "Well done. Your tenant has [standard and strict preset security policies]($portalLink).`n`n%TestResult%"
@@ -16519,8 +16519,8 @@ function Test-MtCisaSpamAction {
     $testResult = $standard -and $strict -and (($resultPolicies|Measure-Object).Count -ge 1)
 
     $portalLink = "https://security.microsoft.com/presetSecurityPolicies"
-    $passResult = "✅ Pass"
-    $failResult = "❌ Fail"
+    $passResult = "[PASS] Pass"
+    $failResult = "[FAIL] Fail"
 
     if ($testResult) {
         $testResultMarkdown = "Well done. Your tenant has [standard and strict preset security policies]($portalLink).`n`n%TestResult%"
@@ -16643,8 +16643,8 @@ function Test-MtCisaSpamBypass {
     $testResult = $standard -and $strict -and (($resultPolicies|Measure-Object).Count -eq 0)
 
     $portalLink = "https://security.microsoft.com/presetSecurityPolicies"
-    $passResult = "✅ Pass"
-    $failResult = "❌ Fail"
+    $passResult = "[PASS] Pass"
+    $failResult = "[FAIL] Fail"
 
     if ($testResult) {
         $testResultMarkdown = "Well done. Your tenant has [standard and strict preset security policies]($portalLink).`n`n%TestResult%"
@@ -16724,8 +16724,8 @@ function Test-MtCisaSpamFilter {
     $testResult = $standard -and $strict -and (($policies|Measure-Object).Count -ge 1)
 
     $portalLink = "https://security.microsoft.com/presetSecurityPolicies"
-    $passResult = "✅ Pass"
-    $failResult = "❌ Fail"
+    $passResult = "[PASS] Pass"
+    $failResult = "[FAIL] Fail"
 
     if ($testResult) {
         $testResultMarkdown = "Well done. Your tenant has [standard and strict preset security policies]($portalLink).`n`n%TestResult%"
@@ -16845,9 +16845,9 @@ function Test-MtCisaSpfDirective {
         $testResultMarkdown = "Not all Exchange Online accepted domains designate Exchange Online as approved sender.`n`n%TestResult%"
     }
 
-    $passResult = "✅ Pass"
-    $failResult = "❌ Fail"
-    $skipResult = "🗄️ Skip"
+    $passResult = "[PASS] Pass"
+    $failResult = "[FAIL] Fail"
+    $skipResult = " Skip"
     $result = "| Domain | Result | Reason | Directives |`n"
     $result += "| --- | --- | --- | --- |`n"
     foreach ($item in $spfRecords | Sort-Object -Property domain) {
@@ -17555,7 +17555,7 @@ function Connect-M365Advisor {
       }
 
       'PnP.PowerShell' {
-         # SharePoint Online via PnP — must run AFTER Graph to avoid Microsoft.Graph.Core DLL conflict
+         # SharePoint Online via PnP - must run AFTER Graph to avoid Microsoft.Graph.Core DLL conflict
          if ($Service -contains 'SharePointOnline' -or $Service -contains 'All') {
             Write-Verbose 'Connecting to SharePoint Online via PnP'
 
@@ -17865,7 +17865,7 @@ function Add-MtM365AdvisorAppFederatedCredential {
         $tenantId = (Get-AzContext).Tenant.Id
 
         Write-Host ""
-        Write-Host "🎉 Federated credential created successfully!" -ForegroundColor Green
+        Write-Host " Federated credential created successfully!" -ForegroundColor Green
         Write-Host ""
 
         $secretsConfigured = $false
@@ -19241,7 +19241,7 @@ function New-MtM365AdvisorApp {
     Write-Verbose "Creating application with body: $appBody"
     $app = Invoke-MtAzureRequest -RelativeUri 'applications' -Method POST -Payload $appBody -Graph
 
-    Write-Host "✅ Application created successfully" -ForegroundColor Green
+    Write-Host "[PASS] Application created successfully" -ForegroundColor Green
     Write-Host "   Application ID: $($app.appId)" -ForegroundColor Cyan
     Write-Host "   Object ID: $($app.id)" -ForegroundColor Cyan
 
@@ -19267,7 +19267,7 @@ function New-MtM365AdvisorApp {
 
     Write-Host "Creating service principal..." -ForegroundColor Yellow
     $servicePrincipal = Invoke-MtAzureRequest -RelativeUri "servicePrincipals" -Method POST -Payload $spBody -Graph
-    Write-Host "✅ Service principal created successfully" -ForegroundColor Green
+    Write-Host "[PASS] Service principal created successfully" -ForegroundColor Green
     Write-Host "   Service Principal ID: $($servicePrincipal.id)" -ForegroundColor Cyan
 
     # Set the permissions
@@ -19279,16 +19279,16 @@ function New-MtM365AdvisorApp {
         Set-M365AdvisorAppPermission -AppId $app.appId -Scopes $requiredScopes
     } catch {
         $permissionsGranted = $false
-        Write-Host "❌ $($_.Exception.Message)" -ForegroundColor Red
+        Write-Host "[FAIL] $($_.Exception.Message)" -ForegroundColor Red
     }
 
     $result = Get-MtM365AdvisorApp -Id $app.id
 
     Write-Host ""
     if ($permissionsGranted) {
-        Write-Host "🎉 M365Advisor application created successfully!" -ForegroundColor Green
+        Write-Host " M365Advisor application created successfully!" -ForegroundColor Green
     } else {
-        Write-Host "⚠️ M365Advisor application was created but some permissions could not be granted." -ForegroundColor Red
+        Write-Host "[WARN] M365Advisor application was created but some permissions could not be granted." -ForegroundColor Red
         Write-Host "   The application is in a non-functional state until all required permissions are consented." -ForegroundColor Yellow
         Write-Host "   Ensure the account running New-MtM365AdvisorApp has Privileged Role Administrator or Global Administrator rights." -ForegroundColor Yellow
     }
@@ -19675,7 +19675,7 @@ function Update-MtM365AdvisorApp {
                 $app = $apps[0]
             }
 
-            Write-Host "✅ Found application: $($app.displayName)" -ForegroundColor Green
+            Write-Host "[PASS] Found application: $($app.displayName)" -ForegroundColor Green
 
             # Verify this is a M365Advisor app
             if ($app.tags -notcontains "m365advisor") {
@@ -19715,13 +19715,13 @@ function Update-MtM365AdvisorApp {
 
             Write-Host "Updating application metadata..." -ForegroundColor Yellow
             Invoke-MtAzureRequest -RelativeUri "applications/$($app.id)" -Method PATCH -Payload $updateBody -Graph | Out-Null
-            Write-Host "✅ Application metadata updated successfully" -ForegroundColor Green
+            Write-Host "[PASS] Application metadata updated successfully" -ForegroundColor Green
 
             # Output the result
             $result = Get-M365AdvisorAppInfo -App $app
 
             Write-Host ""
-            Write-Host "🎉 M365Advisor application updated successfully!" -ForegroundColor Green
+            Write-Host " M365Advisor application updated successfully!" -ForegroundColor Green
 
             return $result
 
@@ -21158,7 +21158,7 @@ function Get-MtUser {
                         # See https://github.com/m365advisor365/m365advisor/issues/1227
                         $MemberCount = $TmpUsers.Count
                         if ($MemberCount -gt 20) {
-                            Write-Warning "Get-MtUser: Skipping group '$EmergencyAccessGroup' — it has $MemberCount members, which is too many to be an emergency access group. Emergency access groups should have only 1–2 members. Review your Conditional Access policy exclusions to confirm the correct group is being excluded."
+                            Write-Warning "Get-MtUser: Skipping group '$EmergencyAccessGroup' - it has $MemberCount members, which is too many to be an emergency access group. Emergency access groups should have only 1-2 members. Review your Conditional Access policy exclusions to confirm the correct group is being excluded."
                             continue
                         }
                         Write-Verbose "Setting userType to EmergencyAccess for $MemberCount users that are members of group '$EmergencyAccessGroup'."
@@ -21727,12 +21727,12 @@ function Invoke-M365Advisor {
         # ASCII Art using style "ANSI Shadow"
         $motd = @"
 
-███╗   ███╗██████╗  ██████╗ ███████╗ █████╗ ██████╗ ██╗   ██╗██╗███████╗ ██████╗ ██████╗ 
-████╗ ████║╚════██╗██╔════╝ ██╔════╝██╔══██╗██╔══██╗██║   ██║██║██╔════╝██╔═══██╗██╔══██╗
-██╔████╔██║ █████╔╝███████╗ ███████╗███████║██║  ██║██║   ██║██║███████╗██║   ██║██████╔╝
-██║╚██╔╝██║ ╚═══██╗██╔═══██╗╚════██║██╔══██║██║  ██║╚██╗ ██╔╝██║╚════██║██║   ██║██╔══██╗
-██║ ╚═╝ ██║██████╔╝╚██████╔╝███████║██║  ██║██████╔╝ ╚████╔╝ ██║███████║╚██████╔╝██║  ██║
-╚═╝     ╚═╝╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═════╝   ╚═══╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝ v$version
+               
+     
+          
+       
+        
+                    v$version
 
 "@
         Write-Host -ForegroundColor Green $motd
@@ -21945,7 +21945,7 @@ function Invoke-M365Advisor {
             $output = Get-MtHtmlReport -M365AdvisorResults $m365advisorResults
             $output | Out-File -FilePath $out.OutputHtmlFile -Encoding UTF8
             if (-not $NonInteractive.IsPresent) {
-                Write-Host "🔥 M365Advisor test report generated at $($out.OutputHtmlFile)" -ForegroundColor Green
+                Write-Host " M365Advisor test report generated at $($out.OutputHtmlFile)" -ForegroundColor Green
             }
 
             if ( ( Get-MtUserInteractive ) -and ( -not $NonInteractive ) ) {
@@ -21971,13 +21971,13 @@ function Invoke-M365Advisor {
 
         if ($Verbosity -eq 'None' -and -not $NonInteractive.IsPresent) {
             # Show final summary.
-            Write-Host "`nTests Passed ✅: $($m365advisorResults.PassedCount), " -NoNewline -ForegroundColor Green
-            Write-Host "Failed ❌: $($m365advisorResults.FailedCount), " -NoNewline -ForegroundColor Red
-            Write-Host "Investigate 🔍: $($m365advisorResults.InvestigateCount), " -NoNewline -ForegroundColor Magenta
-            Write-Host "Skipped ⚫: $($m365advisorResults.SkippedCount), " -NoNewline -ForegroundColor DarkGray
-            Write-Host "Error ⚠️: $($m365advisorResults.ErrorCount), " -NoNewline -ForegroundColor DarkGray
-            Write-Host "Not Run ⚫: $($m365advisorResults.NotRunCount), " -NoNewline -ForegroundColor DarkGray
-            Write-Host "Total ⭐: $($m365advisorResults.TotalCount)`n"
+            Write-Host "`nTests Passed [PASS]: $($m365advisorResults.PassedCount), " -NoNewline -ForegroundColor Green
+            Write-Host "Failed [FAIL]: $($m365advisorResults.FailedCount), " -NoNewline -ForegroundColor Red
+            Write-Host "Investigate : $($m365advisorResults.InvestigateCount), " -NoNewline -ForegroundColor Magenta
+            Write-Host "Skipped : $($m365advisorResults.SkippedCount), " -NoNewline -ForegroundColor DarkGray
+            Write-Host "Error [WARN]: $($m365advisorResults.ErrorCount), " -NoNewline -ForegroundColor DarkGray
+            Write-Host "Not Run : $($m365advisorResults.NotRunCount), " -NoNewline -ForegroundColor DarkGray
+            Write-Host "Total : $($m365advisorResults.TotalCount)`n"
         }
 
         if (-not $SkipVersionCheck -and 'Next' -ne $version -and -not $NonInteractive.IsPresent) {
@@ -22300,7 +22300,7 @@ function Invoke-MtGraphSecurityQuery {
     authentication instead of end-user authentication. When a connection uses
     author authentication, the agent accesses external services (SharePoint, SQL,
     etc.) using the bot maker's stored credentials rather than requiring the end
-    user to authenticate. This creates a privilege escalation risk — the agent
+    user to authenticate. This creates a privilege escalation risk - the agent
     operates with the maker's permissions regardless of who is chatting with it.
 
     Reference: https://www.microsoft.com/en-us/security/blog/2026/02/12/copilot-studio-agent-security-top-10-risks-detect-prevent/
@@ -28366,7 +28366,7 @@ function Test-MtAuthenticationPolicyReferencedObjectsExist {
             }
 
             # Build the test result message
-            $testResult = "❌ Found $($nonExistentGroups.Count) non-existent group(s) referenced in authentication method policies:`n`n"
+            $testResult = "[FAIL] Found $($nonExistentGroups.Count) non-existent group(s) referenced in authentication method policies:`n`n"
             $testResult += "| Authentication Method | Display Name | Non-existent Group ID |`n"
             $testResult += "|---|---|---|`n"
             $testResult += ($authMethodIssues -join "`n")
@@ -28376,7 +28376,7 @@ function Test-MtAuthenticationPolicyReferencedObjectsExist {
         }
 
         Write-Verbose "All referenced groups exist"
-        Add-MtTestResultDetail -Result "✅ All groups referenced in authentication method policies exist in the tenant." -GraphObjectType Groups
+        Add-MtTestResultDetail -Result "[PASS] All groups referenced in authentication method policies exist in the tenant." -GraphObjectType Groups
         return $true
 
     } catch {
@@ -28595,7 +28595,7 @@ function Test-MtCaApprovedClientApp {
     The approved client app grant is retiring in early March 2026.
     Organizations must transition all current Conditional Access policies that use only the require approved Client App grant control to Require Approved Client App or Application Protection Policy by March 2026.
     Additionally, for any new Conditional Access policy, only apply the Require application protection policy grant.
-    After March 2026, Microsoft will stop enforcing require approved client app control, and it will be as if this grant isn't selected. Use the following steps before March 2026 to protect your organization’s data.
+    After March 2026, Microsoft will stop enforcing require approved client app control, and it will be as if this grant isn't selected. Use the following steps before March 2026 to protect your organization's data.
     Learn more:
     https://learn.microsoft.com/en-us/entra/identity/conditional-access/migrate-approved-client-app
 
@@ -29640,7 +29640,7 @@ function Test-MtCaExclusionForDirectorySyncAccount {
             } elseif ( $memberIds.Count -eq 0 ) {
                 # All members are service principals; they are not subject to CA policies and therefore this policy can be skipped
                 $CurrentResult = $true
-                Write-Verbose "Skipping $($policy.displayName) — only service principal members - $CurrentResult"
+                Write-Verbose "Skipping $($policy.displayName) - only service principal members - $CurrentResult"
                 continue
             } else {
                 # Check if excluded by role
@@ -31576,9 +31576,9 @@ function Test-MtDomainsDmarcRecordMaturity {
         $testResultMarkdown = "Some tenant domains do not have mature DMARC records (p=reject, pct=100).`n`n%TestResult%"
     }
 
-    $passResult = '✅ Pass'
-    $failResult = '❌ Fail'
-    $skipResult = '🗄️ Skip'
+    $passResult = '[PASS] Pass'
+    $failResult = '[FAIL] Fail'
+    $skipResult = ' Skip'
 
     $result = "| Domain | Result | Severity | Policy | Pct | Reason |`n"
     $result += "| --- | --- | --- | --- | --- | --- |`n"
@@ -31681,7 +31681,7 @@ function Test-MtEntitlementManagementDeletedGroups {
         }
 
         if ($packages.Count -eq 0) {
-            $testResult = "✅ No access packages found in the tenant."
+            $testResult = "[PASS] No access packages found in the tenant."
             Add-MtTestResultDetail -Result $testResult
             return $true
         }
@@ -31883,7 +31883,7 @@ function Test-MtEntitlementManagementDeletedGroups {
         $result = $deletedGroupsFound.Count -eq 0
 
         if ($result) {
-            $testResult = "✅ All access packages and catalogs reference only active groups."
+            $testResult = "[PASS] All access packages and catalogs reference only active groups."
             Add-MtTestResultDetail -Result $testResult
         } else {
             $accessPackageIssues = $deletedGroupsFound | Where-Object { $_.Type -eq "Access Package" }
@@ -31891,7 +31891,7 @@ function Test-MtEntitlementManagementDeletedGroups {
 
             $realIssuesCount = $accessPackageIssues.Count + $catalogIssues.Count
 
-            $testResult = "❌ Found $realIssuesCount reference(s) to deleted groups:`n`n"
+            $testResult = "[FAIL] Found $realIssuesCount reference(s) to deleted groups:`n`n"
 
             $issuesByGroup = $deletedGroupsFound | Group-Object DeletedGroupId
 
@@ -32004,7 +32004,7 @@ function Test-MtEntitlementManagementInactivePolicies {
         }
 
         if ($packages.Count -eq 0) {
-            $testResult = "✅ No access packages found in the tenant."
+            $testResult = "[PASS] No access packages found in the tenant."
             Add-MtTestResultDetail -Result $testResult
             return $true
         }
@@ -32132,11 +32132,11 @@ function Test-MtEntitlementManagementInactivePolicies {
         $result = $disabledPolicies.Count -eq 0
 
         if ($result) {
-            $testResult = "✅ All access package assignment policies are active and properly configured."
+            $testResult = "[PASS] All access package assignment policies are active and properly configured."
             Add-MtTestResultDetail -Result $testResult
         } else {
             $issuesByPackage = $disabledPolicies | Group-Object PackageId
-            $testResult = "❌ Found $($disabledPolicies.Count) inactive policy/policies across $($issuesByPackage.Count) access package(s):`n`n"
+            $testResult = "[FAIL] Found $($disabledPolicies.Count) inactive policy/policies across $($issuesByPackage.Count) access package(s):`n`n"
 
             $testResult += "| Access Package | Policy Name | Issue |`n"
             $testResult += "|---|---|---|`n"
@@ -32246,7 +32246,7 @@ function Test-MtEntitlementManagementOrphanedResources {
         }
 
         if ($catalogArray.Count -eq 0) {
-            $testResult = "✅ No access package catalogs found in the tenant."
+            $testResult = "[PASS] No access package catalogs found in the tenant."
             Add-MtTestResultDetail -Result $testResult
             return $true
         }
@@ -32392,13 +32392,13 @@ function Test-MtEntitlementManagementOrphanedResources {
 
         # Determine test result
         if ($unusedResourcesFound.Count -eq 0) {
-            $testResult = "✅ All catalog resources are used in access packages.`n`nChecked $($catalogArray.Count) catalog(s)."
+            $testResult = "[PASS] All catalog resources are used in access packages.`n`nChecked $($catalogArray.Count) catalog(s)."
             Add-MtTestResultDetail -Result $testResult
             return $true
         } else {
             $groupedByCatalog = $unusedResourcesFound | Group-Object -Property CatalogId
 
-            $testResult = "❌ Found $($unusedResourcesFound.Count) unused resource(s) across $($groupedByCatalog.Count) catalog(s):`n`n"
+            $testResult = "[FAIL] Found $($unusedResourcesFound.Count) unused resource(s) across $($groupedByCatalog.Count) catalog(s):`n`n"
 
             $testResult += "| Catalog | Resource Name | Type |`n"
             $testResult += "|---|---|---|`n"
@@ -32494,7 +32494,7 @@ function Test-MtEntitlementManagementValidApprovers {
         }
 
         if ($packages.Count -eq 0) {
-            $testResult = "✅ No access packages found in the tenant."
+            $testResult = "[PASS] No access packages found in the tenant."
             Add-MtTestResultDetail -Result $testResult
             return $true
         }
@@ -32737,13 +32737,13 @@ function Test-MtEntitlementManagementValidApprovers {
 
         # Determine test result
         if ($invalidApproversFound.Count -eq 0) {
-            $testResult = "✅ All approval workflows have valid approvers.`n`nChecked $($packages.Count) access package(s)."
+            $testResult = "[PASS] All approval workflows have valid approvers.`n`nChecked $($packages.Count) access package(s)."
             Add-MtTestResultDetail -Result $testResult
             return $true
         } else {
             $groupedByPackage = $invalidApproversFound | Group-Object -Property PackageId
 
-            $testResult = "❌ Found $($invalidApproversFound.Count) invalid approver(s) across $($groupedByPackage.Count) access package(s):`n`n"
+            $testResult = "[FAIL] Found $($invalidApproversFound.Count) invalid approver(s) across $($groupedByPackage.Count) access package(s):`n`n"
 
             $testResult += "| Access Package | Policy | Issue | Type | Details |`n"
             $testResult += "|---|---|---|---|---|`n"
@@ -32839,7 +32839,7 @@ function Test-MtEntitlementManagementValidResourceRoles {
         }
 
         if ($catalogArray.Count -eq 0) {
-            $testResult = "✅ No catalogs found in the tenant."
+            $testResult = "[PASS] No catalogs found in the tenant."
             Add-MtTestResultDetail -Result $testResult
             return $true
         }
@@ -33060,11 +33060,11 @@ function Test-MtEntitlementManagementValidResourceRoles {
 
         # Determine test result
         if ($staleResourcesFound.Count -eq 0) {
-            $testResult = "✅ All application and SharePoint resources have valid roles and service principals.`n`nChecked $($catalogArray.Count) catalog(s).`n`n*Note: Group validation is covered by MT.1107*"
+            $testResult = "[PASS] All application and SharePoint resources have valid roles and service principals.`n`nChecked $($catalogArray.Count) catalog(s).`n`n*Note: Group validation is covered by MT.1107*"
             Add-MtTestResultDetail -Result $testResult
             return $true
         } else {
-            $testResult = "❌ Found $($staleResourcesFound.Count) stale resource(s):`n`n"
+            $testResult = "[FAIL] Found $($staleResourcesFound.Count) stale resource(s):`n`n"
 
             $testResult += "| Catalog | Resource Name | Type | Issue |`n"
             $testResult += "|---|---|---|---|`n"
@@ -33140,7 +33140,7 @@ function Test-MtEntraDeviceJoinRestricted {
                     Write-Verbose 'Device join is restricted to selected users/groups'
 
                     $deviceJoinValue = 'Selected users/groups can join devices.'
-                    $statusValue = '✅'
+                    $statusValue = '[PASS]'
 
                     # Get details about allowed users and groups
                     $allowedUsers = if ($settings.azureADJoin.allowedToJoin.users) { $settings.azureADJoin.allowedToJoin.users } else { @() }
@@ -33195,7 +33195,7 @@ function Test-MtEntraDeviceJoinRestricted {
                 }
                 '#microsoft.graph.noDeviceRegistrationMembership' {
                     $deviceJoinValue = 'None. No users can join devices.'
-                    $statusValue = '✅'
+                    $statusValue = '[PASS]'
 
                     $deviceJoinRestricted = $true
                     $restrictionSummary = 'Completely disabled (no users can join)'
@@ -33204,7 +33204,7 @@ function Test-MtEntraDeviceJoinRestricted {
                 }
                 '#microsoft.graph.allDeviceRegistrationMembership' {
                     $deviceJoinValue = 'All users can join devices.'
-                    $statusValue = '❌'
+                    $statusValue = '[FAIL]'
 
                     $deviceJoinRestricted = $false
                     $restrictionSummary = 'Unrestricted (all users can join)'
@@ -33225,7 +33225,7 @@ function Test-MtEntraDeviceJoinRestricted {
             # If we can't determine the setting, assume unrestricted (fail-safe)
             $deviceJoinRestricted = $false
             $deviceJoinValue = 'All users can join devices.'
-            $statusValue = '❌'
+            $statusValue = '[FAIL]'
             $restrictionSummary = 'Configuration not found'
             $allowedObjects = @()
         }
@@ -33469,8 +33469,8 @@ function Test-MtEntraIDConnectSyncSoftHardMatching {
 
     try {
         $onPremisesSynchronizationConfig = Invoke-MtGraphRequest -RelativeUri "directory/onPremisesSynchronization"
-        $passResult = "✅ Pass"
-        $failResult = "❌ Fail"
+        $passResult = "[PASS] Pass"
+        $failResult = "[FAIL] Fail"
 
         $result = "| Policy | Value | Status |`n"
         $result += "| --- | --- | --- |`n"
@@ -34466,11 +34466,11 @@ function Test-MtSecurityGroupCreationRestricted {
 
         if ($securityGroupCreationRestricted) {
             $value = 'No'
-            $status = '✅'
+            $status = '[PASS]'
             $testResultMarkdown = "Well done. Security group creation is restricted to admin users."
         } else {
             $value = 'Yes'
-            $status = '❌'
+            $status = '[FAIL]'
             $testResultMarkdown = "Security group creation is not restricted and non-admin users may be able to create security groups."
         }
 
@@ -34729,11 +34729,11 @@ function Test-MtTenantCreationRestricted {
 
         if ($tenantCreationRestricted) {
             $value = 'Yes'
-            $status = '✅'
+            $status = '[PASS]'
             $testResultMarkdown = "Well done. Entra ID tenant creation is restricted to admin users."
         } else {
             $value = 'No'
-            $status = '❌'
+            $status = '[FAIL]'
             $testResultMarkdown = "Entra ID tenant creation is not restricted and non-admin users may be able to create tenants."
         }
 
@@ -37053,7 +37053,7 @@ function Test-MtMobileThreatDefenseConnectors {
     }
 
     # MTD Connector IDs and Names
-    # Source: https://github.com/microsoft/Microsoft365DSC/blob/Dev/Modules/Microsoft365DSC/DSCResources/MSFT_IntuneDeviceConfigurationPolicyWindows10/MSFT_IntuneDeviceConfigurationPolicyWindows10.psm1
+    # Source: https://github.com/microsoft/Microsoft365DSC/blob/Dev/Modules/Microsoft365DSC/DSCResources/MSFT_IntuneDeviceConfigurationPolicyWindows10/MSFT_IntuneDeviceConfigurationPolicyWindows10.psm1
     $mtdConnectorInformation = @{
         '2c7790de-8b02-4814-85cf-e0c59380dee8' = 'Lookout for Work'
         '28fd67fd-b179-4629-a8b0-dad420b697c7' = 'Symantec Endpoint Protection'
@@ -44368,7 +44368,7 @@ function Send-MtMail {
     $LatestVersion = $M365AdvisorResults.LatestVersion
     $ModuleVersion =
     if ($currentVersion -ne $latestVersion) {
-        "$currentVersion → Latest version: $latestVersion"
+        "$currentVersion -> Latest version: $latestVersion"
     } else {
         "$currentVersion"
     }
@@ -44392,7 +44392,7 @@ function Send-MtMail {
 
     # Add a hidden div that will show in the preview line of the message.
     $bodyElement = '<body lang="EN-US" link="#467886" vlink="#96607D" style="word-wrap:break-word">'
-    $emailTemplate = $emailTemplate -replace $bodyElement, ($bodyElement + "<div style='display:none;'>🔥 Total: $($M365AdvisorResults.TotalCount), ✅ Passed: $($M365AdvisorResults.PassedCount), ❌ Failed: $($M365AdvisorResults.FailedCount), 🔍 Investigate: $($investigateCount), ⏭️ Skipped: $($skippedCount), ⬇️ Not Run: $($notRunCount)</div>")
+    $emailTemplate = $emailTemplate -replace $bodyElement, ($bodyElement + "<div style='display:none;'> Total: $($M365AdvisorResults.TotalCount), [PASS] Passed: $($M365AdvisorResults.PassedCount), [FAIL] Failed: $($M365AdvisorResults.FailedCount),  Investigate: $($investigateCount),  Skipped: $($skippedCount),  Not Run: $($notRunCount)</div>")
     $StatusIcon = @{
         Passed      = '<img src="https://m365advisor.dev/img/test-result/pill-pass.png" height="25" alt="Passed"/>'
         Failed      = '<img src="https://m365advisor.dev/img/test-result/pill-fail.png" height="25" alt="Failed"/>'
@@ -44559,7 +44559,7 @@ function Send-MtTeamsMessage {
     $LatestVersion = $M365AdvisorResults.LatestVersion
     $ModuleVersion =
     if ($currentVersion -ne $latestVersion) {
-        "$currentVersion → Latest version: $latestVersion"
+        "$currentVersion -> Latest version: $latestVersion"
     } else {
         "$currentVersion"
     }
