@@ -30,7 +30,7 @@ export default function TestResultsTable(props) {
   const [selectedTag, setSelectedTag] = useState([]);
   const defaultFramework = useMemo(() => {
     const requestedTags = props.TestResults?.PesterConfig?.Filter?.Tag || [];
-    const frameworks = ["CIS", "CISA", "ISO 27001", "ISO 27002", "EIDSCA"];
+    const frameworks = ["CIS", "CISA", "ISO 27001", "ISO 27002", "EIDSCA", "DPDP", "ORCA"];
     return frameworks.filter(fw => requestedTags.some(t => typeof t === 'string' && t.toUpperCase().includes(fw.toUpperCase())));
   }, [props.TestResults]);
 
@@ -78,7 +78,7 @@ export default function TestResultsTable(props) {
   }, []);
 
   // Known framework-level tags — used to power the Compliance Framework dropdown
-  const FRAMEWORK_TAGS = ["CIS", "CISA", "ISO 27001", "ISO 27002", "EIDSCA"];
+  const FRAMEWORK_TAGS = ["CIS", "CISA", "ISO 27001", "ISO 27002", "EIDSCA", "DPDP", "ORCA"];
 
   const isStatusSelected = useCallback((item) => {
     const matchesSearch = testMatchesSearch(item, searchQuery);
