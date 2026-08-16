@@ -155,7 +155,52 @@ Tags are discovered from Pester test metadata and can be used to find related M3
 | Defender | 25 | [MT.1059](../MT.1059), [MT.1148](../MT.1148), [MT.1149](../MT.1149), [MT.1150](../MT.1150), [MT.1151](../MT.1151), [MT.1152](../MT.1152), [MT.1153](../MT.1153), [MT.1154](../MT.1154), ... |
 | Deprecated | 3 | [CISA.MS.AAD.5.4](../CISA.MS.AAD.5.4), [CISA.MS.EXO.2.1](../CISA.MS.EXO.2.1), [CISA.MS.EXO.17.2](../CISA.MS.EXO.17.2) |
 | Device | 7 | [MT.1070](../MT.1070), [MT.1086](../MT.1086), [MT.1087](../MT.1087), [MT.1088](../MT.1088), [MT.1089](../MT.1089), [MT.1090](../MT.1090), [MT.1091](../MT.1091) |
-| DPDP | 32 | [DPDP.Sec.04.1](../DPDP.Sec.04.1), [DPDP.Sec.04.2](../DPDP.Sec.04.2), [DPDP.Sec.04.3](../DPDP.Sec.04.3), [DPDP.Sec.05.1](../DPDP.Sec.05.1), [DPDP.Sec.06.4](../DPDP.Sec.06.4), [DPDP.Sec.06.5](../DPDP.Sec.06.5), [DPDP.Sec.08.1](../DPDP.Sec.08.1), [DPDP.Sec.08.2](../DPDP.Sec.08.2), ... |
+| DPDP | 77 | [DPDP.1.1](../DPDP.1.1), [DPDP.1.2](../DPDP.1.2), [DPDP.1.3](../DPDP.1.3), [DPDP.1.4](../DPDP.1.4), [DPDP.1.5](../DPDP.1.5), [DPDP.2.1](../DPDP.2.1), [DPDP.2.2](../DPDP.2.2), [DPDP.2.3](../DPDP.2.3), ... |
+| DPDP.1.1 | 1 | [DPDP.1.1](../DPDP.1.1) |
+| DPDP.1.2 | 1 | [DPDP.1.2](../DPDP.1.2) |
+| DPDP.1.3 | 1 | [DPDP.1.3](../DPDP.1.3) |
+| DPDP.1.4 | 1 | [DPDP.1.4](../DPDP.1.4) |
+| DPDP.1.5 | 1 | [DPDP.1.5](../DPDP.1.5) |
+| DPDP.2.1 | 1 | [DPDP.2.1](../DPDP.2.1) |
+| DPDP.2.2 | 1 | [DPDP.2.2](../DPDP.2.2) |
+| DPDP.2.3 | 1 | [DPDP.2.3](../DPDP.2.3) |
+| DPDP.2.4 | 1 | [DPDP.2.4](../DPDP.2.4) |
+| DPDP.3.1 | 1 | [DPDP.3.1](../DPDP.3.1) |
+| DPDP.3.2 | 1 | [DPDP.3.2](../DPDP.3.2) |
+| DPDP.3.3 | 1 | [DPDP.3.3](../DPDP.3.3) |
+| DPDP.3.4 | 1 | [DPDP.3.4](../DPDP.3.4) |
+| DPDP.3.5 | 1 | [DPDP.3.5](../DPDP.3.5) |
+| DPDP.3.6 | 1 | [DPDP.3.6](../DPDP.3.6) |
+| DPDP.3.7 | 1 | [DPDP.3.7](../DPDP.3.7) |
+| DPDP.3.8 | 1 | [DPDP.3.8](../DPDP.3.8) |
+| DPDP.3.9 | 1 | [DPDP.3.9](../DPDP.3.9) |
+| DPDP.3.10 | 1 | [DPDP.3.10](../DPDP.3.10) |
+| DPDP.3.11 | 1 | [DPDP.3.11](../DPDP.3.11) |
+| DPDP.4.1 | 1 | [DPDP.4.1](../DPDP.4.1) |
+| DPDP.4.2 | 1 | [DPDP.4.2](../DPDP.4.2) |
+| DPDP.4.3 | 1 | [DPDP.4.3](../DPDP.4.3) |
+| DPDP.4.4 | 1 | [DPDP.4.4](../DPDP.4.4) |
+| DPDP.4.5 | 1 | [DPDP.4.5](../DPDP.4.5) |
+| DPDP.4.6 | 1 | [DPDP.4.6](../DPDP.4.6) |
+| DPDP.5.1 | 1 | [DPDP.5.1](../DPDP.5.1) |
+| DPDP.5.2 | 1 | [DPDP.5.2](../DPDP.5.2) |
+| DPDP.5.3 | 1 | [DPDP.5.3](../DPDP.5.3) |
+| DPDP.6.1 | 1 | [DPDP.6.1](../DPDP.6.1) |
+| DPDP.6.2 | 1 | [DPDP.6.2](../DPDP.6.2) |
+| DPDP.6.3 | 1 | [DPDP.6.3](../DPDP.6.3) |
+| DPDP.6.4 | 1 | [DPDP.6.4](../DPDP.6.4) |
+| DPDP.6.5 | 1 | [DPDP.6.5](../DPDP.6.5) |
+| DPDP.6.6 | 1 | [DPDP.6.6](../DPDP.6.6) |
+| DPDP.6.7 | 1 | [DPDP.6.7](../DPDP.6.7) |
+| DPDP.7.1 | 1 | [DPDP.7.1](../DPDP.7.1) |
+| DPDP.7.2 | 1 | [DPDP.7.2](../DPDP.7.2) |
+| DPDP.7.3 | 1 | [DPDP.7.3](../DPDP.7.3) |
+| DPDP.8.1 | 1 | [DPDP.8.1](../DPDP.8.1) |
+| DPDP.8.2 | 1 | [DPDP.8.2](../DPDP.8.2) |
+| DPDP.8.3 | 1 | [DPDP.8.3](../DPDP.8.3) |
+| DPDP.8.4 | 1 | [DPDP.8.4](../DPDP.8.4) |
+| DPDP.9.1 | 1 | [DPDP.9.1](../DPDP.9.1) |
+| DPDP.9.2 | 1 | [DPDP.9.2](../DPDP.9.2) |
 | DPDP.Sec.04 | 4 | [DPDP.Sec.04.1](../DPDP.Sec.04.1), [DPDP.Sec.04.2](../DPDP.Sec.04.2), [DPDP.Sec.04.3](../DPDP.Sec.04.3), [DPDP.Sec.05.1](../DPDP.Sec.05.1) |
 | DPDP.Sec.04.1 | 1 | [DPDP.Sec.04.1](../DPDP.Sec.04.1) |
 | DPDP.Sec.04.2 | 1 | [DPDP.Sec.04.2](../DPDP.Sec.04.2) |
@@ -192,7 +237,7 @@ Tags are discovered from Pester test metadata and can be used to find related M3
 | DPDP.Sec.08.24 | 1 | [DPDP.Sec.08.24](../DPDP.Sec.08.24) |
 | DPDP.Sec.08.25 | 1 | [DPDP.Sec.08.25](../DPDP.Sec.08.25) |
 | DPDP.Sec.08.26 | 1 | [DPDP.Sec.08.26](../DPDP.Sec.08.26) |
-| DPDP2023 | 32 | [DPDP.Sec.04.1](../DPDP.Sec.04.1), [DPDP.Sec.04.2](../DPDP.Sec.04.2), [DPDP.Sec.04.3](../DPDP.Sec.04.3), [DPDP.Sec.05.1](../DPDP.Sec.05.1), [DPDP.Sec.06.4](../DPDP.Sec.06.4), [DPDP.Sec.06.5](../DPDP.Sec.06.5), [DPDP.Sec.08.1](../DPDP.Sec.08.1), [DPDP.Sec.08.2](../DPDP.Sec.08.2), ... |
+| DPDP2023 | 77 | [DPDP.1.1](../DPDP.1.1), [DPDP.1.2](../DPDP.1.2), [DPDP.1.3](../DPDP.1.3), [DPDP.1.4](../DPDP.1.4), [DPDP.1.5](../DPDP.1.5), [DPDP.2.1](../DPDP.2.1), [DPDP.2.2](../DPDP.2.2), [DPDP.2.3](../DPDP.2.3), ... |
 | EIDSCA | 44 | [EIDSCA.AF01](../EIDSCA.AF01), [EIDSCA.AF02](../EIDSCA.AF02), [EIDSCA.AF03](../EIDSCA.AF03), [EIDSCA.AF04](../EIDSCA.AF04), [EIDSCA.AF05](../EIDSCA.AF05), [EIDSCA.AF06](../EIDSCA.AF06), [EIDSCA.AG01](../EIDSCA.AG01), [EIDSCA.AG02](../EIDSCA.AG02), ... |
 | EIDSCA.AF01 | 1 | [EIDSCA.AF01](../EIDSCA.AF01) |
 | EIDSCA.AF02 | 1 | [EIDSCA.AF02](../EIDSCA.AF02) |
@@ -249,6 +294,7 @@ Tags are discovered from Pester test metadata and can be used to find related M3
 | Graph | 16 | [MT.1050](../MT.1050), [MT.1051](../MT.1051), [MT.1057](../MT.1057), [MT.1058](../MT.1058), [MT.1073](../MT.1073), [MT.1075](../MT.1075), [MT.1077](../MT.1077), [MT.1078](../MT.1078), ... |
 | Group | 2 | [MT.1055](../MT.1055), [MT.1069](../MT.1069) |
 | Hybrid | 3 | [MT.1073](../MT.1073), [MT.1084](../MT.1084), [MT.1147](../MT.1147) |
+| IndiaDPDP | 45 | [DPDP.1.1](../DPDP.1.1), [DPDP.1.2](../DPDP.1.2), [DPDP.1.3](../DPDP.1.3), [DPDP.1.4](../DPDP.1.4), [DPDP.1.5](../DPDP.1.5), [DPDP.2.1](../DPDP.2.1), [DPDP.2.2](../DPDP.2.2), [DPDP.2.3](../DPDP.2.3), ... |
 | Intune | 20 | [MT.1053](../MT.1053), [MT.1054](../MT.1054), [MT.1092](../MT.1092), [MT.1093](../MT.1093), [MT.1094](../MT.1094), [MT.1095](../MT.1095), [MT.1096](../MT.1096), [MT.1097](../MT.1097), ... |
 | ISO 27001 | 44 | [CIS.M365.1.1.1](../CIS.M365.1.1.1), [CIS.M365.1.1.3](../CIS.M365.1.1.3), [CIS.M365.1.2.1](../CIS.M365.1.2.1), [CIS.M365.1.2.2](../CIS.M365.1.2.2), [CIS.M365.1.3.1](../CIS.M365.1.3.1), [CIS.M365.1.3.3](../CIS.M365.1.3.3), [CIS.M365.1.3.4](../CIS.M365.1.3.4), [CIS.M365.1.3.5](../CIS.M365.1.3.5), ... |
 | ISO 27002 | 44 | [CIS.M365.1.1.1](../CIS.M365.1.1.1), [CIS.M365.1.1.3](../CIS.M365.1.1.3), [CIS.M365.1.2.1](../CIS.M365.1.2.1), [CIS.M365.1.2.2](../CIS.M365.1.2.2), [CIS.M365.1.3.1](../CIS.M365.1.3.1), [CIS.M365.1.3.3](../CIS.M365.1.3.3), [CIS.M365.1.3.4](../CIS.M365.1.3.4), [CIS.M365.1.3.5](../CIS.M365.1.3.5), ... |

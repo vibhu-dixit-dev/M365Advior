@@ -531,7 +531,7 @@ function generateLauncherScripts(writes) {
       id: "dpdp",
       title: "DPDP Act 2023 Compliance",
       connect: "Connect-M365Advisor -Service Graph,ExchangeOnline",
-      run: "Invoke-M365Advisor -Tag 'DPDP'"
+      run: "Invoke-M365Advisor -Path .\\dpdp"
     },
     {
       id: "eidsca",
@@ -596,6 +596,8 @@ function generateLauncherScripts(writes) {
       `if (-not (Test-Path $testDir)) { New-Item -ItemType Directory -Force -Path $testDir | Out-Null }`,
       `Set-Location $testDir`,
       `Install-M365AdvisorTests -Force`,
+      `$_dpdpDir = Join-Path $testDir 'dpdp'`,
+      `if (-not (Test-Path $_dpdpDir) -or (Get-ChildItem -Path $_dpdpDir -Filter '*.Tests.ps1' -ErrorAction SilentlyContinue).Count -eq 0) { New-Item -ItemType Directory -Force -Path $_dpdpDir | Out-Null; $_rawBase = 'https://raw.githubusercontent.com/vibhu-dixit-dev/M365Advior/main/tests/dpdp/'; @('Test-MtDpdp-NoticeAndConsent.Tests.ps1','Test-MtDpdp-DataFiduciarySafeguards.Tests.ps1','Test-MtDpdp-DataSharingAndResidency.Tests.ps1','Test-MtDpdp-MailAndThreatProtection.Tests.ps1','Test-MtDpdp-BreachNotificationAndAudit.Tests.ps1','Test-MtDpdpBaselines.Tests.ps1') | ForEach-Object { try { (New-Object System.Net.WebClient).DownloadFile($_rawBase + $_, (Join-Path $_dpdpDir $_)) } catch {} } }`,
       `Write-Host ''`,
       `Write-Host '[3/4] Connecting to Microsoft 365 services...' -ForegroundColor Yellow`,
       `Write-Host 'A browser window should open shortly for administrative authentication.' -ForegroundColor Gray`,

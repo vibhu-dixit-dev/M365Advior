@@ -118,7 +118,7 @@ const frameworks = [
     keywords: ["dpdp", "dpdpa", "digital personal data", "data protection", "privacy act", "india"],
     setupCmd: standardSetupCmd,
     connectCmd: "Connect-M365Advisor -Service Graph,ExchangeOnline",
-    runCmd: "Set-Location (Join-Path $HOME 'M365Advisor-tests'); Invoke-M365Advisor -Tag 'DPDP'"
+    runCmd: "Set-Location (Join-Path $HOME 'M365Advisor-tests'); Invoke-M365Advisor -Path .\\dpdp"
   },
   {
     id: "hippa",

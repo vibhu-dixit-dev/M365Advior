@@ -18,6 +18,51 @@ These tests verify Microsoft 365 tenant configurations against the statutory obl
 
 | Test ID | Title | Severity | Category |
 | --- | --- | --- | --- |
+| [DPDP.1.1](../DPDP.1.1) | Purview Sensitivity Labels SHALL be configured to discover and classify Indian PII/SPII data (Rule 3(i)). | Unknown | IndiaDPDP |
+| [DPDP.1.2](../DPDP.1.2) | Processing activities SHALL map to explicit purpose specification and lawful basis (Rule 5(1)). | Unknown | IndiaDPDP |
+| [DPDP.1.3](../DPDP.1.3) | Anonymous ( | Unknown | IndiaDPDP |
+| [DPDP.1.4](../DPDP.1.4) | Default sharing link permissions SHALL be restricted to Specific People or Internal Users (Rule 3(ii)). | Unknown | IndiaDPDP |
+| [DPDP.1.5](../DPDP.1.5) | DPO and Data Fiduciary contact info SHALL be published in tenant policy metadata (Rule 3(vi)). | Unknown | IndiaDPDP |
+| [DPDP.2.1](../DPDP.2.1) | Consent Manager & Service Principal API authentication SHALL enforce TLS transport security (Rule 4(3)(d)). | Unknown | IndiaDPDP |
+| [DPDP.2.2](../DPDP.2.2) | User consent to third-party apps SHALL be disallowed requiring Admin Consent Workflow (Rule 8(2)). | Unknown | IndiaDPDP |
+| [DPDP.2.3](../DPDP.2.3) | User-owned application registrations SHALL be restricted to authorized developers (Rule 8(2)). | Unknown | IndiaDPDP |
+| [DPDP.2.4](../DPDP.2.4) | Third-party applications SHALL be disallowed from accessing personal data without valid DPA (Rule 5(4)). | Unknown | IndiaDPDP |
+| [DPDP.3.1](../DPDP.3.1) | Multi-Factor Authentication (MFA) SHALL be enforced for all users handling personal data (Rule 8(5)-Sec-1). | Unknown | IndiaDPDP |
+| [DPDP.3.2](../DPDP.3.2) | Legacy and weak authentication protocols SHALL be disabled tenant-wide (Rule 8(5)-Sec-1). | Unknown | IndiaDPDP |
+| [DPDP.3.3](../DPDP.3.3) | Global Admin count SHALL be limited to 5 or fewer with PIM Just-In-Time access (Rule 8(5)-Sec-1). | Unknown | IndiaDPDP |
+| [DPDP.3.4](../DPDP.3.4) | Data Loss Prevention (DLP) policies SHALL block outbound transfer of Indian PII/SPII (Rule 8(5)-Sec-9). | Unknown | IndiaDPDP |
+| [DPDP.3.5](../DPDP.3.5) | Exchange Online attachment and file filtering policies SHALL be active (Rule 8(5)-Sec-9). | Unknown | IndiaDPDP |
+| [DPDP.3.6](../DPDP.3.6) | Safe Links and Safe Attachments anti-malware policies SHALL be enabled (Rule 8(5)-Sec-6). | Unknown | IndiaDPDP |
+| [DPDP.3.7](../DPDP.3.7) | BitLocker Encryption SHALL be enforced on endpoints processing personal data (Rule 8(5)-Sec-3). | Unknown | IndiaDPDP |
+| [DPDP.3.8](../DPDP.3.8) | TLS 1.2+ mandatory transport encryption SHALL be enforced for Exchange Online (Rule 8(5)-Sec-2). | Unknown | IndiaDPDP |
+| [DPDP.3.9](../DPDP.3.9) | Backup and recovery procedures SHALL be encrypted and periodically verified (Rule 8(5)-Sec-4). | Unknown | IndiaDPDP |
+| [DPDP.3.10](../DPDP.3.10) | Inactive account block threshold and smart lockout baselines SHALL be enforced (Rule 8(5)-Sec-6). | Unknown | IndiaDPDP |
+| [DPDP.3.11](../DPDP.3.11) | Phishing protection and anti-spoofing DMARC/DKIM records SHALL be active (Rule 8(5)-Sec-6). | Unknown | IndiaDPDP |
+| [DPDP.4.1](../DPDP.4.1) | Automated retention and deletion policies SHALL purge data when purpose is fulfilled (Rule 8(7)(a)). | Unknown | IndiaDPDP |
+| [DPDP.4.2](../DPDP.4.2) | Inactivity period thresholds SHALL be configured to auto-delete stale personal data (Rule 8(8)). | Unknown | IndiaDPDP |
+| [DPDP.4.3](../DPDP.4.3) | Workflows SHALL exist to verify data processors erase supplied personal data (Rule 8(7)(b)). | Unknown | IndiaDPDP |
+| [DPDP.4.4](../DPDP.4.4) | Legacy unlinked datasets SHALL be audited and purged from tenant stores (Rule 8(7)). | Unknown | IndiaDPDP |
+| [DPDP.4.5](../DPDP.4.5) | Direct sign-in to Shared Mailboxes SHALL be disabled (Rule 8(5)). | Unknown | IndiaDPDP |
+| [DPDP.4.6](../DPDP.4.6) | Creation of unauthorized or unmanaged shadow tenants SHALL be disallowed (Rule 8(1)). | Unknown | IndiaDPDP |
+| [DPDP.5.1](../DPDP.5.1) | Verifiable parental consent mechanisms SHALL be configured for child accounts (Rule 9(1)). | Unknown | IndiaDPDP |
+| [DPDP.5.2](../DPDP.5.2) | Tracking, behavioral monitoring, and targeted ads to children SHALL be disabled (Rule 9(3)). | Unknown | IndiaDPDP |
+| [DPDP.5.3](../DPDP.5.3) | Detrimental processing assessments SHALL restrict unmanaged 3rd-party services (Rule 9(2)). | Unknown | IndiaDPDP |
+| [DPDP.6.1](../DPDP.6.1) | Purview eDiscovery SHALL be operational for Data Principal Access Requests (Rule 11(1)(a)). | Unknown | IndiaDPDP |
+| [DPDP.6.2](../DPDP.6.2) | Third-party processor recipient lists SHALL be log-accessible for DSAR summaries (Rule 11(1)(b)). | Unknown | IndiaDPDP |
+| [DPDP.6.3](../DPDP.6.3) | Customer Lockbox SHALL be enabled for explicit approval of Microsoft support access (Rule 11-12-Req-1). | Unknown | IndiaDPDP |
+| [DPDP.6.4](../DPDP.6.4) | Technical erasure workflows SHALL exist for Exchange, SharePoint, and Teams data (Rule 12(3)). | Unknown | IndiaDPDP |
+| [DPDP.6.5](../DPDP.6.5) | Right to Data Portability SHALL support structured CSV/JSON data exports (Rule 11-12-Req-4). | Unknown | IndiaDPDP |
+| [DPDP.6.6](../DPDP.6.6) | Grievance redressal ticketing SLA channels SHALL be monitored and accessible (Rule 13(1)). | Unknown | IndiaDPDP |
+| [DPDP.6.7](../DPDP.6.7) | Nominee access assignment settings SHALL be enabled for post-death/incapacity rights (Rule 14(1)). | Unknown | IndiaDPDP |
+| [DPDP.7.1](../DPDP.7.1) | M365 Multi-Geo Data Residency SHALL be configured with India primary region (Rule 16-XB-3). | Unknown | IndiaDPDP |
+| [DPDP.7.2](../DPDP.7.2) | Cross-border data transfers to notified prohibited countries SHALL be blocked (Rule 16(1)). | Unknown | IndiaDPDP |
+| [DPDP.7.3](../DPDP.7.3) | External Teams communication with unmanaged users SHALL be restricted (Rule 16-XB-2). | Unknown | IndiaDPDP |
+| [DPDP.8.1](../DPDP.8.1) | Unified Audit Logging (UAL) SHALL be enabled with minimum 180+ days retention (Rule 8(5)-Sec-5). | Unknown | IndiaDPDP |
+| [DPDP.8.2](../DPDP.8.2) | Real-time alert notifications SHALL trigger upon suspicious mass downloads or exfiltration (Rule 6(1)). | Unknown | IndiaDPDP |
+| [DPDP.8.3](../DPDP.8.3) | Outbound exfiltration and spam filter policies SHALL be configured (Rule 6(2)). | Unknown | IndiaDPDP |
+| [DPDP.8.4](../DPDP.8.4) | Hosted connection filter and IP access rules SHALL be documented (Rule 6(2)). | Unknown | IndiaDPDP |
+| [DPDP.9.1](../DPDP.9.1) | DPO role assignment and India residency designation SHALL be documented in Entra ID (Rule 10(2)(a)). | Unknown | IndiaDPDP |
+| [DPDP.9.2](../DPDP.9.2) | Microsoft Purview Compliance Manager DPDP 2023 assessment template SHALL be active (Rule 10(2)(c)). | Unknown | IndiaDPDP |
 | [DPDP.Sec.04.1](../DPDP.Sec.04.1) | Ensure Admin Consent Workflow is enabled to prevent unconsented 3rd-party access to personal data | Unknown | General |
 | [DPDP.Sec.04.2](../DPDP.Sec.04.2) | Ensure user consent to third-party applications is disallowed to enforce consent unbundling | Unknown | General |
 | [DPDP.Sec.04.3](../DPDP.Sec.04.3) | Ensure user-owned and unregistered third-party application access is restricted | Unknown | General |
