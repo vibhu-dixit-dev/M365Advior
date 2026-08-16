@@ -505,58 +505,103 @@ function generateLauncherScripts(writes) {
   const staticDownloadDir = join(websiteRoot, "static", "download");
   
   const frameworks = [
-    { id: "m365", title: "M365 Advisor Baselines", invokeArgs: "" },
-    { id: "eidsca", title: "Entra ID SCA", invokeArgs: " -Tag 'EIDSCA'" },
-    { id: "cisa", title: "CISA SCuBA Baselines", invokeArgs: " -Tag 'CISA'" },
-    { id: "cis", title: "CIS Benchmarks", invokeArgs: " -Tag 'CIS'" },
-    { id: "iso27001", title: "ISO/IEC 27001:2022", invokeArgs: " -Path .\\iso27001" },
-    { id: "iso27002", title: "ISO/IEC 27002:2022", invokeArgs: " -Path .\\iso27002" },
-    { id: "orca", title: "ORCA Exchange Hygiene", invokeArgs: " -Tag 'ORCA'" }
+    {
+      id: "cis",
+      title: "CIS Benchmarks",
+      connect: "Connect-M365Advisor -Service Graph,ExchangeOnline,Teams",
+      run: "Invoke-M365Advisor -Tag 'CIS'"
+    },
+    {
+      id: "cisa",
+      title: "CISA SCuBA Baselines",
+      connect: "Connect-M365Advisor -Service Graph,ExchangeOnline",
+      run: "Invoke-M365Advisor -Tag 'CISA'"
+    },
+    {
+      id: "dpdp",
+      title: "DPDP Act 2023 Compliance",
+      connect: "Connect-M365Advisor -Service Graph,ExchangeOnline",
+      run: "Invoke-M365Advisor -Tag 'DPDP'"
+    },
+    {
+      id: "eidsca",
+      title: "Entra ID SCA",
+      connect: "Connect-M365Advisor -Service Graph",
+      run: "Invoke-M365Advisor -Tag 'EIDSCA'"
+    },
+    {
+      id: "iso27001",
+      title: "ISO/IEC 27001:2022",
+      connect: "Connect-M365Advisor -Service Graph,ExchangeOnline",
+      run: "Invoke-M365Advisor -Path .\\iso27001"
+    },
+    {
+      id: "iso27002",
+      title: "ISO/IEC 27002:2022",
+      connect: "Connect-M365Advisor -Service Graph,ExchangeOnline",
+      run: "Invoke-M365Advisor -Path .\\iso27002"
+    },
+    {
+      id: "m365",
+      title: "All M365 Security Baselines",
+      connect: "Connect-M365Advisor -Service All",
+      run: "Invoke-M365Advisor"
+    },
+    {
+      id: "mt",
+      title: "M365 Advisor Baselines (MT)",
+      connect: "Connect-M365Advisor -Service Graph,ExchangeOnline,Teams",
+      run: "Invoke-M365Advisor -Path .\\M365Advisor"
+    },
+    {
+      id: "orca",
+      title: "ORCA Exchange Hygiene",
+      connect: "Connect-M365Advisor -Service ExchangeOnline",
+      run: "Invoke-M365Advisor -Tag 'ORCA'"
+    }
   ];
 
   for (const fw of frameworks) {
-    const powershellCommand = [
+    const psCmd = [
       `Write-Host '=================================================================' -ForegroundColor Cyan`,
       `Write-Host '             M365 Advisor Automated Assessment' -ForegroundColor Cyan`,
       `Write-Host '             Targeting: ${fw.title}' -ForegroundColor Cyan`,
       `Write-Host '=================================================================' -ForegroundColor Cyan`,
       `Write-Host ''`,
       `Write-Host '[1/4] Checking and installing required modules...' -ForegroundColor Yellow`,
-      `Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber`,
-      `Install-Module Audit365 -Scope CurrentUser -Force -AllowClobber`,
+      `[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 -bor [Net.SecurityProtocolType]::Tls11 -bor [Net.SecurityProtocolType]::Tls`,
+      `if ($PSVersionTable.PSVersion.Major -lt 5 -or ($PSVersionTable.PSVersion.Major -eq 5 -and $PSVersionTable.PSVersion.Minor -lt 1)) { Write-Host 'WARNING: PowerShell 5.1 or higher is required to run M365Advisor.' -ForegroundColor Red }`,
+      `if (-not (Get-PackageProvider -Name NuGet -ErrorAction SilentlyContinue)) { Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Scope CurrentUser -Confirm:$false -ErrorAction SilentlyContinue }`,
+      `Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted -ErrorAction SilentlyContinue`,
+      `if (-not (Get-Module Pester -ListAvailable | Where-Object { $_.Version.Major -ge 5 })) { Install-Module Pester -MinimumVersion 5.5.0 -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber -Confirm:$false -ErrorAction SilentlyContinue }`,
+      `if (-not (Get-Module PnP.PowerShell -ListAvailable)) { if ($PSVersionTable.PSVersion.Major -eq 5) { Install-Module PnP.PowerShell -MaximumVersion 1.12.0 -Scope CurrentUser -Force -AllowClobber -Confirm:$false -ErrorAction SilentlyContinue } else { Install-Module PnP.PowerShell -Scope CurrentUser -Force -AllowClobber -Confirm:$false -ErrorAction SilentlyContinue } }`,
+      `if (-not (Get-Module Audit365 -ListAvailable)) { Install-Module Audit365 -Scope CurrentUser -Force -AllowClobber -Confirm:$false }`,
+      `$_a365 = (Get-Module Audit365 -ListAvailable | Sort-Object Version -Descending | Select-Object -First 1).ModuleBase`,
+      `if ($_a365) { try { $_bom = New-Object System.Text.UTF8Encoding $true; foreach ($_f in @('Audit365.psm1','Audit365.psd1','OrcaClasses.ps1')) { $_fp = Join-Path $_a365 $_f; if (Test-Path $_fp) { [System.IO.File]::WriteAllText($_fp, [System.IO.File]::ReadAllText($_fp, [System.Text.Encoding]::UTF8), $_bom) } } } catch {} }`,
+      `Import-Module Audit365 -Force`,
+      `if (-not (Get-Command Connect-M365Advisor -ErrorAction SilentlyContinue)) { Write-Host 'ERROR: Audit365 module failed to load.' -ForegroundColor Red }`,
       `Write-Host ''`,
       `Write-Host '[2/4] Setting up local tests directory (M365Advisor-tests)...' -ForegroundColor Yellow`,
-      `New-Item -ItemType Directory -Force -Path M365Advisor-tests | Out-Null`,
-      `Set-Location M365Advisor-tests`,
+      `$testDir = Join-Path $HOME 'M365Advisor-tests'`,
+      `if (-not (Test-Path $testDir)) { New-Item -ItemType Directory -Force -Path $testDir | Out-Null }`,
+      `Set-Location $testDir`,
       `Install-M365AdvisorTests -Force`,
       `Write-Host ''`,
-      `Write-Host '[3/4] Connecting to Microsoft 365...' -ForegroundColor Yellow`,
+      `Write-Host '[3/4] Connecting to Microsoft 365 services...' -ForegroundColor Yellow`,
       `Write-Host 'A browser window should open shortly for administrative authentication.' -ForegroundColor Gray`,
-      `Connect-M365Advisor`,
+      `${fw.connect}`,
       `Write-Host ''`,
       `Write-Host '[4/4] Starting security audit...' -ForegroundColor Yellow`,
-      `Invoke-M365Advisor${fw.invokeArgs}`,
+      `${fw.run}`,
       `Write-Host ''`,
       `Write-Host '=================================================================' -ForegroundColor Green`,
       `Write-Host 'Assessment complete!' -ForegroundColor Green`,
-      `Write-Host 'Your HTML dashboard is generated under M365Advisor-tests\\\\test-results\\\\' -ForegroundColor Green`,
+      `$_reportFile = Join-Path $testDir 'test-results\\TestResults.html'`,
+      `if (Test-Path $_reportFile) { Write-Host ('Your HTML dashboard is generated at: ' + $_reportFile) -ForegroundColor Green; Start-Process $_reportFile -ErrorAction SilentlyContinue } else { Write-Host 'Your HTML dashboard is generated under M365Advisor-tests\\test-results\\' -ForegroundColor Green }`,
       `Write-Host '=================================================================' -ForegroundColor Green`
     ].join('; ');
 
-    const cmdContent = [
-      `@echo off`,
-      `title M365 Advisor Launcher - ${fw.title}`,
-      `echo =======================================================================`,
-      `echo.`,
-      `echo    M365 Advisor - Automated Assessment Launcher`,
-      `echo    Targeting: ${fw.title}`,
-      `echo.`,
-      `echo =======================================================================`,
-      `echo.`,
-      `echo Launching PowerShell and executing assessment script...`,
-      `echo.`,
-      `powershell.exe -NoProfile -ExecutionPolicy Bypass -NoExit -Command "${powershellCommand.replace(/"/g, '\\"')}"`
-    ].join('\r\n');
+    const cmdContent = `@echo off\r\n"%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -NoProfile -ExecutionPolicy Bypass -NoExit -Command "${psCmd}"\r\n`;
 
     writeGenerated(join(staticDownloadDir, `run-m365advisor-${fw.id}.cmd`), cmdContent, writes);
   }

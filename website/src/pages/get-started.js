@@ -6,48 +6,22 @@ import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './get-started.module.css';
 
+const standardSetupCmd = [
+  'Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force -ErrorAction SilentlyContinue',
+  '[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 -bor [Net.SecurityProtocolType]::Tls11 -bor [Net.SecurityProtocolType]::Tls',
+  'if (-not (Get-PackageProvider -Name NuGet -ErrorAction SilentlyContinue)) { Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Scope CurrentUser -Confirm:$false -ErrorAction SilentlyContinue }',
+  'Set-PSRepository -Name \'PSGallery\' -InstallationPolicy Trusted -ErrorAction SilentlyContinue',
+  'if (-not (Get-Module Pester -ListAvailable | Where-Object { $_.Version.Major -ge 5 })) { Install-Module Pester -MinimumVersion 5.5.0 -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber -Confirm:$false }',
+  'if (-not (Get-Module PnP.PowerShell -ListAvailable)) { if ($PSVersionTable.PSVersion.Major -eq 5) { Install-Module PnP.PowerShell -MaximumVersion 1.12.0 -Scope CurrentUser -Force -AllowClobber -Confirm:$false -ErrorAction SilentlyContinue } else { Install-Module PnP.PowerShell -Scope CurrentUser -Force -AllowClobber -Confirm:$false -ErrorAction SilentlyContinue } }',
+  'if (-not (Get-Module Audit365 -ListAvailable)) { Install-Module Audit365 -Scope CurrentUser -Force -AllowClobber -Confirm:$false }',
+  'Import-Module Audit365 -Force',
+  '$testDir = Join-Path $HOME \'M365Advisor-tests\'',
+  'if (-not (Test-Path $testDir)) { New-Item -ItemType Directory -Force -Path $testDir | Out-Null }',
+  'Set-Location $testDir',
+  'Install-M365AdvisorTests -Force'
+].join('\n');
+
 const frameworks = [
-  /*
-  {
-    id: "m365",
-    title: "M365 Advisor Baselines",
-    subtitle: "Best-practice security tests for posture",
-    desc: "170+ automated checks validating authentication strength, conditional access, administration settings, and external sharing policies.",
-    accent: "#ff7a7a",
-    glow: "rgba(255, 122, 122, 0.15)",
-    icon: "🔥",
-    tag: "M365 Posture",
-    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser\nInstall-Module M365Advisor -Scope CurrentUser\n\nmd M365Advisor-tests\ncd M365Advisor-tests\nInstall-M365AdvisorTests",
-    connectCmd: "Connect-M365Advisor",
-    runCmd: "Invoke-M365Advisor"
-  },
-  {
-    id: "eidsca",
-    title: "Entra ID SCA",
-    subtitle: "Identity attack & defense playbook checks",
-    desc: "40+ checks analyzing tenant configuration against common Entra ID attack vectors, privilege escalation paths, and bypass scenarios.",
-    accent: "#00f2fe",
-    glow: "rgba(0, 242, 254, 0.15)",
-    icon: "🛡️",
-    tag: "Entra Security",
-    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser\nInstall-Module M365Advisor -Scope CurrentUser\n\nmd M365Advisor-tests\ncd M365Advisor-tests\nInstall-M365AdvisorTests",
-    connectCmd: "Connect-M365Advisor",
-    runCmd: "Invoke-M365Advisor"
-  },
-  {
-    id: "cisa",
-    title: "CISA SCuBA Baselines",
-    subtitle: "Federal cloud security benchmarks",
-    desc: "Hardened tenant validation rules matching CISA Secure Cloud Business Applications guidelines for high-value government and enterprise assets.",
-    accent: "#c084fc",
-    glow: "rgba(192, 132, 252, 0.15)",
-    icon: "🦅",
-    tag: "CISA SCuBA",
-    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser\nInstall-Module M365Advisor -Scope CurrentUser\n\nmd M365Advisor-tests\ncd M365Advisor-tests\nInstall-M365AdvisorTests",
-    connectCmd: "Connect-M365Advisor",
-    runCmd: "Invoke-M365Advisor"
-  },
-  */
   {
     id: "cis",
     title: "CIS Benchmarks",
@@ -58,9 +32,9 @@ const frameworks = [
     icon: "🌀",
     tag: "CIS Benchmark",
     keywords: ["cis", "benchmark", "foundations", "microsoft 365", "cis benchmark"],
-    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\nImport-Module Audit365 -Force\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
-    connectCmd: "Connect-M365Advisor -Service All",
-    runCmd: "Invoke-M365Advisor -Tag 'CIS'"
+    setupCmd: standardSetupCmd,
+    connectCmd: "Connect-M365Advisor -Service Graph,ExchangeOnline,Teams",
+    runCmd: "Set-Location (Join-Path $HOME 'M365Advisor-tests'); Invoke-M365Advisor -Tag 'CIS'"
   },
   {
     id: "iso27001",
@@ -72,9 +46,9 @@ const frameworks = [
     icon: "🌐",
     tag: "ISO 27001",
     keywords: ["iso", "iso27001", "iso 27001", "isms", "information security", "27001"],
-    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\nImport-Module Audit365 -Force\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
-    connectCmd: "Connect-M365Advisor -Service All",
-    runCmd: "Invoke-M365Advisor -Path .\\iso27001"
+    setupCmd: standardSetupCmd,
+    connectCmd: "Connect-M365Advisor -Service Graph,ExchangeOnline",
+    runCmd: "Set-Location (Join-Path $HOME 'M365Advisor-tests'); Invoke-M365Advisor -Path .\\iso27001"
   },
   {
     id: "iso27002",
@@ -86,9 +60,9 @@ const frameworks = [
     icon: "📋",
     tag: "ISO 27002",
     keywords: ["iso", "iso27002", "iso 27002", "security controls", "27002"],
-    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\nImport-Module Audit365 -Force\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
-    connectCmd: "Connect-M365Advisor -Service All",
-    runCmd: "Invoke-M365Advisor -Path .\\iso27002"
+    setupCmd: standardSetupCmd,
+    connectCmd: "Connect-M365Advisor -Service Graph,ExchangeOnline",
+    runCmd: "Set-Location (Join-Path $HOME 'M365Advisor-tests'); Invoke-M365Advisor -Path .\\iso27002"
   },
   {
     id: "cisa",
@@ -100,9 +74,9 @@ const frameworks = [
     icon: "🦅",
     tag: "CISA SCuBA",
     keywords: ["cisa", "scuba", "cisa scuba", "federal", "cloud security"],
-    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\nImport-Module Audit365 -Force\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
-    connectCmd: "Connect-M365Advisor -Service All",
-    runCmd: "Invoke-M365Advisor -Tag 'CISA'"
+    setupCmd: standardSetupCmd,
+    connectCmd: "Connect-M365Advisor -Service Graph,ExchangeOnline",
+    runCmd: "Set-Location (Join-Path $HOME 'M365Advisor-tests'); Invoke-M365Advisor -Tag 'CISA'"
   },
   {
     id: "eidsca",
@@ -114,9 +88,9 @@ const frameworks = [
     icon: "🛡️",
     tag: "EIDSCA",
     keywords: ["eidsca", "eidsa", "entra id", "entra", "identity", "sca"],
-    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\nImport-Module Audit365 -Force\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
-    connectCmd: "Connect-M365Advisor -Service All",
-    runCmd: "Invoke-M365Advisor -Tag 'EIDSCA'"
+    setupCmd: standardSetupCmd,
+    connectCmd: "Connect-M365Advisor -Service Graph",
+    runCmd: "Set-Location (Join-Path $HOME 'M365Advisor-tests'); Invoke-M365Advisor -Tag 'EIDSCA'"
   },
   {
     id: "mt",
@@ -128,9 +102,9 @@ const frameworks = [
     icon: "🔥",
     tag: "MT Baseline",
     keywords: ["mt", "m365", "microsoft tenant", "tenant security", "baselines", "posture"],
-    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
-    connectCmd: "Connect-M365Advisor -Service All",
-    runCmd: "Invoke-M365Advisor -Path .\\M365Advisor"
+    setupCmd: standardSetupCmd,
+    connectCmd: "Connect-M365Advisor -Service Graph,ExchangeOnline,Teams",
+    runCmd: "Set-Location (Join-Path $HOME 'M365Advisor-tests'); Invoke-M365Advisor -Path .\\M365Advisor"
   },
   {
     id: "dpdp",
@@ -142,9 +116,7 @@ const frameworks = [
     icon: "⚖️",
     tag: "DPDP 2023",
     keywords: ["dpdp", "dpdpa", "digital personal data", "data protection", "privacy act", "india"],
-    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser -AllowClobber\nInstall-Module Audit365 -Scope CurrentUser -Force -AllowClobber\n\nif (-not (Test-Path M365Advisor-tests)) { md M365Advisor-tests }\ncd M365Advisor-tests\nInstall-M365AdvisorTests -Force",
-    connectCmd: "Connect-M365Advisor -Service All",
-    runCmd: "Invoke-M365Advisor -Tag 'DPDP'"
+    isPremium: true
   },
   {
     id: "hippa",
@@ -169,22 +141,7 @@ const frameworks = [
     tag: "RBI NBFC",
     keywords: ["rbi", "nbfc", "reserve bank", "india", "financial"],
     isPremium: true
-  },
-  /*
-  {
-    id: "orca",
-    title: "ORCA Exchange Hygiene",
-    subtitle: "Exchange Online analyzer baseline",
-    desc: "60+ critical security hygiene rules validating mail flow rules, anti-phishing, safe attachments, and email authentication standards.",
-    accent: "#2dd4bf",
-    glow: "rgba(45, 212, 191, 0.15)",
-    icon: "🐋",
-    tag: "ORCA Exchange",
-    setupCmd: "Install-Module Pester -SkipPublisherCheck -Force -Scope CurrentUser\nInstall-Module M365Advisor -Scope CurrentUser\n\nmd M365Advisor-tests\ncd M365Advisor-tests\nInstall-M365AdvisorTests",
-    connectCmd: "Connect-M365Advisor",
-    runCmd: "Invoke-M365Advisor"
   }
-  */
 ];
 
 function CopyButton({ text }) {
