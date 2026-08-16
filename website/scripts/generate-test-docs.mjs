@@ -55,6 +55,14 @@ const suiteConfig = {
     description: "ORCA Exchange Online security configuration tests included in M365Advisor.",
     overview: "These tests validate Exchange Online security configuration checks from ORCA.",
   },
+  dpdp: {
+    label: "DPDP Act 2023",
+    title: "DPDP Act 2023 Compliance Tests",
+    sidebarLabel: "⚖️ DPDP Act 2023",
+    description: "Digital Personal Data Protection Act (DPDP) 2023 compliance audit tests for Microsoft 365.",
+    overview:
+      "These tests verify Microsoft 365 tenant configurations against the statutory obligations and security safeguards under India's Digital Personal Data Protection Act, 2023.",
+  },
   other: {
     label: "Other",
     title: "Other Tests",
@@ -205,21 +213,23 @@ function suiteFrom(testId, tags, filePath) {
   if (testId.startsWith("CIS.")) return "cis";
   if (testId.startsWith("CISA.") || testId.startsWith("MS.")) return "cisa";
   if (testId.startsWith("ORCA.")) return "orca";
+  if (testId.startsWith("DPDP.") || tags.includes("DPDP")) return "dpdp";
   if (testId.startsWith("MT.")) return "m365advisor";
   const lowerPath = relative(testsRoot, filePath).toLowerCase();
   if (lowerPath.includes("cisa")) return "cisa";
   if (lowerPath.includes("cis")) return "cis";
   if (lowerPath.includes("eidsca")) return "eidsca";
   if (lowerPath.includes("orca")) return "orca";
+  if (lowerPath.includes("dpdp")) return "dpdp";
   if (tags.includes("M365Advisor")) return "m365advisor";
   return "other";
 }
 
 function categoryFrom(tags, filePath) {
-  const candidates = tags.filter((tag) => !/^(MT\.|CIS\.|CISA\.|MS\.|EIDSCA\.|ORCA\.|L1$|L2$|M365Advisor$|CIS$|CISA$|ORCA$|EIDSCA$)/i.test(tag));
+  const candidates = tags.filter((tag) => !/^(MT\.|CIS\.|CISA\.|MS\.|EIDSCA\.|ORCA\.|DPDP\.|L1$|L2$|M365Advisor$|CIS$|CISA$|ORCA$|EIDSCA$|DPDP$|DPDP2023$)/i.test(tag));
   if (candidates.length > 0) return candidates[0];
   const parts = relative(testsRoot, filePath).split(sep);
-  const meaningfulParts = parts.slice(0, -1).filter((part) => !/^(m365advisor|cis|cisa|eidsca|orca)$/i.test(part));
+  const meaningfulParts = parts.slice(0, -1).filter((part) => !/^(m365advisor|cis|cisa|eidsca|orca|dpdp)$/i.test(part));
   return meaningfulParts[0] ?? "General";
 }
 
@@ -230,7 +240,7 @@ function findFunctionName(block) {
 }
 
 function findTestId(testName, tags) {
-  const idPattern = /^(MT\.\d+|CIS\.[A-Za-z0-9.]+|CISA\.[A-Za-z0-9.]+|EIDSCA\.[A-Z0-9]+|ORCA\.\d+(?:\.\d+)?)/i;
+  const idPattern = /^(MT\.\d+|CIS\.[A-Za-z0-9.]+|CISA\.[A-Za-z0-9.]+|EIDSCA\.[A-Z0-9]+|ORCA\.\d+(?:\.\d+)?|DPDP\.[A-Za-z0-9.]+)/i;
   const idFromName = testName.match(new RegExp(`${idPattern.source}:`, "i"))?.[1];
   const idFromTag = tags.find((tag) => idPattern.test(tag));
   return idFromName ?? idFromTag;

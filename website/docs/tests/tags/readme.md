@@ -155,6 +155,44 @@ Tags are discovered from Pester test metadata and can be used to find related M3
 | Defender | 25 | [MT.1059](../MT.1059), [MT.1148](../MT.1148), [MT.1149](../MT.1149), [MT.1150](../MT.1150), [MT.1151](../MT.1151), [MT.1152](../MT.1152), [MT.1153](../MT.1153), [MT.1154](../MT.1154), ... |
 | Deprecated | 3 | [CISA.MS.AAD.5.4](../CISA.MS.AAD.5.4), [CISA.MS.EXO.2.1](../CISA.MS.EXO.2.1), [CISA.MS.EXO.17.2](../CISA.MS.EXO.17.2) |
 | Device | 7 | [MT.1070](../MT.1070), [MT.1086](../MT.1086), [MT.1087](../MT.1087), [MT.1088](../MT.1088), [MT.1089](../MT.1089), [MT.1090](../MT.1090), [MT.1091](../MT.1091) |
+| DPDP | 32 | [DPDP.Sec.04.1](../DPDP.Sec.04.1), [DPDP.Sec.04.2](../DPDP.Sec.04.2), [DPDP.Sec.04.3](../DPDP.Sec.04.3), [DPDP.Sec.05.1](../DPDP.Sec.05.1), [DPDP.Sec.06.4](../DPDP.Sec.06.4), [DPDP.Sec.06.5](../DPDP.Sec.06.5), [DPDP.Sec.08.1](../DPDP.Sec.08.1), [DPDP.Sec.08.2](../DPDP.Sec.08.2), ... |
+| DPDP.Sec.04 | 4 | [DPDP.Sec.04.1](../DPDP.Sec.04.1), [DPDP.Sec.04.2](../DPDP.Sec.04.2), [DPDP.Sec.04.3](../DPDP.Sec.04.3), [DPDP.Sec.05.1](../DPDP.Sec.05.1) |
+| DPDP.Sec.04.1 | 1 | [DPDP.Sec.04.1](../DPDP.Sec.04.1) |
+| DPDP.Sec.04.2 | 1 | [DPDP.Sec.04.2](../DPDP.Sec.04.2) |
+| DPDP.Sec.04.3 | 1 | [DPDP.Sec.04.3](../DPDP.Sec.04.3) |
+| DPDP.Sec.05 | 4 | [DPDP.Sec.04.1](../DPDP.Sec.04.1), [DPDP.Sec.04.2](../DPDP.Sec.04.2), [DPDP.Sec.04.3](../DPDP.Sec.04.3), [DPDP.Sec.05.1](../DPDP.Sec.05.1) |
+| DPDP.Sec.05.1 | 1 | [DPDP.Sec.05.1](../DPDP.Sec.05.1) |
+| DPDP.Sec.06 | 13 | [DPDP.Sec.06.4](../DPDP.Sec.06.4), [DPDP.Sec.06.5](../DPDP.Sec.06.5), [DPDP.Sec.08.6](../DPDP.Sec.08.6), [DPDP.Sec.08.7](../DPDP.Sec.08.7), [DPDP.Sec.08.8](../DPDP.Sec.08.8), [DPDP.Sec.08.9](../DPDP.Sec.08.9), [DPDP.Sec.08.10](../DPDP.Sec.08.10), [DPDP.Sec.08.11](../DPDP.Sec.08.11), ... |
+| DPDP.Sec.06.4 | 1 | [DPDP.Sec.06.4](../DPDP.Sec.06.4) |
+| DPDP.Sec.06.5 | 1 | [DPDP.Sec.06.5](../DPDP.Sec.06.5) |
+| DPDP.Sec.08 | 28 | [DPDP.Sec.06.4](../DPDP.Sec.06.4), [DPDP.Sec.06.5](../DPDP.Sec.06.5), [DPDP.Sec.08.1](../DPDP.Sec.08.1), [DPDP.Sec.08.2](../DPDP.Sec.08.2), [DPDP.Sec.08.3](../DPDP.Sec.08.3), [DPDP.Sec.08.4](../DPDP.Sec.08.4), [DPDP.Sec.08.5](../DPDP.Sec.08.5), [DPDP.Sec.08.6](../DPDP.Sec.08.6), ... |
+| DPDP.Sec.08.1 | 1 | [DPDP.Sec.08.1](../DPDP.Sec.08.1) |
+| DPDP.Sec.08.2 | 1 | [DPDP.Sec.08.2](../DPDP.Sec.08.2) |
+| DPDP.Sec.08.3 | 1 | [DPDP.Sec.08.3](../DPDP.Sec.08.3) |
+| DPDP.Sec.08.4 | 1 | [DPDP.Sec.08.4](../DPDP.Sec.08.4) |
+| DPDP.Sec.08.5 | 1 | [DPDP.Sec.08.5](../DPDP.Sec.08.5) |
+| DPDP.Sec.08.6 | 1 | [DPDP.Sec.08.6](../DPDP.Sec.08.6) |
+| DPDP.Sec.08.7 | 1 | [DPDP.Sec.08.7](../DPDP.Sec.08.7) |
+| DPDP.Sec.08.8 | 1 | [DPDP.Sec.08.8](../DPDP.Sec.08.8) |
+| DPDP.Sec.08.9 | 1 | [DPDP.Sec.08.9](../DPDP.Sec.08.9) |
+| DPDP.Sec.08.10 | 1 | [DPDP.Sec.08.10](../DPDP.Sec.08.10) |
+| DPDP.Sec.08.11 | 1 | [DPDP.Sec.08.11](../DPDP.Sec.08.11) |
+| DPDP.Sec.08.12 | 1 | [DPDP.Sec.08.12](../DPDP.Sec.08.12) |
+| DPDP.Sec.08.13 | 1 | [DPDP.Sec.08.13](../DPDP.Sec.08.13) |
+| DPDP.Sec.08.14 | 1 | [DPDP.Sec.08.14](../DPDP.Sec.08.14) |
+| DPDP.Sec.08.15 | 1 | [DPDP.Sec.08.15](../DPDP.Sec.08.15) |
+| DPDP.Sec.08.16 | 1 | [DPDP.Sec.08.16](../DPDP.Sec.08.16) |
+| DPDP.Sec.08.17 | 1 | [DPDP.Sec.08.17](../DPDP.Sec.08.17) |
+| DPDP.Sec.08.18 | 1 | [DPDP.Sec.08.18](../DPDP.Sec.08.18) |
+| DPDP.Sec.08.19 | 1 | [DPDP.Sec.08.19](../DPDP.Sec.08.19) |
+| DPDP.Sec.08.20 | 1 | [DPDP.Sec.08.20](../DPDP.Sec.08.20) |
+| DPDP.Sec.08.21 | 1 | [DPDP.Sec.08.21](../DPDP.Sec.08.21) |
+| DPDP.Sec.08.22 | 1 | [DPDP.Sec.08.22](../DPDP.Sec.08.22) |
+| DPDP.Sec.08.23 | 1 | [DPDP.Sec.08.23](../DPDP.Sec.08.23) |
+| DPDP.Sec.08.24 | 1 | [DPDP.Sec.08.24](../DPDP.Sec.08.24) |
+| DPDP.Sec.08.25 | 1 | [DPDP.Sec.08.25](../DPDP.Sec.08.25) |
+| DPDP.Sec.08.26 | 1 | [DPDP.Sec.08.26](../DPDP.Sec.08.26) |
+| DPDP2023 | 32 | [DPDP.Sec.04.1](../DPDP.Sec.04.1), [DPDP.Sec.04.2](../DPDP.Sec.04.2), [DPDP.Sec.04.3](../DPDP.Sec.04.3), [DPDP.Sec.05.1](../DPDP.Sec.05.1), [DPDP.Sec.06.4](../DPDP.Sec.06.4), [DPDP.Sec.06.5](../DPDP.Sec.06.5), [DPDP.Sec.08.1](../DPDP.Sec.08.1), [DPDP.Sec.08.2](../DPDP.Sec.08.2), ... |
 | EIDSCA | 44 | [EIDSCA.AF01](../EIDSCA.AF01), [EIDSCA.AF02](../EIDSCA.AF02), [EIDSCA.AF03](../EIDSCA.AF03), [EIDSCA.AF04](../EIDSCA.AF04), [EIDSCA.AF05](../EIDSCA.AF05), [EIDSCA.AF06](../EIDSCA.AF06), [EIDSCA.AG01](../EIDSCA.AG01), [EIDSCA.AG02](../EIDSCA.AG02), ... |
 | EIDSCA.AF01 | 1 | [EIDSCA.AF01](../EIDSCA.AF01) |
 | EIDSCA.AF02 | 1 | [EIDSCA.AF02](../EIDSCA.AF02) |

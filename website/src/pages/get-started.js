@@ -116,7 +116,9 @@ const frameworks = [
     icon: "⚖️",
     tag: "DPDP 2023",
     keywords: ["dpdp", "dpdpa", "digital personal data", "data protection", "privacy act", "india"],
-    isPremium: true
+    setupCmd: standardSetupCmd,
+    connectCmd: "Connect-M365Advisor -Service Graph,ExchangeOnline",
+    runCmd: "Set-Location (Join-Path $HOME 'M365Advisor-tests'); Invoke-M365Advisor -Tag 'DPDP'"
   },
   {
     id: "hippa",

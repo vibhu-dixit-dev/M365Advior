@@ -761,6 +761,16 @@ function OurServices() {
       count: "44 Controls",
     },
     {
+      id: "dpdp",
+      title: "DPDP Act 2023",
+      subtitle: "Digital Personal Data Protection Act",
+      desc: "30+ automated checks for notice, consent unbundling, data principal rights, DLP safeguards, and breach SLA.",
+      accent: "#38bdf8", // Sky Blue
+      glow: "rgba(56, 189, 248, 0.15)",
+      icon: "⚖️",
+      count: "30+ Controls",
+    },
+    {
       id: "hippa",
       title: "HIPPA",
       subtitle: "Healthcare Security & Privacy Baseline",
@@ -783,18 +793,6 @@ function OurServices() {
       count: "🔒 PREMIUM",
       isPremium: true,
       mailtoUrl: `mailto:Salman.Sayyed@onmeridian.com?subject=${encodeURIComponent("Access Request: Premium Module - RBI NBFC")}&body=${encodeURIComponent("Hi Salman,\n\nI want to access this premium RBI NBFC auditing module. Please provide me with the details on how to get started.\n\nThanks!")}`
-    },
-    {
-      id: "dpdp",
-      title: "DPDP Act 2023",
-      subtitle: "Digital Personal Data Protection Act",
-      desc: "Audit rules checking consent management systems, data principal rights, erasure protocols, and fiduciary responsibilities.",
-      accent: "#fb923c",
-      glow: "rgba(251, 146, 60, 0.15)",
-      icon: "⚖️",
-      count: "🔒 PREMIUM",
-      isPremium: true,
-      mailtoUrl: `mailto:Salman.Sayyed@onmeridian.com?subject=${encodeURIComponent("Access Request: Premium Module - DPDP Act 2023")}&body=${encodeURIComponent("Hi Salman,\n\nI want to access this premium DPDP Act 2023 auditing module. Please provide me with the details on how to get started.\n\nThanks!")}`
     }
   ];
 

@@ -23,6 +23,7 @@ This section is generated from the M365Advisor test source. Each page includes t
 | [CISA](./cisa) | 73 | CISA SCuBA baseline tests for Microsoft 365 security configurations. |
 | [CIS](./cis) | 44 | CIS Microsoft 365 Foundations Benchmark controls implemented as M365Advisor tests. |
 | [ORCA](./orca) | 67 | ORCA Exchange Online security configuration tests included in M365Advisor. |
+| [DPDP Act 2023](./dpdp) | 32 | Digital Personal Data Protection Act (DPDP) 2023 compliance audit tests for Microsoft 365. |
 
 ## All Tests
 
@@ -145,6 +146,38 @@ This section is generated from the M365Advisor test source. Each page includes t
 | [CISA.MS.EXO.9.5](./CISA.MS.EXO.9.5) | At a minimum, click-to-run files SHOULD be blocked (e.g., .exe, .cmd, and .vbe). | CISA | High | exchange |
 | [CISA.MS.SHAREPOINT.1.1](./CISA.MS.SHAREPOINT.1.1) | External sharing for SharePoint SHALL be limited to Existing guests or Only People in your organization. | CISA | Medium | spo |
 | [CISA.MS.SHAREPOINT.1.3](./CISA.MS.SHAREPOINT.1.3) | External sharing SHALL be restricted to approved external domains and/or users in approved security groups per interagency collaboration needs. | CISA | High | spo |
+| [DPDP.Sec.04.1](./DPDP.Sec.04.1) | Ensure Admin Consent Workflow is enabled to prevent unconsented 3rd-party access to personal data | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.04.2](./DPDP.Sec.04.2) | Ensure user consent to third-party applications is disallowed to enforce consent unbundling | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.04.3](./DPDP.Sec.04.3) | Ensure user-owned and unregistered third-party application access is restricted | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.05.1](./DPDP.Sec.05.1) | Ensure tenant creation and self-service authorization are restricted to authorized administrators | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.06.4](./DPDP.Sec.06.4) | Ensure external guest user directory permissions are strictly restricted | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.06.5](./DPDP.Sec.06.5) | Ensure guest users are dynamically categorized for automated lifecycle governance | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.1](./DPDP.Sec.08.1) | Ensure Global Administrator accounts are restricted to 4 or fewer to minimize breach surface | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.10](./DPDP.Sec.08.10) | Ensure external guests cannot share unowned SharePoint documents | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.11](./DPDP.Sec.08.11) | Ensure downloading malicious files is blocked in SharePoint Online | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.12](./DPDP.Sec.08.12) | Ensure Entra B2B collaboration integration restricts unvetted cross-tenant sharing | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.13](./DPDP.Sec.08.13) | Ensure Teams communication with unmanaged external users is restricted | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.14](./DPDP.Sec.08.14) | Ensure Teams meeting lobby prevents unauthorized participants from bypassing verification | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.15](./DPDP.Sec.08.15) | Ensure third-party storage services are restricted across Microsoft 365 | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.16](./DPDP.Sec.08.16) | Ensure third-party file sharing in Teams is restricted | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.17](./DPDP.Sec.08.17) | Ensure Zero-Hour Auto Purge (ZAP) for phishing and malware is enabled in Exchange Online | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.18](./DPDP.Sec.08.18) | Ensure Safe Links protection is active to prevent credential-harvesting phishing | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.19](./DPDP.Sec.08.19) | Ensure Safe Attachments ATP policy is active to block zero-day malicious payloads | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.2](./DPDP.Sec.08.2) | Ensure weak and legacy authentication protocols are disabled across the tenant | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.20](./DPDP.Sec.08.20) | Ensure Anti-Phishing protection policies are enabled for internal data principals | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.21](./DPDP.Sec.08.21) | Ensure DKIM signing is enabled on all custom mail domains to prevent spoofing | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.22](./DPDP.Sec.08.22) | Ensure Outbound Spam policies block automatic external email forwarding | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.23](./DPDP.Sec.08.23) | Ensure direct interactive sign-in on shared mailboxes is blocked | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.24](./DPDP.Sec.08.24) | Ensure Unified Audit Logging is enabled for statutory personal data breach readiness | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.25](./DPDP.Sec.08.25) | Ensure internal malware and threat notifications are configured for security personnel | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.26](./DPDP.Sec.08.26) | Ensure Exchange connection filter safe-lists are not configured with 0.0.0.0 bypasses | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.3](./DPDP.Sec.08.3) | Ensure dedicated emergency break-glass cloud administrator accounts exist | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.4](./DPDP.Sec.08.4) | Ensure passwords are not configured to expire unnecessarily, mitigating weak password cycling | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.5](./DPDP.Sec.08.5) | Ensure Customer Lockbox is enabled for administrative approvals on support escalations | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.6](./DPDP.Sec.08.6) | Ensure no unapproved public Microsoft 365 Groups expose sensitive organizational conversations | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.7](./DPDP.Sec.08.7) | Ensure SharePoint default sharing link is not set to anonymous Anyone | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.8](./DPDP.Sec.08.8) | Ensure default sharing link permissions are restricted to View Only | DPDP Act 2023 | Unknown | General |
+| [DPDP.Sec.08.9](./DPDP.Sec.08.9) | Ensure guest access expiration is configured for SharePoint Online document libraries | DPDP Act 2023 | Unknown | General |
 | [EIDSCA.AF01](./EIDSCA.AF01) | Authentication Method - FIDO2 security key - State. | Entra ID SCA | High | General |
 | [EIDSCA.AF02](./EIDSCA.AF02) | Authentication Method - FIDO2 security key - Allow self-service set up. | Entra ID SCA | Medium | General |
 | [EIDSCA.AF03](./EIDSCA.AF03) | Authentication Method - FIDO2 security key - Enforce attestation. | Entra ID SCA | High | General |
