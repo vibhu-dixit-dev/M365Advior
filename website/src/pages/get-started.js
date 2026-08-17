@@ -5,6 +5,7 @@ import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './get-started.module.css';
+import PremiumConfirmModal from '../components/PremiumConfirmModal';
 
 const standardSetupCmd = [
   'Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force -ErrorAction SilentlyContinue',
@@ -211,6 +212,7 @@ export default function GetStarted() {
     return null;
   });
   const [pulsingId, setPulsingId] = useState(null);
+  const [selectedPremium, setSelectedPremium] = useState(null);
   const [step, setStep] = useState(1); // 1 = select, 2 = commands
   const [showManual, setShowManual] = useState(false);
   const gridRef = useRef(null);
@@ -339,11 +341,7 @@ export default function GetStarted() {
                     }}
                     onClick={() => {
                       if (fw.isPremium) {
-                        const subject = encodeURIComponent(`Access Request: Premium Module - ${fw.title}`);
-                        const body = encodeURIComponent(
-                          `Hi Salman,\n\nI want to access this premium ${fw.title} auditing module. Please provide me with the details on how to get started.\n\nThanks!`
-                        );
-                        window.location.href = `mailto:Salman.Sayyed@onmeridian.com?subject=${subject}&body=${body}`;
+                        setSelectedPremium(fw);
                       } else {
                         setSelectedId(fw.id);
                         setTimeout(() => {
@@ -559,6 +557,12 @@ export default function GetStarted() {
 
         </div>
       </div>
+
+      <PremiumConfirmModal
+        isOpen={Boolean(selectedPremium)}
+        onClose={() => setSelectedPremium(null)}
+        title={selectedPremium?.title}
+      />
     </Layout>
   );
 }

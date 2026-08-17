@@ -7,6 +7,7 @@ import Layout from "@theme/Layout";
 
 import Heading from "@theme/Heading";
 import styles from "./index.module.css";
+import PremiumConfirmModal from "../components/PremiumConfirmModal";
 
 const textContent = {
   customTests: `
@@ -796,6 +797,8 @@ function OurServices() {
     }
   ];
 
+  const [selectedPremium, setSelectedPremium] = useState(null);
+
   return (
     <section className={styles.servicesSection} style={{ background: '#050608' }}>
       <div className="container">
@@ -812,18 +815,25 @@ function OurServices() {
         <div className={styles.servicesGrid}>
           {assessments.map((item) => {
             const isPremium = item.isPremium;
-            const CardTag = isPremium ? "a" : Link;
-            const targetUrl = isPremium ? item.mailtoUrl : `/get-started?fw=${item.id}`;
+            const CardTag = isPremium ? "button" : Link;
+            const targetUrl = isPremium ? undefined : `/get-started?fw=${item.id}`;
             return (
               <CardTag
                 key={item.id}
+                type={isPremium ? "button" : undefined}
                 className={clsx(styles.serviceCard, isPremium && styles.serviceCardPremium)}
                 to={!isPremium ? targetUrl : undefined}
-                href={isPremium ? targetUrl : undefined}
+                onClick={isPremium ? () => setSelectedPremium(item) : undefined}
                 style={{
                   '--card-accent': item.accent,
                   '--card-glow': item.glow,
-                  textDecoration: 'none'
+                  textDecoration: 'none',
+                  border: isPremium ? '1px solid rgba(251, 146, 60, 0.25)' : undefined,
+                  background: isPremium ? 'linear-gradient(180deg, rgba(251, 146, 60, 0.03) 0%, rgba(13, 17, 23, 0.95) 100%)' : undefined,
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  width: '100%',
+                  fontFamily: 'inherit'
                 }}
               >
                 <div>
@@ -844,6 +854,13 @@ function OurServices() {
           })}
         </div>
       </div>
+
+      <PremiumConfirmModal
+        isOpen={Boolean(selectedPremium)}
+        onClose={() => setSelectedPremium(null)}
+        title={selectedPremium?.title}
+        mailtoUrl={selectedPremium?.mailtoUrl}
+      />
     </section>
   );
 }
