@@ -48,9 +48,9 @@ Response Guidelines:
 - If users ask about premium modules (HIPAA, RBI NBFC), advise them that these can be unlocked by contacting Salman Sayyed at Salman.Sayyed@onmeridian.com.
 `;
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // Set CORS headers
-  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
   res.setHeader(
@@ -71,12 +71,16 @@ export default async function handler(req, res) {
 
   if (!apiKey) {
     return res.status(500).json({ 
-      error: 'GROQ_API_KEY is not configured in environment variables.' 
+      error: 'GROQ_API_KEY is not configured in Vercel environment variables.' 
     });
   }
 
   try {
-    const { messages = [] } = req.body || {};
+    let body = req.body;
+    if (typeof body === 'string') {
+      try { body = JSON.parse(body); } catch (e) {}
+    }
+    const { messages = [] } = body || {};
 
     if (!Array.isArray(messages) || messages.length === 0) {
       return res.status(400).json({ error: 'Messages array is required.' });
@@ -107,7 +111,7 @@ export default async function handler(req, res) {
     if (!response.ok) {
       console.error('Groq API Error:', data);
       return res.status(response.status).json({ 
-        error: data.error?.message || 'Groq API request failed.' 
+        error: data.error?.message || data.error || 'Groq API request failed.' 
       });
     }
 
@@ -115,7 +119,7 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error('Serverless function exception:', error);
     return res.status(500).json({ 
-      error: 'Internal server error processing chat request.' 
+      error: 'Internal server error processing chat request: ' + error.message 
     });
   }
-}
+};

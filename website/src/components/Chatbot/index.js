@@ -187,15 +187,35 @@ export default function Chatbot() {
           { id: `bot-${Date.now()}`, role: 'assistant', content: botReply }
         ]);
       } else {
-        // Use local fallback if serverless API is offline or unconfigured locally
-        const fallbackText = getLocalFallbackResponse(query);
-        setMessages(prev => [
-          ...prev,
-          { id: `bot-${Date.now()}`, role: 'assistant', content: fallbackText }
-        ]);
+        let errDetail = '';
+        try {
+          const errJson = await res.json();
+          errDetail = typeof errJson.error === 'string' ? errJson.error : (errJson.error?.message || errJson.message || '');
+        } catch (e) {
+          errDetail = `HTTP ${res.status} ${res.statusText}`;
+        }
+        
+        console.error('Chat API Error:', res.status, errDetail);
+
+        if (errDetail && res.status !== 404) {
+          setMessages(prev => [
+            ...prev,
+            { 
+              id: `bot-${Date.now()}`, 
+              role: 'assistant', 
+              content: `⚠️ **API Response Error (${res.status}):** ${errDetail}\n\n*Please ensure your Vercel deployment has been redeployed after adding the \`GROQ_API_KEY\` environment variable.*` 
+            }
+          ]);
+        } else {
+          const fallbackText = getLocalFallbackResponse(query);
+          setMessages(prev => [
+            ...prev,
+            { id: `bot-${Date.now()}`, role: 'assistant', content: fallbackText }
+          ]);
+        }
       }
     } catch (err) {
-      // Network failure / local offline fallback
+      console.error('Chat Network Error:', err);
       const fallbackText = getLocalFallbackResponse(query);
       setMessages(prev => [
         ...prev,
