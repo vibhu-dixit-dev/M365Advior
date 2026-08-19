@@ -3,5 +3,13 @@
   "buildCommand": "cd website && npm run build",
   "outputDirectory": "website/build",
   "installCommand": "cd website && npm install",
-  "framework": "docusaurus"
+  "framework": "docusaurus",
+  "functions": {
+    "api/*.js": {
+      "memory": 1024
+    },
+    "website/api/*.js": {
+      "memory": 1024
+    }
+  }
 }
